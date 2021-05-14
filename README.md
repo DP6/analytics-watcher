@@ -1,4 +1,7 @@
 # Roger Watcher
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/b08c40c138b442e68c55165230add862)](https://app.codacy.com/gh/DP6/analytics-watcher?utm_source=github.com&utm_medium=referral&utm_content=DP6/analytics-watcher&utm_campaign=Badge_Grade_Settings)
+
 A powerful extension to validate the implementation of Universal Analytics.
 
 ## Link da Loja do Chrome
