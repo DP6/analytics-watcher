@@ -3,6 +3,15 @@
 <div align="center">
   <img src="https://raw.githubusercontent.com/DP6/templates-centro-de-inovacoes/main/public/images/centro_de_inovacao_dp6.png" height="100px" />
 </div>
+;;
+<p align="center">
+  <a href="#badge">
+    <img alt="semantic-release" src="https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg">
+  </a>
+  <a href="https://www.codacy.com/gh/DP6/analytics-watcher/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=DP6/analytics-watcher&amp;utm_campaign=Badge_Grade"><img src="https://app.codacy.com/project/badge/Grade/b336bb63fa374070885b139f3e711dec"/></a>
+</p>
+</p>
+
 
 Analytics Watcher é uma extensão do Google Chrome para ajudar na depuração do Universal Analytics. Ele irá registrar todos os acessos enviados aos servidores do Google, para que você possa verificar facilmente quais parâmetros estão sendo enviados, juntamente com seus valores, em um formato amigável. Além disso, fornece uma visualização fácil de quais ocorrências foram definidas incorretamente, com parâmetros ausentes ou incorretos.
 
@@ -27,7 +36,7 @@ Contém também um módulo conjunto com o Penguin DataLayer, realizando um proce
 
 A versão em produção já está disponível na loja de extensões do Google Chrome, busque pelo nome Roger Watcher ou [acesse o link da loja por aqui](https://chrome.google.com/webstore/detail/roger-watcher/impckkpjcejdmacpmkpegegnpagddajk), instale a versão apresentada e utilize por meio do devtools.
 
-## Versão em desenvolvimento
+## Versão em Desenvolvimento
 
 Realize o download do repositório do github e insira os comandos abaixo para gerar o arquivo utilizado pela extensão do Google Chrome:
 
