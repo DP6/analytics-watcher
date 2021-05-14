@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <!--Import materialize.css-->
+
+    <!-- @dev-css -->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="css/main.css" media="screen,projection" />
+
+    <!-- dev-css@ -->
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body data-new-gr-c-s-check-loaded="14.991.0" data-gr-ext-installed="" cz-shortcut-listen="true" style="">
+    <nav>
+        <div class="nav-wrapper">
+            <ul class="left nav-buttons">
+                <li id="logo-dp6">
+                    <a href="panel_roger.html" class="logo-dp6"><i class="material-icons"><img src="icons/icon128.png" id="logo-dp6"></i></a>
+                </li>
+                <li class="add-filter active-filter">
+                    <i class="material-icons center-align checked">
+                    <a class="add-filter" href="#">
+                        <img src="img/filter-add.svg" id="add-filter">
+                    </a>
+                </i>
+                    <i class="material-icons center-align not-hide" style="display: inline-block">
+                    <a class="ok" href="#">
+                        check_circle
+                    </a>
+                </i>
+                    <i class="material-icons center-align not-hide" style="display: inline-block">
+                    <a class="warn" href="#">
+                        warning
+                    </a>
+                </i>
+                    <i class="material-icons center-align not-hide" style="display: inline-block">
+                    <a class="error" href="#">
+                        error
+                    </a>
+                </i>
+                </li>
+                <li>
+                    <i class="material-icons center-align"><a class="modal-trigger" href="#modal-upload-file">file_upload</a></i>
+                </li>
+                <li>
+                    <i class="material-icons center-align"><a class="modal-trigger" href="#modal-create-schema" id="ludwigBtn">create</a></i>
+                </li>
+                <li id="export" class="hide">
+                    <i class="material-icons center-align"><a href="#">file_download</a></i>
+                </li>
+                <li>
+                    <i class="material-icons center-align clear clear-report"><a href="#"><img src="img/filter-remove.svg" id="remove-filter"></a></i>
+                </li>
+            </ul>
+            <ul class="right nav-buttons">
+                <li id="search-input">
+                    <form>
+                        <div class="input-field">
+                            <input placeholder="Search..." type="text" id="busca">
+                        </div>
+                    </form>
+                </li>
+
+                <li id="search-icon">
+                    <i class="material-icons center-align search"><a href="#">search</a><a></a></i>
+                </li>
+            </ul>
+        </div>
+
+        <div class="progress navbar-gradient">
+            <div class="determinate"></div>
+        </div>
+    </nav>
+
+    <section id="panel" class="add-filter">
+        <div id="logs">
+            <div id="log-header">
+                <!-- <table id="logo-table">
+					<tr class="logo-row">
+						<td class="logo-data logo-image"><img src="./icons/icon48.png" class="logo"></td>
+						<td class="logo-data logo-text"><span class="logo-title">Roger Watcher - Bowser Jr</span></td>
+					</tr>
+					<tr class="logo-row">
+						<td class="logo-data logo-image"><img src="./img/bowser-btn-img.png" class="logo"></td>
+						<td class="logo-data logo-text"><span class="logo-title">DataLayer Validation Result</span></td>
+					</tr>
+				</table>
+
+				<table id="header-info">
+					<tr class="info-row">
+						<td class="info-data page-url page-field">Domain: </td>
+						<td class="info-data page-url page-info"></td>
+					</tr>
+					<tr class="info-row">
+						<td class="info-data browser browser-field">Browser: </td>
+						<td class="info-data browser browser-info"></td>
+					</tr>
+					<tr class="info-row">
+						<td class="info-data validation-date date-field">Validation Date: </td>
+						<td class="info-data validation-date date-info"></td>
+					</tr>
+				</table> -->
+
+                <table id="count-table" style="margin: 20px;">
+                    <tbody>
+                        <tr class="count-row">
+                            <th colspan="3" class="count-data count-data-header">Status</th>
+                        </tr>
+                        <tr class="count-row">
+                            <td id="successful-title" class="count-data">Successful</td>
+                            <td id="warning-title" class="count-data">Warning</td>
+                            <td id="error-title" class="count-data">Error</td>
+                        </tr>
+                        <tr class="count-row">
+                            <td id="successful-data" class="count-data">0</td>
+                            <td id="warning-data" class="count-data">0</td>
+                            <td id="error-data" class="count-data">0</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <ul class="collapsible expandable track history-change">
+                    <li class="active">
+                        <div class="collapsible-header valign-wrapper historyChange" tabindex="0"><i class="web-icon material-icons">web</i>
+                            <p class="truncate">https://www.casasbahia.com.br/</p>
+                        </div>
+                        <div class="collapsible-body" style="display: block;">
+                            <ul class="collapsible expandable track error">
+                                <hr class="label error">
+                                <li>
+                                    <div class="qsWrapper collapsible-header" tabindex="0"><i class="material-icons hit-type">error</i><i class="material-icons delete">close</i>
+                                        <div class="content">ERROR, Hit not validated or missed during test </div>
+                                    </div>
+                                    <div class="collapsible-body">
+                                        <table class="queryString striped tracktable"></table>
+                                    </div>
+                                </li>
+                            </ul>
+                            <ul class="collapsible expandable track error">
+                                <hr class="label error">
+                                <li>
+                                    <div class="qsWrapper collapsible-header" tabindex="0"><i class="material-icons hit-type">error</i><i class="material-icons delete">close</i>
+                                        <div class="content">ERROR, Hit not validated or missed during test </div>
+                                    </div>
+                                    <div class="collapsible-body">
+                                        <table class="queryString striped tracktable"></table>
+                                    </div>
+                                </li>
+                            </ul>
+                            <ul class="collapsible expandable track error">
+                                <hr class="label error">
+                                <li>
+                                    <div class="qsWrapper collapsible-header" tabindex="0"><i class="material-icons hit-type">error</i><i class="material-icons delete">close</i>
+                                        <div class="content">ERROR, Hit not validated or missed during test </div>
+                                    </div>
+                                    <div class="collapsible-body">
+                                        <table class="queryString striped tracktable"></table>
+                                    </div>
+                                </li>
+                            </ul>
+                            <ul class="collapsible expandable track warn">
+                                <hr class="label warn">
+                                <li>
+                                    <div class="qsWrapper collapsible-header" tabindex="0"><i class="material-icons hit-type">warning</i><i class="material-icons delete">close</i>
+                                        <div class="content">WARNING, "aplicacao.dominio" should match pattern "warning", but Hit send: "casasbahia.com.br" </div>
+                                    </div>
+                                    <div class="collapsible-body">
+                                        <table class="queryString striped tracktable"></table>
+                                    </div>
+                                </li>
+                            </ul>
+                            <ul class="collapsible expandable track error">
+                                <hr class="label error">
+                                <li>
+                                    <div class="qsWrapper collapsible-header" tabindex="0"><i class="material-icons hit-type">error</i><i class="material-icons delete">close</i>
+                                        <div class="content">ERROR, Hit ".usuario" sent without the following property: idUsuario </div>
+                                    </div>
+                                    <div class="collapsible-body">
+                                        <table class="queryString striped tracktable"></table>
+                                    </div>
+                                </li>
+                            </ul>
+                            <ul class="collapsible expandable track error">
+                                <hr class="label error">
+                                <li>
+                                    <div class="qsWrapper collapsible-header" tabindex="0"><i class="material-icons hit-type">error</i><i class="material-icons delete">close</i>
+                                        <div class="content">ERROR, Hit ".usuario" sent without the following property: idUnicoVia </div>
+                                    </div>
+                                    <div class="collapsible-body">
+                                        <table class="queryString striped tracktable"></table>
+                                    </div>
+                                </li>
+                            </ul>
+                            <ul class="collapsible expandable track error">
+                                <hr class="label error">
+                                <li>
+                                    <div class="qsWrapper collapsible-header" tabindex="0"><i class="material-icons hit-type">error</i><i class="material-icons delete">close</i>
+                                        <div class="content">ERROR, Hit ".pagina" sent without the following property: navegacao </div>
+                                    </div>
+                                    <div class="collapsible-body">
+                                        <table class="queryString striped tracktable"></table>
+                                    </div>
+                                </li>
+                            </ul>
+                            <ul class="collapsible expandable track error">
+                                <hr class="label error">
+                                <li>
+                                    <div class="qsWrapper collapsible-header" tabindex="0"><i class="material-icons hit-type">error</i><i class="material-icons delete">close</i>
+                                        <div class="content">ERROR, No more items to validate </div>
+                                    </div>
+                                    <div class="collapsible-body">
+                                        <table class="queryString striped tracktable"></table>
+                                    </div>
+                                </li>
+                            </ul>
+                            <ul class="collapsible expandable track error">
+                                <hr class="label error">
+                                <li>
+                                    <div class="qsWrapper collapsible-header" tabindex="0"><i class="material-icons hit-type">error</i><i class="material-icons delete">close</i>
+                                        <div class="content">ERROR, No more items to validate </div>
+                                    </div>
+                                    <div class="collapsible-body">
+                                        <table class="queryString striped tracktable"></table>
+                                    </div>
+                                </li>
+                            </ul>
+                            <ul class="collapsible expandable track error">
+                                <hr class="label error">
+                                <li>
+                                    <div class="qsWrapper collapsible-header" tabindex="0"><i class="material-icons hit-type">error</i><i class="material-icons delete">close</i>
+                                        <div class="content">ERROR, No more items to validate </div>
+                                    </div>
+                                    <div class="collapsible-body">
+                                        <table class="queryString striped tracktable"></table>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="modals">
+            <div id="modal-upload-file" class="modal modal-fixed-footer" style="top: 4%; z-index: 1003; display: none; opacity: 0; transform: scaleX(0.8) scaleY(0.8);" tabindex="0">
+                <div class="progress navbar-gradient">
+                    <div class="determinate"></div>
+                </div>
+                <div class="modal-content">
+                    <h4 class="center-align">Upload File</h4>
+                    <div class="row center-align">
+                        <form class="col s12 m12 l12">
+                            <div class="row">
+                                <!-- <div class="input-field col s12">
+                <input type="text" id="autocomplete-input" class="autocomplete">
+                <label for="autocomplete-input">Autocomplete</label>
+              </div> -->
+
+                                <div class="input-field col s12 m12 l6">
+                                    <input placeholder="Insert name of data layer" id="inputDataLayerName" type="text" class="autocomplete" data-target="autocomplete-options-213d499f-8b74-b207-0c10-6c00149347ed">
+                                    <ul id="autocomplete-options-213d499f-8b74-b207-0c10-6c00149347ed" class="autocomplete-content dropdown-content" tabindex="0"></ul>
+                                    <!-- <label for="first_name">Data Layer Name</label> -->
+                                </div>
+
+                                <div class="input-field col s12 m12 l6">
+                                    <div class="file-field input-field">
+                                        <div class="btn right orange darken-2">
+                                            <span>File</span>
+                                            <input type="file" id="inputFile" multiple="" accept=".json">
+                                        </div>
+                                        <div class="file-path-wrapper">
+                                            <input class="file-path validate" type="text" placeholder="Upload your json file">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="#!" class="modal-close orange-text text-darken-2 orange lighten-5 btn"><i class="material-icons left">close</i>Close</a>
+                    <a href="#modal-validating" class="modal-close modal-trigger waves-effect orange-text text-darken-2 orange lighten-5 btn waves-orange disabled" id="startTest"><i class="material-icons left">play_arrow</i>Start</a>
+                </div>
+            </div>
+            <div id="modal-validating" class="modal modal-fixed-footer" tabindex="0">
+                <div class="progress navbar-gradient">
+                    <div class="indeterminate"></div>
+                </div>
+                <div class="modal-content">
+                    <h4 class="center-align">Validating...</h4>
+
+
+                </div>
+                <div class="modal-footer center-align">
+                    <!-- <a href="#!" class="modal-close orange-text text-darken-2 orange lighten-5 btn"><i class="material-icons left">close</i>Cancel</a> -->
+                    <a href="#!" class="modal-close waves-effect orange-text text-darken-2 orange lighten-5 btn waves-orange" id="stopTest"><i class="material-icons left">stop</i>Stop</a> </div>
+            </div>
+            <div id="modal-create-schema" class="modal" tabindex="0">
+
+                <!-- Modal content -->
+                <div class="modal-content">
+                    <!-- Ludwig -->
+                    <div id="ludwig">
+                        <h5 class="title-ludwig">DataLayer Generator</h5>
+
+                        <a class="waves-effect waves-light btn-small" id="add-event"><i class="material-icons right">add_circle</i>Add Event</a>
+
+                        <br>
+
+                        <div class="input-field col s12">
+                            <div class="select-wrapper"><input class="select-dropdown dropdown-trigger" type="text" readonly="true" data-target="select-options-63cbfcd3-bb03-f8e9-dd6d-a5afe88c6974">
+                                <ul id="select-options-63cbfcd3-bb03-f8e9-dd6d-a5afe88c6974" class="dropdown-content select-dropdown" tabindex="0">
+                                    <li id="select-options-63cbfcd3-bb03-f8e9-dd6d-a5afe88c69740" tabindex="0" class="selected"><span>Object</span></li>
+                                    <li id="select-options-63cbfcd3-bb03-f8e9-dd6d-a5afe88c69741" tabindex="0"><span>Array</span></li>
+                                    <li id="select-options-63cbfcd3-bb03-f8e9-dd6d-a5afe88c69742" tabindex="0"><span>String</span></li>
+                                    <li id="select-options-63cbfcd3-bb03-f8e9-dd6d-a5afe88c69743" tabindex="0"><span>Boolean</span></li>
+                                    <li id="select-options-63cbfcd3-bb03-f8e9-dd6d-a5afe88c69744" tabindex="0"><span>Number</span></li>
+                                </ul><svg class="caret" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg><select name="type" id="type" tabindex="-1">
+                          <option value="object">Object</option>
+                          <option value="array">Array</option>
+                          <option value="string">String</option>
+                          <option value="boolean">Boolean</option>
+                          <option value="number">Number</option>
+                      </select></div>
+                        </div>
+
+
+                        <input placeholder="Key Name" type="text" name="key-name" id="key-name">
+
+                        <br>
+
+                        <div class="input-field col s12">
+                            <div class="select-wrapper disabled"><input class="select-dropdown dropdown-trigger" type="text" readonly="true" data-target="select-options-0bb8b8de-a75a-9853-35c7-1bc4d8b5a3d1" disabled=""><svg class="caret" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg>
+                                <select name="validation" id="validation" disabled="true" tabindex="-1">
+                                    <option value="equals">equals</option>
+                                    <option value="regex-match">regex_match</option>
+                                    </select>
+                                <ul id="select-options-0bb8b8de-a75a-9853-35c7-1bc4d8b5a3d1" class="dropdown-content select-dropdown">
+                                    <li id="select-options-0bb8b8de-a75a-9853-35c7-1bc4d8b5a3d10" class="selected"><span>equals</span></li>
+                                    <li id="select-options-0bb8b8de-a75a-9853-35c7-1bc4d8b5a3d11"><span>regex_match</span></li>
+                                </ul>
+                            </div>
+                        </div>
+
+
+                        <input placeholder="Condition" type="text" name="condition" id="condition" disabled="true">
+
+
+                        <br>
+
+                        <div class="input-field col s12">
+                            <div class="select-wrapper"><input class="select-dropdown dropdown-trigger" type="text" readonly="true" data-target="select-options-fef59401-7ca9-a821-ab59-1c6777cb438f">
+                                <ul id="select-options-fef59401-7ca9-a821-ab59-1c6777cb438f" class="dropdown-content select-dropdown" tabindex="0">
+                                    <li id="select-options-fef59401-7ca9-a821-ab59-1c6777cb438f0" tabindex="0" class="selected"><span>Required</span></li>
+                                    <li id="select-options-fef59401-7ca9-a821-ab59-1c6777cb438f1" tabindex="0"><span>Non Required</span></li>
+                                </ul><svg class="caret" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg><select id="mode" tabindex="-1">
+                          <option value="required">Required</option>
+                          <option value="non-required">Non Required</option>
+                      </select></div>
+                        </div>
+
+                        <br>
+
+                        <a class="waves-effect waves-light btn-small" id="confirm"><i class="material-icons ">check</i></a>
+                        <a class="waves-effect waves-light btn-small" id="end"><i class="material-icons ">clear</i></a>
+
+                        <br>
+
+                        <div class="input-field col s12" id="schema">
+                            <div class="select-wrapper"><input class="select-dropdown dropdown-trigger" type="text" readonly="true" data-target="select-options-9ae1333f-ff80-0be7-210b-caef74ed3ffe">
+                                <ul id="select-options-9ae1333f-ff80-0be7-210b-caef74ed3ffe" class="dropdown-content select-dropdown" tabindex="0">
+                                    <li id="select-options-9ae1333f-ff80-0be7-210b-caef74ed3ffe0" tabindex="0" class="selected"><span>Select an Object</span></li>
+                                </ul><svg class="caret" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg><select id="properties" tabindex="-1">
+                          <option value="Select an Object">Select an Object</option>
+                      </select></div>
+                        </div>
+
+
+                        <br>
+
+                        <a class="waves-effect waves-light btn-small" id="export-json"><i class="material-icons ">check</i>Export JSON</a>
+                        <a class="waves-effect waves-light btn-small" id="use-in-page"><i class="material-icons ">clear</i>Use JSON</a>
+                    </div>
+                    <!-- Ludwig -->
+                </div>
+                <!-- Modal content -->
+
+            </div>
+        </div>
+
+
+        <!-- @dev-jsbowser -->
+        <script type="text/javascript" src="js/materialize.min.js"></script>
+        <script type="module" src="js/jquery.js"></script>
+        <script type="module" src="js/ajv.min.js"></script>
+        <script type="module" src="js/jspdf.min.js"></script>
+        <script type="module" src="js/html2canvas.js"></script>
+        <script type="module" src="js/bowserjr.js"></script>
+        <script type="module" src="js/rules.js"></script>
+        <script type="module" src="js/ludwig.js"></script>
+        <script type="module" src="js/eventos.js"></script>
+        <script type="module" src="js/main.js"></script>
+        <!-- <script type="module" src="js/tagueamentoBowser.js"></script>     -->
+        <!-- dev-jsbowser@ -->
+        <script>
+        </script>
+        <!-- Code injected by live-server -->
+        <script type="text/javascript">
+            // <![CDATA[  <-- For SVG support
+            if ('WebSocket' in window) {
+                (function() {
+                    function refreshCSS() {
+                        var sheets = [].slice.call(document.getElementsByTagName("link"));
+                        var head = document.getElementsByTagName("head")[0];
+                        for (var i = 0; i < sheets.length; ++i) {
+                            var elem = sheets[i];
+                            head.removeChild(elem);
+                            var rel = elem.rel;
+                            if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+                                var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+                                elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+                            }
+                            head.appendChild(elem);
+                        }
+                    }
+                    var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+                    var address = protocol + window.location.host + window.location.pathname + '/ws';
+                    var socket = new WebSocket(address);
+                    socket.onmessage = function(msg) {
+                        if (msg.data == 'reload') window.location.reload();
+                        else if (msg.data == 'refreshcss') refreshCSS();
+                    };
+                    console.log('Live reload enabled.');
+                })();
+            }
+            // ]]>
+        </script>
+
+
+    </section>
+</body>
+
+</html>

@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Bowser Jr. - by dp6</title>
+
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<!-- @dev-css -->
+	<link rel="stylesheet" type="text/css" href="css/normalize.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<!-- dev-css@ -->
+	<!-- <script>window.dataLayer = window.dataLayer || [];</script> -->
+</head>
+
+<body>
+	<header>
+		<a href="http://www.dp6.com.br/?utm_medium=logo&amp;utm_source=plugin&amp;utm_campaign=roger-watcher"
+			title="Roger Watcher - dp6 TECH" id="logo" target="blank">
+			<img src="icons/icon36.png" alt="dp6.com.br">
+		</a>
+		<a href="./panel.html"> <button id="roger-btn">Roger Watcher</button> </a>
+
+		<!-- Trigger/Open The Modal -->
+		<button id="ludwigBtn">Ludwig</button>
+
+		<!-- The Modal -->
+		<div id="myModal" class="modal">
+
+			<!-- Modal content -->
+			<div class="modal-content">
+				<span class="close">&times;</span>
+				<!-- Ludwig -->
+				<div id="ludwig">
+					<h1 class="title-ludwig">DataLayer Generator</h1>
+
+					<br>
+
+					<button id="add-event"> Add Event</button>
+
+					<br>
+
+					<label for="type">Type: </label>
+					<select name="type" id="type">
+						<option value="object">Object</option>
+						<option value="array">Array</option>
+						<option value="string">String</option>
+						<option value="boolean">Boolean</option>
+						<option value="number">Number</option>
+					</select>
+
+					<label for="key-name">Key Name: </label>
+					<input type="text" name="key-name" id="key-name">
+
+					<br>
+
+					<label for="validation">Validation: </label>
+					<select name="validation" id="validation" disabled=true>
+						<option value="equals">equals</option>
+						<option value="regex-match">regex_match</option>
+					</select>
+
+					<label for="condition">Condition: </label>
+					<input type="text" name="condition" id="condition" disabled=true>
+
+					<br>
+
+					<label for="mode">Mode: </label>
+					<select name="mode" id="mode">
+						<option value="required">Required</option>
+						<option value="non-required">Non Required</option>
+					</select>
+
+					<br>
+
+					<button id="confirm" class="icon-btn"></button>
+					<button id="end" class="icon-btn"></button>
+
+					<br>
+
+					<div id="schema">
+						<select id="properties">
+							<option value="SelectObject">Select an Object</option>
+						</select>
+					</div>
+
+					<br>
+
+					<button id="export-json">Export JSON</button>
+					<button id="use-in-page">Use JSON</button>
+				</div> <!-- Ludwig -->
+			</div> <!-- Modal content -->
+
+		</div>
+
+		<ul class="filter">
+			<li><a href="#" title="PageView" class="pageview"></a></li>
+			<li><a href="#" title="exception" class="exception"></a></li>
+			<li><a href="#" title="Erro" class="erro"></a></li>
+		</ul>
+		<button class="clear clear-filter">Clear Filters</button>
+
+		<div id="bowser">
+
+			<label title="Select the Schema you wish to use for validation (.json)" id="inputFileLabel" for="inputFile">
+				Upload File </label>
+
+			<input type="file" id="inputFile" multiple accept=".json"></input>
+
+			<input type="text" id="inputDataLayerName" placeholder=" Datalayer name...">
+
+			<button id="startTest">Start</button>
+
+			<button id="stopTest" disabled=true>Stop</button>
+
+			<button id="export">Export</button>
+
+			<input id="busca" type="text" placeholder=" Search here...">
+
+
+		</div>
+
+		<hr id="stripes">
+	</header>
+	<section id="panel">
+
+		<div id="logs">
+			<div id="log-header">
+				<table id="logo-table">
+					<tr class="logo-row">
+						<td class="logo-data logo-image"><img src="./icons/icon48.png" class="logo"></td>
+						<td class="logo-data logo-text"><span class="logo-title">Roger Watcher - Bowser Jr</span></td>
+					</tr>
+					<tr class="logo-row">
+						<td class="logo-data logo-image"><img src="./img/bowser-btn-img.png" class="logo"></td>
+						<td class="logo-data logo-text"><span class="logo-title">DataLayer Validation Result</span></td>
+					</tr>
+				</table>
+
+				<table id="header-info">
+					<tr class="info-row">
+						<td class="info-data page-url page-field">Domain: </td>
+						<td class="info-data page-url page-info"></td>
+					</tr>
+					<tr class="info-row">
+						<td class="info-data browser browser-field">Browser: </td>
+						<td class="info-data browser browser-info"></td>
+					</tr>
+					<tr class="info-row">
+						<td class="info-data validation-date date-field">Validation Date: </td>
+						<td class="info-data validation-date date-info"></td>
+					</tr>
+				</table>
+
+				<table id="count-table">
+					<tr class="count-row">
+						<th colspan="3" class="count-data count-data-header">Status</th>
+					</tr>
+					<tr class="count-row">
+						<td id="successful-title" class="count-data">Successful</td>
+						<td id="warning-title" class="count-data">Warning</td>
+						<td id="error-title" class="count-data">Error</td>
+					</tr>
+					<tr class="count-row">
+						<td id="successful-data" class="count-data">0</td>
+						<td id="warning-data" class="count-data">0</td>
+						<td id="error-data" class="count-data">0</td>
+					</tr>
+				</table>
+			</div>
+			
+			<!--Espaço onde vai ser criado os logs.-->
+
+		</div>
+
+	</section>
+
+	<!--Scripts-->
+	<!-- <script type="text/html" id="template-universal">
+		<div class="track">
+			<hr class="label">
+			<section>
+				<p class="content"></p>
+				<div class="qsWrapper">
+					<table class="queryString"></table>
+				</div>
+			</section>
+			<a href="#" class="delete" title="Remove"></a>
+		</div>
+	</script> -->
+	<!-- @dev-jsbowser -->
+	<script type="module" src="js/jquery.js"></script>
+	<script type="module" src="js/scriptsBowser.js"></script>
+	<script type="module" src="js/ajv.min.js"></script>
+	<script type="module" src="js/jspdf.min.js"></script>
+	<script type="module" src="js/html2canvas.js"></script>
+	<script type="module" src="js/bowserjr.js"></script>
+	<script type="module" src="js/rules.js"></script>
+	<script type="module" src="js/ludwig.js"></script>
+	<script type="module" src="js/eventos.js"></script>
+	<script type="module" src="js/tagueamentoBowser.js"></script>    
+	<!-- dev-jsbowser@ -->
+
+</body>
+
+</html>

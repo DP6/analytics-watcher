@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Roger Watcher - by dp6</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" />
+    <!-- @dev-css -->
+    <link rel="stylesheet" type="text/css" href="css/normalize.css" />
+    <!-- <link rel="stylesheet" type="text/css" href="css/materialize.min.css" /> -->
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+
+    <!-- dev-css@ -->
+</head>
+
+<body>
+    <header>
+        <a href="http://www.dp6.com.br/?utm_medium=logo&amp;utm_source=plugin&amp;utm_campaign=roger-watcher" title="Roger Watcher - dp6 TECH" id="logo" target="blank">
+            <img src="icons/icon36.png" alt="dp6.com.br" />
+        </a>
+        <a href="./panelBowser.html"><button id="bowser-btn">Bowser</button> </a>
+        <ul class="filter">
+            <li>
+                <a href="#" title="PageView" class="pageview"></a>
+            </li>
+            <li>
+                <a href="#" title="AppView" class="appview"></a>
+            </li>
+            <li>
+                <a href="#" title="Event" class="event"></a>
+            </li>
+            <li>
+                <a href="#" title="Timing" class="timing"></a>
+            </li>
+            <li>
+                <a href="#" title="Social" class="social"></a>
+            </li>
+            <li>
+                <a href="#" title="Item" class="item"></a>
+            </li>
+            <li>
+                <a href="#" title="Transaction" class="transaction"></a>
+            </li>
+            <li>
+                <a href="#" title="Exception" class="exception"></a>
+            </li>
+        </ul>
+        <button class="clear clear-filter">Clear Filters</button><button class="clear clear-report">Clear Report</button>
+        <input id="busca" type="text" placeholder=" Search here..." />
+        <label title="Should scroll to the bottom whenever a new hit is parsed"><input type="checkbox" name="autoscroll" id="autoscroll" checked /><span>Autoscroll</span></label>
+        <hr id="stripes" />
+    </header>
+    <section id="panel">
+        <div class="track pageview">
+            <hr class="label error" />
+            <section>
+                <p class="content">/path/do/pageview/path/do/pageview/path/do/pageview/path/do/pageview</p>
+                <div class="qsWrapper">
+                    <table class="queryString">
+                        <tr>
+                            <td class="key">utmdt</td>
+                            <td class="value">Direct Performance agora é dp6</td>
+                        </tr>
+                        <tr>
+                            <td class="key">utmp</td>
+                            <td class="value">/</td>
+                        </tr>
+                        <tr>
+                            <td class="key">utmac</td>
+                            <td class="value">UA-3635138-1</td>
+                        </tr>
+                        <tr>
+                            <td class="key">utmcc</td>
+                            <td class="value">__utma=184251577.1809400349.1359037700.1363703497.1363809574.27;+__utmz=184251577.1363704734.24.5.utmcsr=plugin|utmccn=(not%20set)|utmcmd=(not%20set)</td>
+                        </tr>
+                    </table>
+                </div>
+            </section>
+            <a href="#" class="delete" title="Remove"></a>
+        </div>
+        <div class="track event">
+            <hr class="label ok" />
+            <section>
+                <p class="content">/path/do/pageview</p>
+                <div class="qsWrapper">
+                    <table class="queryString">
+                        <tr>
+                            <td class="key"></td>
+                            <td class="value"></td>
+                        </tr>
+                        <tr>
+                            <td class="key"></td>
+                            <td class="value"></td>
+                        </tr>
+                        <tr>
+                            <td class="key"></td>
+                            <td class="value"></td>
+                        </tr>
+                        <tr>
+                            <td class="key"></td>
+                            <td class="value"></td>
+                        </tr>
+                    </table>
+                </div>
+                <a href="#" class="delete" title="Remove"></a>
+            </section>
+        </div>
+        <div class="track social">
+            <hr class="label warn" />
+            <section>
+                <p class="content">/path/do/pageview</p>
+                <div class="qsWrapper">
+                    <table class="queryString">
+                        <tr>
+                            <td class="key"></td>
+                            <td class="value"></td>
+                        </tr>
+                        <tr>
+                            <td class="key"></td>
+                            <td class="value"></td>
+                        </tr>
+                        <tr>
+                            <td class="key"></td>
+                            <td class="value"></td>
+                        </tr>
+                        <tr>
+                            <td class="key"></td>
+                            <td class="value"></td>
+                        </tr>
+                    </table>
+                </div>
+            </section>
+            <a href="#" class="delete" title="Remove"></a>
+        </div>
+        <div class="track item">
+            <hr class="label" />
+            <section>
+                <p class="content">/path/do/pageview</p>
+                <div class="qsWrapper">
+                    <table class="queryString">
+                        <tr>
+                            <td class="key"></td>
+                            <td class="value"></td>
+                        </tr>
+                        <tr>
+                            <td class="key"></td>
+                            <td class="value"></td>
+                        </tr>
+                        <tr>
+                            <td class="key"></td>
+                            <td class="value"></td>
+                        </tr>
+                        <tr>
+                            <td class="key"></td>
+                            <td class="value"></td>
+                        </tr>
+                    </table>
+                </div>
+            </section>
+            <a href="#" class="delete" title="Remove"></a>
+        </div>
+        <div class="track pageview">
+            <hr class="label ok" />
+            <section>
+                <p class="content">/path/do/pageview</p>
+                <div class="qsWrapper">
+                    <table class="queryString">
+                        <tr>
+                            <td class="key">utmdt</td>
+                            <td class="value">Direct Performance agora é dp6</td>
+                        </tr>
+                        <tr>
+                            <td class="key">utmp</td>
+                            <td class="value">/</td>
+                        </tr>
+                        <tr>
+                            <td class="key">utmac</td>
+                            <td class="value">UA-3635138-1</td>
+                        </tr>
+                        <tr>
+                            <td class="key">utmcc</td>
+                            <td class="value">__utma=184251577.1809400349.1359037700.1363703497.1363809574.27;+__utmz=184251577.1363704734.24.5.utmcsr=plugin|utmccn=(not%20set)|utmcmd=(not%20set)</td>
+                        </tr>
+                    </table>
+                </div>
+            </section>
+            <a href="#" class="delete" title="Remove"></a>
+        </div>
+        <div class="track transaction">
+            <hr class="label" />
+            <section>
+                <p class="content">/path/do/pageview</p>
+                <div class="qsWrapper">
+                    <table class="queryString">
+                        <tr>
+                            <td class="key"></td>
+                            <td class="value"></td>
+                        </tr>
+                        <tr>
+                            <td class="key"></td>
+                            <td class="value"></td>
+                        </tr>
+                        <tr>
+                            <td class="key"></td>
+                            <td class="value"></td>
+                        </tr>
+                        <tr>
+                            <td class="key"></td>
+                            <td class="value"></td>
+                        </tr>
+                    </table>
+                </div>
+            </section>
+            <a href="#" class="delete" title="Remove"></a>
+        </div>
+        <div class="track pageview">
+            <hr class="label ok" />
+            <section>
+                <p class="content">/path/do/pageview</p>
+                <div class="qsWrapper">
+                    <table class="queryString">
+                        <tr>
+                            <td class="key">utmdt</td>
+                            <td class="value">Direct Performance agora é dp6</td>
+                        </tr>
+                        <tr>
+                            <td class="key">utmp</td>
+                            <td class="value">/</td>
+                        </tr>
+                        <tr>
+                            <td class="key">utmac</td>
+                            <td class="value">UA-3635138-1</td>
+                        </tr>
+                        <tr>
+                            <td class="key">utmcc</td>
+                            <td class="value">__utma=184251577.1809400349.1359037700.1363703497.1363809574.27;+__utmz=184251577.1363704734.24.5.utmcsr=plugin|utmccn=(not%20set)|utmcmd=(not%20set)</td>
+                        </tr>
+                    </table>
+                </div>
+            </section>
+            <a href="#" class="delete" title="Remove"></a>
+        </div>
+        <div class="track timing">
+            <hr class="label ok" />
+            <section>
+                <p class="content">/path/do/pageview</p>
+                <div class="qsWrapper">
+                    <table class="queryString">
+                        <tr>
+                            <td class="key">utmdt</td>
+                            <td class="value">Direct Performance agora é dp6</td>
+                        </tr>
+                        <tr>
+                            <td class="key">utmp</td>
+                            <td class="value">/</td>
+                        </tr>
+                        <tr>
+                            <td class="key">utmac</td>
+                            <td class="value">UA-3635138-1</td>
+                        </tr>
+                        <tr>
+                            <td class="key">utmcc</td>
+                            <td class="value">__utma=184251577.1809400349.1359037700.1363703497.1363809574.27;+__utmz=184251577.1363704734.24.5.utmcsr=plugin|utmccn=(not%20set)|utmcmd=(not%20set)</td>
+                        </tr>
+                    </table>
+                </div>
+            </section>
+            <a href="#" class="delete" title="Remove"></a>
+        </div>
+        <div class="track appview">
+            <hr class="label ok" />
+            <section>
+                <p class="content">/path/do/pageview</p>
+                <div class="qsWrapper">
+                    <table class="queryString">
+                        <tr>
+                            <td class="key">utmdt</td>
+                            <td class="value">Direct Performance agora é dp6</td>
+                        </tr>
+                        <tr>
+                            <td class="key">utmp</td>
+                            <td class="value">/</td>
+                        </tr>
+                        <tr>
+                            <td class="key">utmac</td>
+                            <td class="value">UA-3635138-1</td>
+                        </tr>
+                        <tr>
+                            <td class="key">utmcc</td>
+                            <td class="value">__utma=184251577.1809400349.1359037700.1363703497.1363809574.27;+__utmz=184251577.1363704734.24.5.utmcsr=plugin|utmccn=(not%20set)|utmcmd=(not%20set)</td>
+                        </tr>
+                    </table>
+                </div>
+            </section>
+            <a href="#" class="delete" title="Remove"></a>
+        </div>
+        <div class="track pageview">
+            <hr class="label error" />
+            <section>
+                <p class="content">/path/do/pageview</p>
+                <div class="qsWrapper">
+                    <table class="queryString">
+                        <tr>
+                            <td class="key">utmdt</td>
+                            <td class="value">Direct Performance agora é dp6</td>
+                        </tr>
+                        <tr>
+                            <td class="key">utmp</td>
+                            <td class="value">/</td>
+                        </tr>
+                        <tr>
+                            <td class="key">utmac</td>
+                            <td class="value">UA-3635138-1</td>
+                        </tr>
+                        <tr>
+                            <td class="key">utmcc</td>
+                            <td class="value">__utma=184251577.1809400349.1359037700.1363703497.1363809574.27;+__utmz=184251577.1363704734.24.5.utmcsr=plugin|utmccn=(not%20set)|utmcmd=(not%20set)</td>
+                        </tr>
+                    </table>
+                </div>
+            </section>
+            <a href="#" class="delete" title="Remove"></a>
+        </div>
+        <div class="track exception">
+            <hr class="label ok" />
+            <section>
+                <p class="content">/path/do/pageview</p>
+                <div class="qsWrapper">
+                    <table class="queryString">
+                        <tr>
+                            <td class="key">utmdt</td>
+                            <td class="value">Direct Performance agora é dp6</td>
+                        </tr>
+                        <tr>
+                            <td class="key">utmp</td>
+                            <td class="value">/</td>
+                        </tr>
+                        <tr>
+                            <td class="key">utmac</td>
+                            <td class="value">UA-3635138-1</td>
+                        </tr>
+                        <tr>
+                            <td class="key">utmcc</td>
+                            <td class="value">__utma=184251577.1809400349.1359037700.1363703497.1363809574.27;+__utmz=184251577.1363704734.24.5.utmcsr=plugin|utmccn=(not%20set)|utmcmd=(not%20set)</td>
+                        </tr>
+                    </table>
+                </div>
+            </section>
+            <a href="#" class="delete" title="Remove"></a>
+        </div>
+        <div class="track pageview">
+            <hr class="label ok" />
+            <section>
+                <p class="content">/path/do/pageview</p>
+                <div class="qsWrapper">
+                    <table class="queryString">
+                        <tr>
+                            <td class="key">utmdt</td>
+                            <td class="value">Direct Performance agora é dp6</td>
+                        </tr>
+                        <tr>
+                            <td class="key">utmp</td>
+                            <td class="value">/</td>
+                        </tr>
+                        <tr>
+                            <td class="key">utmac</td>
+                            <td class="value">UA-3635138-1</td>
+                        </tr>
+                        <tr>
+                            <td class="key">utmcc</td>
+                            <td class="value">__utma=184251577.1809400349.1359037700.1363703497.1363809574.27;+__utmz=184251577.1363704734.24.5.utmcsr=plugin|utmccn=(not%20set)|utmcmd=(not%20set)</td>
+                        </tr>
+                    </table>
+                </div>
+            </section>
+            <a href="#" class="delete" title="Remove"></a>
+        </div>
+    </section>
+    <script type="text/html" id="template-universal">
+        <div class="track">
+            <hr class="label" />
+            <section>
+                <p class="content"></p>
+                <div class="qsWrapper">
+                    <table class="queryString"></table>
+                </div>
+            </section>
+            <a href="#" class="delete" title="Remove"></a>
+        </div>
+    </script>
+    <script src="js/jquery.js"></script>
+    <script>
+        const RW = {
+            panel: jQuery('#panel'),
+            busca: jQuery('#busca'),
+            info: {
+                name: 'Dev',
+                version: 'X.X.X',
+            },
+            util: {
+                sub: () => {},
+            },
+            clear() {
+                jQuery('.track').remove();
+                this.busca.val('');
+            },
+        };
+    </script>
+    <script type="module" src="js/eventos.js"></script>
+    <script type="module" src="js/tagueamentoRoger.js"></script>
+</body>
+
+</html>

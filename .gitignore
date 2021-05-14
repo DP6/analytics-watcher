@@ -1,0 +1,13 @@
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+*.zip
+_site
+plugin-fabinho/
+node_modules/
+dist/
+*.sublime*
+test.json
+teste.json

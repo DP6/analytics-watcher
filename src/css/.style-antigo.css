@@ -1,0 +1,567 @@
+html,
+body {
+    font-family: Roboto, Helvetica, Arial, Verdana, sans-serif;
+    font-size: 13px;
+    background-color: #eee;
+}
+
+header {
+    width: 100%;
+    overflow: hidden;
+    background-color: #fff;
+    height: 44px;
+    position: fixed;
+    white-space: nowrap;
+    z-index: 10;
+}
+
+header>* {
+    vertical-align: middle;
+    display: inline-block;
+}
+
+#stripes {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background-image: linear-gradient(to right, #fcc441 0%, #1a71a9 19%, #1a71a9 43%, #1e9449 59%, #1e9449 100%);
+}
+
+#warning {
+    background-color: #fbac3da2;
+}
+
+#logo {
+    height: 42px;
+    padding-left: 10px;
+}
+
+#logo img {
+    margin: 2px 10px;
+}
+
+.filter li {
+    display: inline-block;
+    vertical-align: middle;
+    border-radius: 50%;
+    margin: 0 1.5px;
+}
+
+.filter li:hover {
+    background-color: #eee;
+}
+
+.filter li.checked {
+    background-color: #ddd;
+}
+
+.filter a {
+    float: left;
+    width: 25px;
+    height: 25px;
+    background-size: 22px 22px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    color: #323232;
+    text-decoration: none;
+}
+
+.filter .pageview,
+.track.pageview {
+    background-image: url('../img/ico-pageview.png');
+}
+
+.filter .event,
+.track.event {
+    background-image: url('../img/ico-event.png');
+}
+
+.filter .social,
+.track.social {
+    background-image: url('../img/ico-social.png');
+}
+
+.filter .transaction,
+.track.transaction {
+    background-image: url('../img/ico-transaction.png');
+}
+
+.filter .item,
+.track.item {
+    background-image: url('../img/ico-item.png');
+}
+
+.filter .timing,
+.track.timing {
+    background-image: url('../img/ico-timing.png');
+}
+
+.filter .appview,
+.track.appview {
+    background-image: url('../img/ico-appview.png');
+}
+
+.filter .exception,
+.track.exception {
+    background-image: url('../img/ico-exception.png');
+}
+
+.filter .erro,
+.track.erro {
+    background-image: url('../img/ico-erro.png');
+}
+
+.clear,
+#busca,
+#inputDataLayerName,
+#key-name,
+#condition {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.clear {
+    background-color: #eeeeee;
+    color: #555;
+    width: 100px;
+    height: 25px;
+    line-height: 15px;
+    transition: all 0.5s;
+}
+
+.clear-filter {
+    margin-left: 1em;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.clear-report {
+    margin-right: 1em;
+    border-left: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.clear:hover {
+    background-color: #dddddd;
+    border-color: #aaa;
+}
+
+.clear:active {
+    border-color: #aaa;
+    border-bottom-color: #888;
+    box-shadow: inset 0 0 5px 2px #aaaaaa, 0 1px 0 0 #eeeeee;
+}
+
+#busca,
+#inputDataLayerName,
+#key-name,
+#condition {
+    height: 20px;
+}
+
+.track {
+    margin: 5px 1%;
+    background-color: #f5f5f5;
+    border: 1px solid #dfdfdf;
+    border-radius: 3px;
+    box-shadow: 1px 1px 3px #888888;
+    overflow: hidden;
+    cursor: pointer;
+    background-position: 5px 4px;
+    background-repeat: no-repeat;
+    background-size: 18px;
+    position: relative;
+}
+
+.label {
+    margin: 0 3% -3px;
+    height: 3px;
+    border-radius: 0 10px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.2), transparent 10%, transparent 80%, rgba(0, 0, 0, 0.3));
+    background-color: #1b9ed5;
+}
+
+.label.ok {
+    background-color: #87c23f;
+}
+
+.label.warn {
+    background-color: #fbab3d;
+}
+
+.label.error {
+    background-color: #ff5a5a;
+}
+
+.type {
+    float: left;
+    margin-right: 10px;
+    width: 22px;
+    margin-top: 2px;
+}
+
+.content {
+    padding: 4px 26px 3px 24px;
+    white-space: nowrap;
+    overflow: hidden;
+    line-height: 18px;
+    height: 18px;
+}
+
+.track:hover .delete {
+    display: block;
+}
+
+.delete {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 4px;
+    width: 24px;
+    height: 18px;
+    background-color: #d40505;
+    background-size: 16px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-image: url('../img/ico-del.png');
+}
+
+.qsWrapper {
+    cursor: auto;
+    display: none;
+    overflow: auto;
+    max-width: 100%;
+}
+
+.queryString {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.queryString tr:nth-child(2n+1) {
+    background-color: #e0e0e0;
+}
+
+.queryString td {
+    padding: 0.2em 0.5em;
+}
+
+.queryString td:first-child {
+    font-weight: bold;
+    white-space: nowrap;
+    width: 68px;
+}
+
+
+/* classes para filtro */
+
+.filtrado .track {
+    display: none;
+}
+
+#panel {
+    padding-top: 47px;
+}
+
+#inputFile {
+    display: none;
+}
+
+#inputFileLabel {
+    border: 1px solid #ccc;
+    color: #555;
+    margin-right: 3px;
+    padding: 4px 21.5px;
+    padding-right: 9px;
+    background: url('../img//inputFile.png') #eeeeee;
+    background-repeat: no-repeat;
+    background-position: 3px center;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.5s;
+    text-align: center;
+    font: 400 13.3333px Arial;
+}
+
+#startTest {
+    background: url('../img//startTest.png');
+}
+
+#stopTest {
+    background: url('../img//stop-button.png');
+}
+
+#export {
+    background: url('../img//export.png');
+}
+
+#bowser-btn {
+    background: url('../img//bowser-btn-img.png');
+}
+
+#ludwigBtn {
+    background: url('../img//ludwig-btn-img.png');
+}
+
+#roger-btn {
+    background: url('/src/icons/icon16.png');
+    width: 130px;
+    color: #555;
+    height: 25px;
+    transition: all 0.5s;
+    line-height: 15px;
+    border: 1px solid #ccc;
+    text-align: center;
+    background-repeat: no-repeat;
+    background-color: #eeeeee;
+    background-position: 3px;
+    border-radius: 3px;
+    cursor: default;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+#properties {
+    color: #555;
+    width: 350px;
+    height: 25px;
+    transition: all 0.5s;
+    line-height: 15px;
+    border: 1px solid #ccc;
+    text-align: center;
+    background-repeat: no-repeat;
+    background-color: #eeeeee;
+    background-position: 3px;
+    border-radius: 3px;
+    cursor: default;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+#startTest,
+#stopTest,
+#export,
+#ludwigBtn,
+#mode,
+#type,
+#validation,
+#export-json,
+#use-in-page,
+#add-event,
+#bowser-btn {
+    color: #555;
+    width: 100px;
+    height: 25px;
+    transition: all 0.5s;
+    line-height: 15px;
+    border: 1px solid #ccc;
+    text-align: center;
+    background-repeat: no-repeat;
+    background-color: #eeeeee;
+    background-position: 3px;
+    border-radius: 3px;
+    cursor: default;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+#stopTest:disabled {
+    cursor: default;
+    opacity: 0.5;
+}
+
+#startTest:disabled {
+    cursor: default;
+    opacity: 0.5;
+}
+
+#export:disabled {
+    cursor: default;
+    opacity: 0.5;
+}
+
+#startTest:not(:disabled):hover,
+#startTest:not(:disabled):active {
+    background-color: #ccc;
+}
+
+#stopTest:not(:disabled):hover,
+#stopTest:not(:disabled):active {
+    background-color: #ccc;
+}
+
+#export:not(:disabled):hover,
+#export:not(:disabled):active {
+    background-color: #ccc;
+}
+
+#inputFileLabel:not(:disabled):hover,
+#inputFileLabel:not(:disabled):active {
+    background-color: #ccc;
+}
+
+#schema {
+    width: 900px;
+    height: 500px;
+}
+
+#preview {
+    height: 350px;
+    width: 300px;
+    border: solid 1px;
+}
+
+#confirm {
+    background-image: url('../img//ico-confirm.png');
+}
+
+#end {
+    background-image: url('../img//ico-end.png');
+}
+
+#add-event {
+    background-image: url('../img//ico-add.png');
+}
+
+.icon-btn {
+    border: 1px solid #ccc;
+    background-repeat: no-repeat;
+    height: 25px;
+    width: 25px;
+    padding-top: 13px;
+    padding-right: 10px;
+    background-position-y: center;
+    background-position-x: center;
+    border-radius: 3px;
+}
+
+.title-ludwig {
+    width: 165px;
+    height: 21px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 21px;
+    color: #999999;
+}
+
+
+/* The Modal (background) */
+
+.modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+}
+
+
+/* Modal Content/Box */
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    /* Could be more or less, depending on screen size */
+}
+
+
+/* The Close Button */
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.logo {
+    border-radius: 4px;
+    padding: 5px;
+    width: 30px;
+}
+
+.logo-image {
+    text-align: right;
+    width: 25px;
+}
+
+.logo-title {
+    font-size: medium;
+    margin-left: 10px;
+    width: 500px;
+}
+
+.logo-data {
+    vertical-align: middle;
+}
+
+.info-data {
+    padding: 5px;
+    text-align: left;
+    font-size: x-small;
+}
+
+#count-table {
+    width: 30%;
+    padding: 15px;
+    margin-left: 10px;
+    margin-bottom: 15px;
+    border-collapse: collapse;
+}
+
+.count-data-header {
+    padding-bottom: 5px;
+    font-weight: bold;
+}
+
+#successful-data {
+    background-color: #1e9449;
+    padding-left: 2px;
+    width: 100px;
+}
+
+#warning-data {
+    background-color: #fbab3d;
+    padding-left: 2px;
+    width: 100px;
+}
+
+#error-data {
+    background-color: red;
+    padding-left: 2px;
+    width: 100px;
+}
+
+.historyChange {
+    margin-left: 15px;
+    font-size: larger;
+}
