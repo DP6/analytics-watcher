@@ -1,55 +1,55 @@
 {
-  "name": "Roger-Watcher",
-  "description": "A validator for Universal Analytics implementations",
-  "version": "1.0.0",
-  "author": "dp6",
-  "homepage": "http://www.dp6.com.br/",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/dp6/roger-watcher.git"
-  },
-  "contributors": [
-    {
-      "name": "Paychex, Inc."
-    }
-  ],
-  "bugs": {
-    "url": "https://github.com/dp6/roger-watcher/issues"
-  },
-  "licenses": [
-    {
-      "type": "GNU",
-      "url": "https://github.com/dp6/roger-watcher/blob/master/LICENSE.md"
-    }
-  ],
-  "main": "src",
-  "engines": {
-    "node": ">= 0.10.5"
-  },
-  "keywords": [
-    "web analytics",
-    "digital analytics",
-    "universal analytics",
-    "validator",
-    "extension",
-    "chrome extension",
-    "plugin",
-    "google analytics",
-    "sniffer",
-    "debugger"
-  ],
-  "devDependencies": {
-    "eslint": "^7.17.0",
-    "eslint-config-prettier": "^7.1.0",
-    "eslint-plugin-prettier": "^3.3.1",
-    "grunt": "^1.2.1",
-    "grunt-contrib-clean": "^2.0.0",
-    "grunt-contrib-concat": "^1.0.1",
-    "grunt-contrib-copy": "^1.0.0",
-    "grunt-contrib-cssmin": "^3.0.0",
-    "grunt-contrib-jshint": "^2.1.0",
-    "grunt-text-replace": "^0.4.0",
-    "prettier": "^2.2.1"
-  },
-  "dependencies": {}
+    "name": "Analytics-Watcher",
+    "description": "A validator for Universal Analytics implementations",
+    "version": "2.0.0",
+    "author": "dp6",
+    "homepage": "http://www.dp6.com.br/",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/dp6/analytics-watcher.git"
+    },
+    "contributors": [
+        {
+            "name": "Paychex, Inc."
+        }
+    ],
+    "bugs": {
+        "url": "https://github.com/dp6/analytics-watcher/issues"
+    },
+    "licenses": [
+        {
+            "type": "GNU",
+            "url": "https://github.com/dp6/analytics-watcher/blob/master/LICENSE.md"
+        }
+    ],
+    "main": "src",
+    "engines": {
+        "node": ">= 0.10.5"
+    },
+    "keywords": [
+        "web analytics",
+        "digital analytics",
+        "universal analytics",
+        "validator",
+        "extension",
+        "chrome extension",
+        "plugin",
+        "google analytics",
+        "sniffer",
+        "debugger"
+    ],
+    "devDependencies": {
+        "eslint": "^7.17.0",
+        "eslint-config-prettier": "^7.1.0",
+        "eslint-plugin-prettier": "^3.3.1",
+        "grunt": "^1.2.1",
+        "grunt-contrib-clean": "^2.0.0",
+        "grunt-contrib-concat": "^1.0.1",
+        "grunt-contrib-copy": "^1.0.0",
+        "grunt-contrib-cssmin": "^3.0.0",
+        "grunt-contrib-jshint": "^2.1.0",
+        "grunt-text-replace": "^0.4.0",
+        "prettier": "^2.2.1"
+    },
+    "dependencies": {}
 }

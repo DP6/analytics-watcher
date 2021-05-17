@@ -18,47 +18,43 @@
         <div class="nav-wrapper">
             <ul class="left nav-buttons">
                 <li>
-                    <a href="panel_roger.html" class="logo-dp6"><i class="material-icons"><img src="icons/icon128.png"
-            id="logo-dp6" /></i></a>
+                    <a href="panel_analytics-watcher.html" class="logo-dp6"><i class="material-icons"><img
+                src="icons/rect4069.png" id="logo-dp6" /></i></a>
                 </li>
                 <li class="add-filter active-filter">
                     <i class="material-icons center-align">
-                        <a class="add-filter" href="#">
-                            <img src="img/filter-add.svg" id="add-filter" />
-                        </a>
+                      <a class="add-filter" href="#">
+                        <img src="img/filter-add.svg" id="add-filter" />
+                      </a>
                     </i>
                     <i class="material-icons center-align not-hide " style="display: inline-block">
-                        <a class="ok" href="#">
-                            check_circle
-                        </a>
+                      <a class="ok" href="#">
+                        check_circle
+                      </a>
                     </i>
                     <i class="material-icons center-align not-hide " style="display: inline-block">
-                        <a class="warn" href="#">
-                            warning
-                        </a>
-                    </i>
+                      <a class="warn" href="#">
+                        warning
+            </a>
+          </i>
                     <i class="material-icons center-align not-hide " style="display: inline-block">
-                        <a class="error" href="#">
-                            error
-                        </a>
-                    </i>
+            <a class="error" href="#">
+              error
+            </a>
+          </i>
                     <i class="material-icons center-align clear clear-report not-hide ">
-                        <a class="clear-filter" title="Clear Filters" href="#" id="remove-filter" >
-                            clear_all
-                        </a>
-                    </i>
+            <a class="clear-filter" title="Clear Filters" href="#" id="remove-filter">
+              clear_all
+            </a>
+          </i>
                 </li>
                 <li>
                     <i class="material-icons center-align">
-                            <a class="clear-report" title="Clear Report" href="#">delete</a>
-                    </i>
+            <a class="clear-report" title="Clear Report" href="#">delete</a>
+          </i>
                 </li>
                 <li>
                     <i class="material-icons center-align"><a class="modal-trigger" href="#modal-upload-file">file_upload</a></i>
-                </li>
-                <li>
-                    <i class="material-icons center-align"><a class="modal-trigger" href="#modal-create-schema"
-          id="ludwigBtn">create</a></i>
                 </li>
                 <li id="export" class="hide">
                     <i class="material-icons center-align"><a href="#">file_download</a></i>
@@ -86,31 +82,6 @@
     <section id="panel">
         <div id="logs">
             <div id="log-header">
-                <!-- <table id="logo-table">
-					<tr class="logo-row">
-						<td class="logo-data logo-image"><img src="./icons/icon48.png" class="logo"></td>
-						<td class="logo-data logo-text"><span class="logo-title">Roger Watcher - Bowser Jr</span></td>
-					</tr>
-					<tr class="logo-row">
-						<td class="logo-data logo-image"><img src="./img/bowser-btn-img.png" class="logo"></td>
-						<td class="logo-data logo-text"><span class="logo-title">DataLayer Validation Result</span></td>
-					</tr>
-				</table>
-
-				<table id="header-info">
-					<tr class="info-row">
-						<td class="info-data page-url page-field">Domain: </td>
-						<td class="info-data page-url page-info"></td>
-					</tr>
-					<tr class="info-row">
-						<td class="info-data browser browser-field">Browser: </td>
-						<td class="info-data browser browser-info"></td>
-					</tr>
-					<tr class="info-row">
-						<td class="info-data validation-date date-field">Validation Date: </td>
-						<td class="info-data validation-date date-info"></td>
-					</tr>
-				</table> -->
 
                 <table id="count-table">
                     <tr class="count-row">
@@ -139,19 +110,12 @@
                     <div class="row center-align">
                         <form class="col s12 m12 l12">
                             <div class="row">
-                                <!-- <div class="input-field col s12">
-                <input type="text" id="autocomplete-input" class="autocomplete">
-                <label for="autocomplete-input">Autocomplete</label>
-              </div> -->
-
                                 <div class="input-field col s12 m12 l6">
                                     <input placeholder="Insert name of data layer" id="inputDataLayerName" type="text" class="autocomplete">
-                                    <!-- <label for="first_name">Data Layer Name</label> -->
                                 </div>
 
                                 <div class="input-field col s12 m12 l6">
                                     <input placeholder="Insert site URL" id="inputUrl" type="text" class="autocomplete">
-                                    <!-- <label for="first_name">Data Layer Name</label> -->
                                 </div>
 
                                 <div class="input-field col s12 m12 l6">
@@ -170,7 +134,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <a href="#!" class="modal-close orange-text text-darken-2 orange lighten-5 btn"><i class="material-icons left">close</i>Close</a>
+                    <a href="#!" class="modal-close orange-text text-darken-2 orange lighten-5 btn"><i
+              class="material-icons left">close</i>Close</a>
                     <a href="#modal-validating" class="modal-close modal-trigger waves-effect orange-text text-darken-2 orange lighten-5 btn waves-orange disabled" id="startTest"><i class="material-icons left">play_arrow</i>Start</a>
                 </div>
             </div>
@@ -185,83 +150,13 @@
                 </div>
                 <div class="modal-footer center-align">
                     <!-- <a href="#!" class="modal-close orange-text text-darken-2 orange lighten-5 btn"><i class="material-icons left">close</i>Cancel</a> -->
-                    <a href="#!" class="modal-close waves-effect orange-text text-darken-2 orange lighten-5 btn waves-orange" id="stopTest"><i class="material-icons left">stop</i>Stop</a> </div>
-            </div>
-            <div id="modal-create-schema" class="modal">
-
-                <!-- Modal content -->
-                <div class="modal-content">
-                    <!-- Ludwig -->
-                    <div id="ludwig">
-                        <h5 class="title-ludwig">DataLayer Generator</h1>
-
-                            <a class="waves-effect waves-light btn-small" id="add-event"><i class="material-icons right">add_circle</i>Add Event</a>
-
-                            <br>
-
-                            <div class="input-field col s12">
-                                <select name="type" id="type">
-                          <option value="object">Object</option>
-                          <option value="array">Array</option>
-                          <option value="string">String</option>
-                          <option value="boolean">Boolean</option>
-                          <option value="number">Number</option>
-                      </select>
-                            </div>
-
-
-                            <input placeholder="Key Name" type="text" name="key-name" id="key-name">
-
-                            <br>
-
-                            <div class="input-field col s12">
-                                <select name="validation" id="validation" disabled=true>
-                          <option value="equals">equals</option>
-                          <option value="regex-match">regex_match</option>
-                      </select>
-                            </div>
-
-
-                            <input placeholder="Condition" type="text" name="condition" id="condition" disabled=true>
-
-
-                            <br>
-
-                            <div class="input-field col s12">
-                                <select id="mode">
-                          <option value="required">Required</option>
-                          <option value="non-required">Non Required</option>
-                      </select>
-                            </div>
-
-                            <br>
-
-                            <a class="waves-effect waves-light btn-small" id="confirm"><i class="material-icons ">check</i></a>
-                            <a class="waves-effect waves-light btn-small" id="end"><i class="material-icons ">clear</i></a>
-
-                            <br>
-
-                            <div class="input-field col s12" id="schema">
-                                <select id="properties">
-                          <option value="Select an Object">Select an Object</option>
-                      </select>
-                            </div>
-
-
-                            <br>
-
-                            <a class="waves-effect waves-light btn-small" id="export-json"><i class="material-icons ">check</i>Export JSON</a>
-                            <a class="waves-effect waves-light btn-small" id="use-in-page"><i class="material-icons ">clear</i>Use JSON</a>
-                    </div>
-                    <!-- Ludwig -->
+                    <a href="#!" class="modal-close waves-effect orange-text text-darken-2 orange lighten-5 btn waves-orange" id="stopTest"><i class="material-icons left">stop</i>Stop</a>
                 </div>
-                <!-- Modal content -->
-
             </div>
         </div>
         </div>
 
-        <!-- @dev-jsbowser -->
+        <!-- @dev-jspenguinDataLayer -->
         <script type="text/javascript" src="js/materialize.min.js"></script>
         <script type="text/javascript" src="js/materialize.min.js"></script>
         <script type="module" src="js/jquery.js"></script>
@@ -269,9 +164,9 @@
         <script type="module" src="js/rules.js"></script>
         <script type="module" src="js/ludwig.js"></script>
         <script type="module" src="js/eventos.js"></script>
-        <!-- <script type="module" src="js/tagueamentoBowser.js"></script>     -->
-        <script type="module" src="js/bowserjr.js"></script>
-        <!-- dev-jsbowser@ -->
+        <!-- <script type="module" src="js/tagueamentoAnalyticsWatcher.js"></script>     -->
+        <script type="module" src="js/penguinDataLayer.js"></script>
+        <!-- dev-jspenguinDataLayer@ -->
 </body>
 
 </html>

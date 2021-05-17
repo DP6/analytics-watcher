@@ -1,19 +1,19 @@
 import validateObject from './ajv.js';
 // import jsPDF from './jspdf.min.js';
 
-window.bowserjr = {};
-window.bowserjr.dataLayer = [];
-window.bowserjr.result = [];
-window.bowserjr.resultExport = [];
-window.bowserjr.resultWithoutObject = [];
-window.bowserjr.resultWithoutObjectExport = [];
-window.bowserjr.count = {
+window.penguinDataLayer = {};
+window.penguinDataLayer.dataLayer = [];
+window.penguinDataLayer.result = [];
+window.penguinDataLayer.resultExport = [];
+window.penguinDataLayer.resultWithoutObject = [];
+window.penguinDataLayer.resultWithoutObjectExport = [];
+window.penguinDataLayer.count = {
     successful: 0,
     error: 0,
     warning: 0,
 };
-window.bowserjr.validateObject = validateObject;
-// window.bowserjr.buttonExport ? console.log('Yay! BowserJR Loaded!') : console.log("BowserJR didn't load :'( ");
+window.penguinDataLayer.validateObject = validateObject;
+// window.penguinDataLayer.buttonExport ? console.log('Yay! penguinDataLayer Loaded!') : console.log("penguinDataLayer didn't load :'( ");
 
 M.AutoInit();
 
@@ -26,9 +26,8 @@ var instances = M.Autocomplete.init(elems, {
     },
 });
 
-
-window.bowserjr.file;
-window.bowserjr.export = [];
+window.penguinDataLayer.file;
+window.penguinDataLayer.export = [];
 
 const statusImg = {
     'label ok': 'check_circle',
@@ -38,9 +37,12 @@ const statusImg = {
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     if (request.message == 'accepted') {
-        window.bowserjr.validateObject(window.bowserjr.file, request.datalayer_object);
-        window.bowserjr.dataLayer.push(request.datalayer_object);
-        window.bowserjr.pageUrl = request.url;
+        window.penguinDataLayer.validateObject(
+            window.penguinDataLayer.file,
+            request.datalayer_object
+        );
+        window.penguinDataLayer.dataLayer.push(request.datalayer_object);
+        window.penguinDataLayer.pageUrl = request.url;
     }
 });
 
@@ -48,13 +50,12 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 const inputJSONFile = document.getElementById('inputFile');
 const inputJSONText = document.querySelector('.file-path-wrapper input');
 const inputDataLayerName = document.getElementById('inputDataLayerName');
-const btnStartBowser = document.getElementById('startTest');
-const btnStopBowser = document.getElementById('stopTest');
+const btnStartPenguinDataLayer = document.getElementById('startTest');
+const btnStopPenguinDataLayer = document.getElementById('stopTest');
 const btnExportLogs = document.getElementById('export');
 const btnLudwig = document.getElementById('ludwigBtn');
 const btnClearReport = document.querySelector('.clear-report');
 const urlToVerify = document.querySelector('#inputUrl');
-
 
 const validationDate = document.querySelector('.date-info');
 const successfulData = document.querySelector('#successful-data');
@@ -76,10 +77,13 @@ inputDataLayerName.addEventListener(
     'change',
     function() {
         if (inputJSONText.value !== '') {
-            btnStartBowser.setAttribute('class', 'modal-close modal-trigger waves-effect orange-text text-darken-2 orange lighten-5 btn waves-orange');
+            btnStartPenguinDataLayer.setAttribute(
+                'class',
+                'modal-close modal-trigger waves-effect orange-text text-darken-2 orange lighten-5 btn waves-orange'
+            );
         }
     },
-    false,
+    false
 );
 
 // handleFiles will get the files, reader, and verify if the file is a .JSON file.
@@ -89,27 +93,32 @@ function handleFiles() {
     reader.onload = () => {
         try {
             if (inputDataLayerName.value !== '') {
-                btnStartBowser.setAttribute('class', 'modal-close modal-trigger waves-effect orange-text text-darken-2 orange lighten-5 btn waves-orange');
+                btnStartPenguinDataLayer.setAttribute(
+                    'class',
+                    'modal-close modal-trigger waves-effect orange-text text-darken-2 orange lighten-5 btn waves-orange'
+                );
             }
-            window.bowserjr.file = JSON.parse(reader.result);
+            window.penguinDataLayer.file = JSON.parse(reader.result);
         } catch {
             // alert('Select a JSON file to proceed!');
-            btnStartBowser.setAttribute('class', 'modal-close modal-trigger waves-effect orange-text text-darken-2 orange lighten-5 btn waves-orange disabled');
+            btnStartPenguinDataLayer.setAttribute(
+                'class',
+                'modal-close modal-trigger waves-effect orange-text text-darken-2 orange lighten-5 btn waves-orange disabled'
+            );
         }
     };
 }
 
-
-btnStartBowser.onclick = () => {
+btnStartPenguinDataLayer.onclick = () => {
     // Verify if the file exist.
 
-    if (window.bowserjr.file) {
+    if (window.penguinDataLayer.file) {
         //Chrome runtime methods
         let tabId;
         chrome.tabs.query({ active: true }, function(tabs) {
             console.log(tabs);
 
-            tabs.forEach(tab => {
+            tabs.forEach((tab) => {
                 if (tab.url.includes(urlToVerify.value)) {
                     tabId = tab.id;
                     console.log(tab);
@@ -117,29 +126,33 @@ btnStartBowser.onclick = () => {
             });
 
             chrome.tabs.executeScript(tabId, {
-                file: 'js/bowserContentScript.js',
+                file: 'js/penguinDataLayerContentScript.js',
             });
             // console.log('Executed contentScript');
         });
         setTimeout(function() {
             // console.log(tabId);
             chrome.runtime.sendMessage({
-                    message: 'background_bowser_script',
+                    message: 'background_penguindatalayer_script',
                     dataLayerName: inputDataLayerName.value,
                     tabID: tabId,
                 },
                 function(response) {
                     if (response.message == 'teste_ok') {
                         var data = new Date();
-                        validationDate.innerHTML = data.getDate() + '/' + (data.getMonth() + 1) + '/' + data.getFullYear();
+                        validationDate.innerHTML =
+                            data.getDate() +
+                            '/' +
+                            (data.getMonth() + 1) +
+                            '/' +
+                            data.getFullYear();
                     }
-                },
+                }
             );
-        }, 1000)
+        }, 1000);
 
-
-        btnStartBowser.disabled = true;
-        btnStopBowser.disabled = false;
+        btnStartPenguinDataLayer.disabled = true;
+        btnStopPenguinDataLayer.disabled = false;
     } else {
         alert('Carregue o schema antes de iniciar a validação.');
     }
@@ -153,28 +166,38 @@ btnClearReport.onclick = () => {
     document.querySelector('#export').setAttribute('class', 'hide');
 };
 
-btnStopBowser.onclick = () => {
+btnStopPenguinDataLayer.onclick = () => {
     /* Set domain. */
-    // pageURL.innerHTML = window.bowserjr.pageUrl;
+    // pageURL.innerHTML = window.penguinDataLayer.pageUrl;
     validateObject(window.file, {});
-    btnStopBowser.disabled = true;
-    window.bowserjr.resultExport = window.bowserjr.resultExport.concat(window.bowserjr.result);
-    window.bowserjr.resultWithoutObjectExport = window.bowserjr.resultWithoutObjectExport.concat(window.bowserjr.resultWithoutObject);
+    btnStopPenguinDataLayer.disabled = true;
+    window.penguinDataLayer.resultExport = window.penguinDataLayer.resultExport.concat(
+        window.penguinDataLayer.result
+    );
+    window.penguinDataLayer.resultWithoutObjectExport = window.penguinDataLayer.resultWithoutObjectExport.concat(
+        window.penguinDataLayer.resultWithoutObject
+    );
 
     const divLogs = document.getElementById('logs');
 
     let divTrackHistory = document.createElement('ul');
-    divTrackHistory.setAttribute('class', 'collapsible expandable track history-change');
+    divTrackHistory.setAttribute(
+        'class',
+        'collapsible expandable track history-change'
+    );
 
     let urlList = document.createElement('li');
     urlList.setAttribute('class', 'active');
 
     let collapsibleHeader = document.createElement('div');
-    collapsibleHeader.setAttribute('class', 'collapsible-header valign-wrapper historyChange');
+    collapsibleHeader.setAttribute(
+        'class',
+        'collapsible-header valign-wrapper historyChange'
+    );
 
     let paragraphyHeader = document.createElement('p');
     paragraphyHeader.setAttribute('class', 'truncate');
-    paragraphyHeader.textContent = window.bowserjr.pageUrl;
+    paragraphyHeader.textContent = window.penguinDataLayer.pageUrl;
 
     let iconWeb = document.createElement('i');
     iconWeb.setAttribute('class', 'web-icon material-icons');
@@ -189,9 +212,9 @@ btnStopBowser.onclick = () => {
     collapsibleHeader.appendChild(iconWeb);
     urlList.appendChild(collapsibleBody);
 
-    for (let i = 0; i < window.bowserjr.result.length; i++) {
-        let message = window.bowserjr.result[i];
-        let messageWithoutObject = window.bowserjr.resultWithoutObject[i];
+    for (let i = 0; i < window.penguinDataLayer.result.length; i++) {
+        let message = window.penguinDataLayer.result[i];
+        let messageWithoutObject = window.penguinDataLayer.resultWithoutObject[i];
 
         let paragraphy = document.createElement('div');
         paragraphy.setAttribute('class', 'content');
@@ -234,7 +257,7 @@ btnStopBowser.onclick = () => {
             hitType.textContent = statusImg[labelType];
             label.setAttribute('class', labelType);
             collapsibleBody.appendChild(divTrack);
-            divTrack.setAttribute('class', 'collapsible expandable track ' + type)
+            divTrack.setAttribute('class', 'collapsible expandable track ' + type);
             divTrack.appendChild(label);
             divTrack.appendChild(divList);
             divList.appendChild(divQsWrapper);
@@ -246,13 +269,13 @@ btnStopBowser.onclick = () => {
         }
 
         if (message.includes('Validated Successfully')) {
-            window.bowserjr.count.successful++;
+            window.penguinDataLayer.count.successful++;
             creatingLabels('ok', 'label ok', 'track pageview', sectionSucessfuly);
         } else if (message.includes('ERROR')) {
-            window.bowserjr.count.error++;
+            window.penguinDataLayer.count.error++;
             creatingLabels('error', 'label error', 'track erro', sectionErro);
         } else {
-            window.bowserjr.count.warning++;
+            window.penguinDataLayer.count.warning++;
             creatingLabels('warn', 'label warn', 'track exception', sectionErro);
         }
 
@@ -271,10 +294,16 @@ btnStopBowser.onclick = () => {
                 if (Array.isArray(event[key]) || typeof event[key] == 'object') {
                     valueCount++;
                 } else if (typeof event[key] == 'number') {
-                    if (message.includes(`"${key}":${event[key]},`) || message.includes(`"${key}":${event[key]}}`)) {
+                    if (
+                        message.includes(`"${key}":${event[key]},`) ||
+                        message.includes(`"${key}":${event[key]}}`)
+                    ) {
                         valueCount++;
                     }
-                } else if (message.includes(`"${key}":"${event[key]}",`) || message.includes(`"${key}":"${event[key]}"}`)) {
+                } else if (
+                    message.includes(`"${key}":"${event[key]}",`) ||
+                    message.includes(`"${key}":"${event[key]}"}`)
+                ) {
                     valueCount++;
                 }
             });
@@ -283,14 +312,20 @@ btnStopBowser.onclick = () => {
             if (eventKeys.length == keyCount && eventKeys.length == valueCount) {
                 eventKeys.forEach((key) => {
                     let tableLine = document.createElement('tr');
-                    if (message.includes('WARNING') && messageWithoutObject.includes(key)) {
+                    if (
+                        message.includes('WARNING') &&
+                        messageWithoutObject.includes(key)
+                    ) {
                         /* Paint the property that has the incorrect value. */
                         tableLine.setAttribute('id', 'warning');
                     }
 
                     let tableKey = document.createElement('td');
                     tableKey.setAttribute('class', 'key');
-                    let keyText = index || index === 0 ? `${objName}[${index}].${key}` : `${objName}.${key}`;
+                    let keyText =
+                        index || index === 0 ?
+                        `${objName}[${index}].${key}` :
+                        `${objName}.${key}`;
                     tableKey.appendChild(document.createTextNode(keyText));
                     tableLine.appendChild(tableKey); // Write the Key in the line
 
@@ -335,22 +370,22 @@ btnStopBowser.onclick = () => {
         }
 
         /* For each message generated by ajv.js, we will make a verify with the events in dataLayer. */
-        for (let index in window.bowserjr.dataLayer) {
+        for (let index in window.penguinDataLayer.dataLayer) {
             /* If the message matches an event, the function treatment returns true and gets out the for. */
-            if (treatment(window.bowserjr.dataLayer[index], '')) break;
+            if (treatment(window.penguinDataLayer.dataLayer[index], '')) break;
         }
     }
 
-    window.bowserjr.file = false;
+    window.penguinDataLayer.file = false;
     inputJSONFile.value = '';
 
-    successfulData.innerHTML = window.bowserjr.count.successful;
-    warningData.innerHTML = window.bowserjr.count.warning;
-    errorData.innerHTML = window.bowserjr.count.error;
+    successfulData.innerHTML = window.penguinDataLayer.count.successful;
+    warningData.innerHTML = window.penguinDataLayer.count.warning;
+    errorData.innerHTML = window.penguinDataLayer.count.error;
 
-    window.bowserjr.dataLayer = [];
-    window.bowserjr.result = [];
-    window.bowserjr.resultWithoutObject = [];
+    window.penguinDataLayer.dataLayer = [];
+    window.penguinDataLayer.result = [];
+    window.penguinDataLayer.resultWithoutObject = [];
 
     var elem = document.querySelectorAll('.collapsible.expandable');
     var instance = M.Collapsible.init(elem, {
@@ -362,95 +397,47 @@ btnStopBowser.onclick = () => {
     inputDataLayerName.value = '';
     inputJSONText.value = '';
 
-    btnStartBowser.setAttribute('class', 'modal-close modal-trigger waves-effect orange-text text-darken-2 orange lighten-5 btn waves-orange disabled');
+    btnStartPenguinDataLayer.setAttribute(
+        'class',
+        'modal-close modal-trigger waves-effect orange-text text-darken-2 orange lighten-5 btn waves-orange disabled'
+    );
     document.querySelector('#export').setAttribute('class', '');
 };
 
 let fullResult = [];
 
-btnExportLogs.addEventListener("click", () => {
+btnExportLogs.addEventListener('click', () => {
     let filename = `results_${new Date().getTime()}.xlsx`;
 
-    fullResult.push([`Contador: ${JSON.stringify(window.bowserjr.count).split(",").join(" ")}\n\n`]);
+    fullResult.push([
+        `Contador: ${JSON.stringify(window.penguinDataLayer.count)
+      .split(',')
+      .join(' ')}\n\n`,
+    ]);
 
-    window.bowserjr.resultExport.forEach((line) => {
-        let lineExport = line.split(";");
-        let lineObject = lineExport[2].split(",").join(" ");
-        fullResult.push(lineExport[0], lineExport[1], lineObject, "\n");
-        console.log("fullResult: ", fullResult);
+    window.penguinDataLayer.resultExport.forEach((line) => {
+        let lineExport = line.split(';');
+        let lineObject = lineExport[2].split(',').join(' ');
+        fullResult.push(lineExport[0], lineExport[1], lineObject, '\n');
+        console.log('fullResult: ', fullResult);
     });
 
-    let a = document.createElement("a");
+    let a = document.createElement('a');
 
     document.body.appendChild(a);
 
-    a.style = "display: none";
+    a.style = 'display: none';
 
-    let blob = new Blob([fullResult], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;" }),
+    let blob = new Blob([fullResult], {
+            type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;',
+        }),
         url = window.URL.createObjectURL(blob);
 
     a.href = url;
     a.download = filename;
     a.click();
     window.URL.revokeObjectURL(url);
-
 });
-
-// btnExportLogs.onclick = async() => {
-//     var arrayURLImg = [];
-//     var header;
-//     const tracks = $('.track');
-//     const contentTracks = $('.qsWrapper');
-
-//     for (var i = 0; i < contentTracks.length; i++) {
-//         contentTracks[i].style = 'display: inline';
-//     }
-
-//     await html2canvas(headerDOM).then(function(canvas) {
-//         header = canvas.toDataURL('image/png');
-//     });
-
-//     for (var i = 0; i < tracks.length; i++) {
-//         await html2canvas(tracks[i]).then(function(canvas) {
-//             arrayURLImg.push(canvas.toDataURL('image/png'));
-//         });
-//     }
-
-//     createPDF(arrayURLImg, header, tracks);
-
-//     doc = new jsPDF();
-
-//     for (var i = 0; i < contentTracks.length; i++) {
-//         contentTracks[i].style = 'display: none';
-//     }
-// };
-
-// const createPDF = (arrayURLImgTracks, headerURLImg, tracks) => {
-//     var pageSize = 267;
-
-//     for (var i = 0; i < tracks.length; i++) {
-//         var currImageSize = tracks[i].offsetHeight * 0.25;
-//         var currImage = arrayURLImgTracks[i];
-
-//         if (i === 0 && currImageSize <= pageSize) {
-//             addImageJSPDF(headerURLImg, 5, 40);
-//             addImageJSPDF(currImage, 50, currImageSize);
-//         } else if (accSizeContent + currImageSize < pageSize) {
-//             addImageJSPDF(currImage, accSizeContent + 5, currImageSize);
-//         } else {
-//             doc.addPage();
-//             addImageJSPDF(currImage, 5, currImageSize);
-//             accSizeContent = currImageSize;
-//         }
-//     }
-
-//     doc.save('BowserJR. - ' + today + '.pdf');
-// };
-
-// const addImageJSPDF = (img, verticalPosition, height) => {
-//     doc.addImage(img, 'JPEG', 5, verticalPosition, 300, height, null, 'FAST', 180);
-//     accSizeContent += height;
-// };
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = (event) => {

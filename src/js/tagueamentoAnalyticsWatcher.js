@@ -1,5 +1,4 @@
 import RW from './script.js';
-
 class Tracker {
     constructor(id) {
         this.id = id;
@@ -41,9 +40,9 @@ class Tracker {
             v: 1,
             tid: this.id,
             an: 'Analytics Watcher',
-            aid: 'com.dp6.analyticswatcher.penguindatalayer',
+            aid: 'com.dp6.analyticswatcher',
             av: RW.info.version,
-            cd: 'Penguin DataLayer',
+            cd: 'Panel',
             cid: this.cid,
             de: document.characterSet,
             ds: 'app',
@@ -56,7 +55,7 @@ class Tracker {
             ...params,
             z: new Date() | 0,
         });
-        navigator.sendBeacon('https://www.google-analytics.com/collect', payload);
+        navigator.sendBeacon('https://www.google-analytics.com/collect?', payload);
     }
     screenview(cd) {
         const extra = cd ? {} : { cd };
@@ -84,9 +83,13 @@ class Tracker {
 
 const ga = new Tracker('UA-3635138-29');
 ga.init();
-ga.screenview('Penguin DataLayer');
+ga.screenview();
 
 jQuery('#logo').mousedown(() => ga.event('Cabeçalho', 'Clique', 'Logo'));
+
+jQuery('#bowser-btn').on('click', () => {
+    ga.event('Cabeçalho', 'Clique', 'Penguin DataLayer');
+});
 
 jQuery('.filter').on('click', 'a', function() {
     const isChecked = this.closest('li').classList.contains('checked');
@@ -98,30 +101,25 @@ jQuery('.clear-filter').on('click', () =>
     ga.event('Cabeçalho', 'Limpar Filtros', 'Limpar Filtros')
 );
 
-jQuery('#inputFileLabel').on('click', () =>
-    ga.event('Cabeçalho', 'Clique', 'Upload Schema')
-);
+jQuery('.clear-report').on('click', () => {
+    ga.event('Cabeçalho', 'Limpar Relatório', 'Limpar Relatório');
+});
 
-jQuery('#ludwigBtn').on('click', () =>
-    ga.event('Cabeçalho', 'Clique', 'Criar Schema')
-);
+jQuery('#busca').on('change', function() {
+    if (!this.value) return;
+    ga.event('Cabeçalho', 'Busca', 'Busca');
+});
 
-jQuery('#startTest').on('click', () =>
-    ga.event('Cabeçalho', 'Clique', 'Iniciar Penguin DataLayer')
-);
+RW.panel.on('click', '.track', function() {
+    ga.event('Disparos', 'Detalhes', this.classList[1]);
+});
 
-jQuery('#stopTest').on('click', () =>
-    ga.event('Cabeçalho', 'Clique', 'Finalizar Penguin DataLayer')
-);
+RW.panel.on('click', '.delete', function() {
+    const track = this.closest('.track');
+    ga.event('Disparos', 'Exclusão', track.classList[1]);
+});
 
-jQuery('#export').on('click', () =>
-    ga.event('Cabeçalho', 'Clique', 'Exportar Logs')
-);
-
-jQuery('#export-json').on('click', () =>
-    ga.event('Ludwig', 'Clique', 'Exportar Schema')
-);
-
-jQuery('#use-in-page').on('click', () =>
-    ga.event('Ludwig', 'Clique', 'Usar Schema')
-);
+window.onbeforeunload = function() {
+    const time = (performance.now() / 1000) | 0;
+    ga.timing('Utilização', 'Tempo de Uso', time, time + 's');
+};

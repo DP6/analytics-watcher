@@ -3,7 +3,7 @@ import './ajv.min.js';
 
 // let Ajv = require("ajv");
 let ajv = new Ajv({
-    schemaId: "auto",
+    schemaId: 'auto',
     allErrors: true,
     verbose: true,
     ownProperties: true,
@@ -13,7 +13,7 @@ let validateObject = (schema, obj, filename) => {
     //let logsArray = [];
     //let items = schema.array.items;
     let objTreated = false;
-    let items = window.bowserjr.file.array.items;
+    let items = window.penguinDataLayer.file.array.items;
 
     let isSchemaEmpty = items.length === 0;
     let isObjEmpty =
@@ -39,8 +39,12 @@ let validateObject = (schema, obj, filename) => {
             if (valid) {
                 // saveLog(filename, "OK", "Validated Successfully", JSON.stringify(obj));
 
-                window.bowserjr.result.push(`OK;Validated Successfully;${JSON.stringify(obj)}`);
-                window.bowserjr.resultWithoutObject.push("OK, Validated Successfully");
+                window.penguinDataLayer.result.push(
+                    `OK;Validated Successfully;${JSON.stringify(obj)}`
+                );
+                window.penguinDataLayer.resultWithoutObject.push(
+                    'OK, Validated Successfully'
+                );
 
                 //items.forEach((item)=>{console.log(item);})
                 items.splice(index, 1);
@@ -61,39 +65,48 @@ let validateObject = (schema, obj, filename) => {
     ) => {
         let tempObj = JSON.parse(JSON.stringify(obj));
         const innerSchema = JSON.parse(JSON.stringify(shadowSchema)); //ajustei o innerSchema pra receber o objeto como uma nova instância, e não por referência
-        let verify_required = Object.keys(innerSchema).indexOf("required"); //Verifica se existe required dentro do innerSchema
+        let verify_required = Object.keys(innerSchema).indexOf('required'); //Verifica se existe required dentro do innerSchema
         //console.log(JSON.parse(JSON.stringify(shadowSchema)))
 
         //console.log(innerSchema)
 
-
         if (verify_required == -1) {
-
             let found = innerSchema.contains.required.indexOf(
                 errorMessage.params.missingProperty
             );
             //console.log(found)
-            if (found > -1) { //e caso o valor seja encontrado
+            if (found > -1) {
+                //e caso o valor seja encontrado
                 /* if (Object.keys(tempObj).length > 1) {
-                   dlObjProperty = Object.keys(tempObj)[1];
-                 } else {
-                   dlObjProperty = Object.keys(tempObj)[0];
-                 }*/
+                           dlObjProperty = Object.keys(tempObj)[1];
+                         } else {
+                           dlObjProperty = Object.keys(tempObj)[0];
+                         }*/
                 dlObjProperty = errorMessage.params.missingProperty;
 
-                innerSchema.contains.required = innerSchema.contains.required.filter(keyword => keyword === dlObjProperty); //Então agora ele passa a remover do required todas as propriedades que não são iguais à que está dentro do tempObj
+                innerSchema.contains.required = innerSchema.contains.required.filter(
+                    (keyword) => keyword === dlObjProperty
+                ); //Então agora ele passa a remover do required todas as propriedades que não são iguais à que está dentro do tempObj
 
                 for (let prop in innerSchema.contains.properties) {
-
-                    if (prop !== dlObjProperty) { delete innerSchema.contains.properties[prop] }; //e faz o mesmo com as propriedades do schema pra igualar e deixar ele somente com o que precisa ser validado
-
+                    if (prop !== dlObjProperty) {
+                        delete innerSchema.contains.properties[prop];
+                    } //e faz o mesmo com as propriedades do schema pra igualar e deixar ele somente com o que precisa ser validado
                 }
 
-                let isInnerSchemaEmpty = Object.entries(innerSchema.contains.properties).length === 0 && obj.constructor === Object; //um safe check pra garantir que o objeto não ficou vazio
+                let isInnerSchemaEmpty =
+                    Object.entries(innerSchema.contains.properties).length === 0 &&
+                    obj.constructor === Object; //um safe check pra garantir que o objeto não ficou vazio
 
-
-
-                if ((innerSchema.contains.required.length > 0 && !isInnerSchemaEmpty) && /*ajv.validate(innerSchema, tempObj) &&*/ Object.keys(innerSchema.contains.properties)[0] !== "event") { //essa validação tava cagada pq ele tava validando o event no nível de base e fodendo com a porra toda. Isso ainda pode ser um problema mais pra frente se alguém 
+                if (
+                    innerSchema.contains.required.length > 0 &&
+                    !isInnerSchemaEmpty &&
+                    /*ajv.validate(innerSchema, tempObj) &&*/
+                    Object.keys(
+                        innerSchema.contains.properties
+                    )[0] !== 'event'
+                ) {
+                    //essa validação tava cagada pq ele tava validando o event no nível de base e fodendo com a porra toda. Isso ainda pode ser um problema mais pra frente se alguém
                     // saveLog(
                     //     filename,
                     //     "ERROR",
@@ -101,28 +114,41 @@ let validateObject = (schema, obj, filename) => {
                     //     JSON.stringify(dlObj)
                     // );
 
-                    window.bowserjr.result.push(`ERROR;Hit "${errorMessage.dataPath}" sent without the following property: ${errorMessage.params.missingProperty};${JSON.stringify(dlObj)}`);
-                    window.bowserjr.resultWithoutObject.push("ERROR, " + `Hit "${errorMessage.dataPath}" sent without the following property: ${errorMessage.params.missingProperty} `);
+                    window.penguinDataLayer.result.push(
+                        `ERROR;Hit "${
+              errorMessage.dataPath
+            }" sent without the following property: ${
+              errorMessage.params.missingProperty
+            };${JSON.stringify(dlObj)}`
+                    );
+                    window.penguinDataLayer.resultWithoutObject.push(
+                        'ERROR, ' +
+                        `Hit "${errorMessage.dataPath}" sent without the following property: ${errorMessage.params.missingProperty} `
+                    );
 
                     try {
-                        let schemaItemKeys = Object.keys(schemaArray[schemaIndex].properties);
+                        let schemaItemKeys = Object.keys(
+                            schemaArray[schemaIndex].properties
+                        );
                         if (errorMessage.dataPath.indexOf(schemaItemKeys[1]) > -1) {
-                            if (errorMessage.dataPath.indexOf("[0]") > -1) {
+                            if (errorMessage.dataPath.indexOf('[0]') > -1) {
                                 schemaArray.splice(schemaIndex, 1);
-                                objTreated = true
+                                objTreated = true;
                             }
-                        };
+                        }
                     } catch {
-                        console.log("Objeto " + errorMessage.dataPath + " já teve seu erro tratado!!")
+                        console.log(
+                            'Objeto ' + errorMessage.dataPath + ' já teve seu erro tratado!!'
+                        );
                     }
                 }
             } else {
                 for (prop in innerSchema.properties) {
                     if (
                         tempObj[prop] &&
-                        typeof tempObj[prop] !== "string" &&
-                        typeof tempObj[prop] !== "number" &&
-                        typeof tempObj[prop] !== "array"
+                        typeof tempObj[prop] !== 'string' &&
+                        typeof tempObj[prop] !== 'number' &&
+                        typeof tempObj[prop] !== 'array'
                     ) {
                         let schemaProps = innerSchema.properties[prop];
                         revalidateSchema(
@@ -143,7 +169,8 @@ let validateObject = (schema, obj, filename) => {
             ); //ainda mantive esse laço que checa se o schema interno tem a propriedade descrita na mensagem de erro filtrada
             //console.log(errorMessage.params.missingProperty);
             //console.log(found)
-            if (found > -1) { //e caso o valor seja encontrado
+            if (found > -1) {
+                //e caso o valor seja encontrado
                 if (Object.keys(tempObj).length > 1) {
                     var dlObjProperty = Object.keys(tempObj)[1];
                 } else {
@@ -151,14 +178,28 @@ let validateObject = (schema, obj, filename) => {
                 }
                 //console.log(dlObjProperty);
                 //console.log(innerSchema.required);
-                innerSchema.required = innerSchema.required.filter(keyword => keyword === dlObjProperty); //Então agora ele passa a remover do required todas as propriedades que não são iguais à que está dentro do tempObj
+                innerSchema.required = innerSchema.required.filter(
+                    (keyword) => keyword === dlObjProperty
+                ); //Então agora ele passa a remover do required todas as propriedades que não são iguais à que está dentro do tempObj
                 //console.log(innerSchema);
                 for (let prop in innerSchema.properties) {
-                    if (prop !== dlObjProperty) { delete innerSchema.properties[prop] }; //e faz o mesmo com as propriedades do schema pra igualar e deixar ele somente com o que precisa ser validado
+                    if (prop !== dlObjProperty) {
+                        delete innerSchema.properties[prop];
+                    } //e faz o mesmo com as propriedades do schema pra igualar e deixar ele somente com o que precisa ser validado
                 }
-                let isInnerSchemaEmpty = Object.entries(innerSchema.properties).length === 0 && obj.constructor === Object; //um safe check pra garantir que o objeto não ficou vazio
+                let isInnerSchemaEmpty =
+                    Object.entries(innerSchema.properties).length === 0 &&
+                    obj.constructor === Object; //um safe check pra garantir que o objeto não ficou vazio
 
-                if ((innerSchema.required.length > 0 && !isInnerSchemaEmpty) && /*ajv.validate(innerSchema, tempObj) &&*/ Object.keys(innerSchema.properties)[0] !== "event") { //essa validação tava cagada pq ele tava validando o event no nível de base e fodendo com a porra toda. Isso ainda pode ser um problema mais pra frente se alguém 
+                if (
+                    innerSchema.required.length > 0 &&
+                    !isInnerSchemaEmpty &&
+                    /*ajv.validate(innerSchema, tempObj) &&*/
+                    Object.keys(
+                        innerSchema.properties
+                    )[0] !== 'event'
+                ) {
+                    //essa validação tava cagada pq ele tava validando o event no nível de base e fodendo com a porra toda. Isso ainda pode ser um problema mais pra frente se alguém
                     // saveLog(
                     //     filename,
                     //     "ERROR",
@@ -166,27 +207,39 @@ let validateObject = (schema, obj, filename) => {
                     //     JSON.stringify(dlObj)
                     // );
 
-                    window.bowserjr.result.push(`ERROR;Hit "${errorMessage.dataPath}" sent without the following property: ${errorMessage.params.missingProperty};${JSON.stringify(dlObj)}`);
-                    window.bowserjr.resultWithoutObject.push("ERROR, " + `Hit "${errorMessage.dataPath}" sent without the following property: ${errorMessage.params.missingProperty} `);
+                    window.penguinDataLayer.result.push(
+                        `ERROR;Hit "${
+              errorMessage.dataPath
+            }" sent without the following property: ${
+              errorMessage.params.missingProperty
+            };${JSON.stringify(dlObj)}`
+                    );
+                    window.penguinDataLayer.resultWithoutObject.push(
+                        'ERROR, ' +
+                        `Hit "${errorMessage.dataPath}" sent without the following property: ${errorMessage.params.missingProperty} `
+                    );
 
                     try {
-                        let schemaItemKeys = Object.keys(schemaArray[schemaIndex].properties);
+                        let schemaItemKeys = Object.keys(
+                            schemaArray[schemaIndex].properties
+                        );
                         if (errorMessage.dataPath.indexOf(schemaItemKeys[1]) > -1) {
                             schemaArray.splice(schemaIndex, 1);
-                            objTreated = true
+                            objTreated = true;
                         }
                     } catch {
-                        console.log("Objeto " + errorMessage.dataPath + " já teve seu erro tratado!!")
+                        console.log(
+                            'Objeto ' + errorMessage.dataPath + ' já teve seu erro tratado!!'
+                        );
                     }
-                };
-
+                }
             } else {
                 for (let prop in innerSchema.properties) {
                     if (
                         tempObj[prop] &&
-                        typeof tempObj[prop] !== "string" &&
-                        typeof tempObj[prop] !== "number" &&
-                        typeof tempObj[prop] !== "array"
+                        typeof tempObj[prop] !== 'string' &&
+                        typeof tempObj[prop] !== 'number' &&
+                        typeof tempObj[prop] !== 'array'
                     ) {
                         let schemaProps = innerSchema.properties[prop];
                         revalidateSchema(
@@ -212,8 +265,8 @@ let validateObject = (schema, obj, filename) => {
                 errors
                     .filter(
                         (error) =>
-                            error.schema.constructor === Object &&
-                            error.keyword === "required"
+                        error.schema.constructor === Object &&
+                        error.keyword === 'required'
                     )
                     .map((eachError) => {
                         let errorMessage = JSON.parse(JSON.stringify(eachError));
@@ -230,10 +283,15 @@ let validateObject = (schema, obj, filename) => {
                             //     JSON.stringify(obj)
                             // );
 
-                            window.bowserjr.result.push(`ERROR;Hit sent without the following property: ${errorMessage.params.missingProperty};${JSON.stringify(obj)}`);
-                            window.bowserjr.resultWithoutObject.push("ERROR, " + `Hit sent without the following property: ${errorMessage.params.missingProperty}, `);
-
-
+                            window.penguinDataLayer.result.push(
+                                `ERROR;Hit sent without the following property: ${
+                  errorMessage.params.missingProperty
+                };${JSON.stringify(obj)}`
+                            );
+                            window.penguinDataLayer.resultWithoutObject.push(
+                                'ERROR, ' +
+                                `Hit sent without the following property: ${errorMessage.params.missingProperty}, `
+                            );
                         } else {
                             revalidateSchema(
                                 shadowSchema,
@@ -256,13 +314,18 @@ let validateObject = (schema, obj, filename) => {
             let errors = ajv.errors;
             if (itemTreated) return;
             if (!valid && item.required[1] == Object.keys(obj)[1]) {
-                errors.filter((error) => {
-                    if (error.keyword == "enum" || error.keyword == "pattern" || error.keyword == "type") return error;
-                })
+                errors
+                    .filter((error) => {
+                        if (
+                            error.keyword == 'enum' ||
+                            error.keyword == 'pattern' ||
+                            error.keyword == 'type'
+                        )
+                            return error;
+                    })
                     .map((eachError) => {
                         switch (eachError.keyword) {
-
-                            case "pattern":
+                            case 'pattern':
                                 // saveLog(
                                 //     filename,
                                 //     "WARNING",
@@ -270,11 +333,20 @@ let validateObject = (schema, obj, filename) => {
                                 //     JSON.stringify(obj)
                                 // );
 
-                                window.bowserjr.result.push(`WARNING;${eachError.dataPath.replace(/^\./g, "")}" ${eachError.message}, but Hit send: "${eachError.data}";${JSON.stringify(obj)}`);
-                                window.bowserjr.resultWithoutObject.push("WARNING, " + `"${eachError.dataPath.replace(/^\./g, "")}" ${eachError.message}, but Hit send: "${eachError.data}" `);
+                                window.penguinDataLayer.result.push(
+                                    `WARNING;${eachError.dataPath.replace(/^\./g, '')}" ${
+                    eachError.message
+                  }, but Hit send: "${eachError.data}";${JSON.stringify(obj)}`
+                                );
+                                window.penguinDataLayer.resultWithoutObject.push(
+                                    'WARNING, ' +
+                                    `"${eachError.dataPath.replace(/^\./g, '')}" ${
+                      eachError.message
+                    }, but Hit send: "${eachError.data}" `
+                                );
                                 break;
 
-                            case "enum":
+                            case 'enum':
                                 // saveLog(
                                 //     filename,
                                 //     "WARNING",
@@ -282,12 +354,29 @@ let validateObject = (schema, obj, filename) => {
                                 //     JSON.stringify(obj)
                                 // );
 
-                                window.bowserjr.result.push(`WARNING;${eachError.dataPath.replace(/^\./g, "")}" ${eachError.message}: "${eachError.schema.length > 1 ? eachError.schema.join(", ") : eachError.schema[0]}", but Hit send: "${eachError.data}";${JSON.stringify(obj)}`);
-                                window.bowserjr.resultWithoutObject.push("WARNING, " + `"${eachError.dataPath.replace(/^\./g, "")}" ${eachError.message}: "${eachError.schema.length > 1 ? eachError.schema.join(", ") : eachError.schema[0]}", but Hit send: "${eachError.data}" `);
+                                window.penguinDataLayer.result.push(
+                                    `WARNING;${eachError.dataPath.replace(/^\./g, '')}" ${
+                    eachError.message
+                  }: "${
+                    eachError.schema.length > 1
+                      ? eachError.schema.join(', ')
+                      : eachError.schema[0]
+                  }", but Hit send: "${eachError.data}";${JSON.stringify(obj)}`
+                                );
+                                window.penguinDataLayer.resultWithoutObject.push(
+                                    'WARNING, ' +
+                                    `"${eachError.dataPath.replace(/^\./g, '')}" ${
+                      eachError.message
+                    }: "${
+                      eachError.schema.length > 1
+                        ? eachError.schema.join(', ')
+                        : eachError.schema[0]
+                    }", but Hit send: "${eachError.data}" `
+                                );
 
                                 break;
 
-                            case "type":
+                            case 'type':
                                 // saveLog(
                                 //     filename,
                                 //     "WARNING",
@@ -295,15 +384,22 @@ let validateObject = (schema, obj, filename) => {
                                 //     JSON.stringify(obj)
                                 // );
 
-                                window.bowserjr.result.push(`WARNING;"${eachError.dataPath.replace(/^\./g, "")}" ${eachError.message}";${JSON.stringify(obj)}`);
-                                window.bowserjr.resultWithoutObject.push("WARNING, " + `"${eachError.dataPath.replace(/^\./g, "")}" ${eachError.message}" `);
+                                window.penguinDataLayer.result.push(
+                                    `WARNING;"${eachError.dataPath.replace(/^\./g, '')}" ${
+                    eachError.message
+                  }";${JSON.stringify(obj)}`
+                                );
+                                window.penguinDataLayer.resultWithoutObject.push(
+                                    'WARNING, ' +
+                                    `"${eachError.dataPath.replace(/^\./g, '')}" ${
+                      eachError.message
+                    }" `
+                                );
 
                                 break;
 
                             default:
                                 break;
-
-
                         }
                     });
                 items.splice(index, 1);
@@ -322,10 +418,15 @@ let validateObject = (schema, obj, filename) => {
             //     JSON.stringify(event)
             // );
 
-            window.bowserjr.result.push(`ERROR;Hit not validated or missed during test;${JSON.stringify(event)}`);
-            //window.bowserjr.result.push("ERROR, " + `Hit not validated or missed during test ` + JSON.stringify(event));
-            window.bowserjr.resultWithoutObject.push("ERROR, " + `Hit not validated or missed during test, Event: ` + JSON.stringify(event.event));
-
+            window.penguinDataLayer.result.push(
+                `ERROR;Hit not validated or missed during test;${JSON.stringify(event)}`
+            );
+            //window.penguinDataLayer.result.push("ERROR, " + `Hit not validated or missed during test ` + JSON.stringify(event));
+            window.penguinDataLayer.resultWithoutObject.push(
+                'ERROR, ' +
+                `Hit not validated or missed during test, Event: ` +
+                JSON.stringify(event.event)
+            );
         });
     };
 
@@ -336,9 +437,12 @@ let validateObject = (schema, obj, filename) => {
         //     `No more items to validate`,
         //     JSON.stringify(obj)
         // );
-        window.bowserjr.result.push(`ERROR;No more items to validate;${JSON.stringify(obj)}`);
-        window.bowserjr.resultWithoutObject.push("ERROR, " + `No more items to validate `);
-
+        window.penguinDataLayer.result.push(
+            `ERROR;No more items to validate;${JSON.stringify(obj)}`
+        );
+        window.penguinDataLayer.resultWithoutObject.push(
+            'ERROR, ' + `No more items to validate `
+        );
     } else if (!checkValidEvent(items, obj) && !isObjEmpty) {
         checkMissingProperty(items, obj);
         if (!objTreated) {
@@ -348,7 +452,7 @@ let validateObject = (schema, obj, filename) => {
         checkMissingEvents(items, obj);
     }
 
-    //window.bowserjr.result.push(logsArray);
+    //window.penguinDataLayer.result.push(logsArray);
 };
 
 export default validateObject;

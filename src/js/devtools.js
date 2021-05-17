@@ -1,1 +1,6 @@
-chrome.devtools.panels.create('Roger Watcher', '../img/min-32.png', '../panel_roger.html', () => {});
+chrome.devtools.panels.create(
+    'Analytics Watcher',
+    '../icons/min128.png',
+    '../panel_analytics-watcher.html',
+    () => {}
+);

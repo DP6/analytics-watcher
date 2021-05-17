@@ -5,13 +5,12 @@ body {
 
 /* @navbar */
 
-
-nav ul li { 
+nav ul li {
     display: inline-block;
 }
 
-nav ul { 
-    white-space:nowrap;
+nav ul {
+    white-space: nowrap;
     overflow-x: auto;
     width: 600px;
 }
@@ -305,11 +304,6 @@ nav ul .add-filter i:nth-child(n + 2) a:hover {
 .material-icons.center-align.not-hide {
     display: inline-block;
     width: 30px
-}
-
-#nav-roger .add-filter.active-filter {
-    width: 225px !important;
-    height: 40px !important;
 }
 
 #nav-bowser .add-filter.active-filter {

@@ -15,11 +15,16 @@ const RW = {
 };
 
 // change length > 1 to > 0
-jQuery('.add-filter .material-icons.center-align.not-hide').on('click', 'a', function() {
-    jQuery(this).closest('i').toggleClass('checked');
-    RW.panel.toggleClass(this.className).toggleClass('filtrado', jQuery('.checked').length > 0);
-
-});
+jQuery('.add-filter .material-icons.center-align.not-hide').on(
+    'click',
+    'a',
+    function() {
+        jQuery(this).closest('i').toggleClass('checked');
+        RW.panel
+            .toggleClass(this.className)
+            .toggleClass('filtrado', jQuery('.checked').length > 0);
+    }
+);
 
 jQuery('.clear-filter').on('click', function() {
     jQuery('.checked').removeClass('checked');
@@ -32,8 +37,7 @@ jQuery('#autoscroll').on('change', function() {
     RW.autoscroll = this.checked;
 });
 
-jQuery("#search-icon").on('click', () => {
-
+jQuery('#search-icon').on('click', () => {
     var searchIcon = jQuery('#search-icon');
     var searchInput = jQuery('#search-input');
 
@@ -43,19 +47,24 @@ jQuery("#search-icon").on('click', () => {
     var optionFilter = document.querySelector('.add-filter');
     var filterCount = location.pathname.indexOf('bowser') !== -1 ? 9 : 21;
 
-
-    if (optionFilter.className.indexOf('active-filter') !== -1 && searchInput[0].className.indexOf('checked') !== -1) {
+    if (
+        optionFilter.className.indexOf('active-filter') !== -1 &&
+        searchInput[0].className.indexOf('checked') !== -1
+    ) {
         for (var i = 3; i <= filterCount; i = i + 2) {
-            var isChecked = optionFilter.childNodes[i].className.indexOf('checked') !== -1 ? ' checked' : '';
+            var isChecked =
+                optionFilter.childNodes[i].className.indexOf('checked') !== -1 ?
+                ' checked' :
+                '';
 
-            optionFilter.childNodes[i].setAttribute('class', 'material-icons center-align hide ' + isChecked);
-
+            optionFilter.childNodes[i].setAttribute(
+                'class',
+                'material-icons center-align hide ' + isChecked
+            );
         }
 
         optionFilter.setAttribute('class', 'add-filter');
-
     }
-
 });
 
 jQuery('li.add-filter i')[0].onclick = () => {
@@ -74,9 +83,11 @@ jQuery('li.add-filter i')[0].onclick = () => {
     }
 
     for (var i = 3; i <= filterCount; i = i + 2) {
-        var isChecked = optionFilter.childNodes[i].className.indexOf('checked') !== -1 ? ' checked' : '';
+        var isChecked =
+            optionFilter.childNodes[i].className.indexOf('checked') !== -1 ?
+            ' checked' :
+            '';
         optionFilter.childNodes[i].setAttribute('class', className + isChecked);
-
     }
 
     var inputSearch = jQuery('#search-input')[0];
@@ -86,8 +97,6 @@ jQuery('li.add-filter i')[0].onclick = () => {
         iconSearch.setAttribute('class', '');
     }
 };
-
-
 
 RW.busca.on('keyup', function() {
     let s = new RegExp(this.value, 'i');
