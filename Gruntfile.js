@@ -16,16 +16,16 @@ module.exports = (grunt) => {
                     {
                         from: /<!-- @dev-jsanalyticswatcher [\s\S]*? dev-jsanalyticswatcher@ -->/gim,
                         to: `<script type="text/javascript" src="js/materialize.min.js"></script>
-                        <script type="module" src="js/all.js"></script>
-                        <script type="module" src="js/allAnalyticsWatcher.js"></script>
-                        `,
+                      <script type="module" src="js/all.js"></script>
+                      <script type="module" src="js/allAnalyticsWatcher.js"></script>
+                      `,
                     },
                     {
                         from: /<!-- @dev-jspenguinDataLayer [\s\S]*? dev-jspenguinDataLayer@ -->/gim,
                         to: `<script type="text/javascript" src="js/materialize.min.js"></script>
-                            <script type="module" src="js/all.js"></script>
-                            <script type="module" src="js/allPenguinDataLayer.js"></script>
-                            `,
+                          <script type="module" src="js/all.js"></script>
+                          <script type="module" src="js/allPenguinDataLayer.js"></script>
+                          `,
                     },
                 ],
             },

@@ -13,7 +13,6 @@ window.penguinDataLayer.count = {
     warning: 0,
 };
 window.penguinDataLayer.validateObject = validateObject;
-// window.penguinDataLayer.buttonExport ? console.log('Yay! penguinDataLayer Loaded!') : console.log("penguinDataLayer didn't load :'( ");
 
 M.AutoInit();
 
@@ -438,6 +437,61 @@ btnExportLogs.addEventListener('click', () => {
     a.click();
     window.URL.revokeObjectURL(url);
 });
+
+// btnExportLogs.onclick = async() => {
+//     var arrayURLImg = [];
+//     var header;
+//     const tracks = $('.track');
+//     const contentTracks = $('.qsWrapper');
+
+//     for (var i = 0; i < contentTracks.length; i++) {
+//         contentTracks[i].style = 'display: inline';
+//     }
+
+//     await html2canvas(headerDOM).then(function(canvas) {
+//         header = canvas.toDataURL('image/png');
+//     });
+
+//     for (var i = 0; i < tracks.length; i++) {
+//         await html2canvas(tracks[i]).then(function(canvas) {
+//             arrayURLImg.push(canvas.toDataURL('image/png'));
+//         });
+//     }
+
+//     createPDF(arrayURLImg, header, tracks);
+
+//     doc = new jsPDF();
+
+//     for (var i = 0; i < contentTracks.length; i++) {
+//         contentTracks[i].style = 'display: none';
+//     }
+// };
+
+// const createPDF = (arrayURLImgTracks, headerURLImg, tracks) => {
+//     var pageSize = 267;
+
+//     for (var i = 0; i < tracks.length; i++) {
+//         var currImageSize = tracks[i].offsetHeight * 0.25;
+//         var currImage = arrayURLImgTracks[i];
+
+//         if (i === 0 && currImageSize <= pageSize) {
+//             addImageJSPDF(headerURLImg, 5, 40);
+//             addImageJSPDF(currImage, 50, currImageSize);
+//         } else if (accSizeContent + currImageSize < pageSize) {
+//             addImageJSPDF(currImage, accSizeContent + 5, currImageSize);
+//         } else {
+//             doc.addPage();
+//             addImageJSPDF(currImage, 5, currImageSize);
+//             accSizeContent = currImageSize;
+//         }
+//     }
+
+// };
+
+// const addImageJSPDF = (img, verticalPosition, height) => {
+//     doc.addImage(img, 'JPEG', 5, verticalPosition, 300, height, null, 'FAST', 180);
+//     accSizeContent += height;
+// };
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = (event) => {

@@ -87,10 +87,6 @@ ga.screenview();
 
 jQuery('#logo').mousedown(() => ga.event('Cabeçalho', 'Clique', 'Logo'));
 
-jQuery('#bowser-btn').on('click', () => {
-    ga.event('Cabeçalho', 'Clique', 'Penguin DataLayer');
-});
-
 jQuery('.filter').on('click', 'a', function() {
     const isChecked = this.closest('li').classList.contains('checked');
     const action = (isChecked ? 'Adicionar' : 'Remover') + ' filtro';

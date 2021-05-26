@@ -288,7 +288,7 @@ i.delete:hover {
     border-radius: 34px;
     line-height: 30px;
     height: 29px;
-    display: inline-block
+    display: inline-block;
 }
 
 nav ul .add-filter i:nth-child(n + 2) a:hover {
@@ -303,16 +303,11 @@ nav ul .add-filter i:nth-child(n + 2) a:hover {
 
 .material-icons.center-align.not-hide {
     display: inline-block;
-    width: 30px
-}
-
-#nav-bowser .add-filter.active-filter {
-    width: 150px !important;
-    height: 40px !important;
+    width: 30px;
 }
 
 .filtrado .track:not(.history-change) {
-    display: none
+    display: none;
 }
 
 .pageview .track.pageview:not(.hidden),

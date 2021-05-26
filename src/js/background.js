@@ -1,19 +1,23 @@
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     switch (request.message) {
-        case 'background_penguinDataLayer_script':
+        case 'background_penguindatalayer_script':
             chrome.tabs.query({ active: true }, function(tabs) {
                 chrome.tabs.sendMessage(
                     request.tabID, {
-                        message: 'inject_penguinDataLayer_script',
+                        message: 'inject_penguindatalayer_script',
                         datalayer: request.dataLayerName,
                     },
-                    function(response) {}
+                    function(response) {
+                        if (response.message == 'script_injected_successfully') {
+                            // console.log("Foi");
+                        }
+                    }
                 );
             });
             break;
         case 'script_injected_successfully':
             sendResponse({
-                message: 'status ok',
+                message: 'teste_ok',
             });
             break;
         default:

@@ -78,10 +78,10 @@ let validateObject = (schema, obj, filename) => {
             if (found > -1) {
                 //e caso o valor seja encontrado
                 /* if (Object.keys(tempObj).length > 1) {
-                           dlObjProperty = Object.keys(tempObj)[1];
-                         } else {
-                           dlObjProperty = Object.keys(tempObj)[0];
-                         }*/
+                                   dlObjProperty = Object.keys(tempObj)[1];
+                                 } else {
+                                   dlObjProperty = Object.keys(tempObj)[0];
+                                 }*/
                 dlObjProperty = errorMessage.params.missingProperty;
 
                 innerSchema.contains.required = innerSchema.contains.required.filter(
@@ -102,9 +102,7 @@ let validateObject = (schema, obj, filename) => {
                     innerSchema.contains.required.length > 0 &&
                     !isInnerSchemaEmpty &&
                     /*ajv.validate(innerSchema, tempObj) &&*/
-                    Object.keys(
-                        innerSchema.contains.properties
-                    )[0] !== 'event'
+                    Object.keys(innerSchema.contains.properties)[0] !== 'event'
                 ) {
                     //essa validação tava cagada pq ele tava validando o event no nível de base e fodendo com a porra toda. Isso ainda pode ser um problema mais pra frente se alguém
                     // saveLog(
@@ -195,9 +193,7 @@ let validateObject = (schema, obj, filename) => {
                     innerSchema.required.length > 0 &&
                     !isInnerSchemaEmpty &&
                     /*ajv.validate(innerSchema, tempObj) &&*/
-                    Object.keys(
-                        innerSchema.properties
-                    )[0] !== 'event'
+                    Object.keys(innerSchema.properties)[0] !== 'event'
                 ) {
                     //essa validação tava cagada pq ele tava validando o event no nível de base e fodendo com a porra toda. Isso ainda pode ser um problema mais pra frente se alguém
                     // saveLog(
