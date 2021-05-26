@@ -110,5 +110,3 @@ RW.panel.on('click', '.delete', function(e) {
     e.stopPropagation();
     jQuery(this).closest('.track').remove();
 });
-
-// RW.util.sub('newhit', () => console.log('novo hit'));

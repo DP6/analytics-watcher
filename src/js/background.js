@@ -8,9 +8,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
                         datalayer: request.dataLayerName,
                     },
                     function(response) {
-                        if (response.message == 'script_injected_successfully') {
-                            // console.log("Foi");
-                        }
+                        if (response.message == 'script_injected_successfully') {}
                     }
                 );
             });

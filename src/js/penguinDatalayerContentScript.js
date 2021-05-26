@@ -32,7 +32,6 @@ window.addEventListener('message', function(event) {
         event.data.dataLayer &&
         event.data.dataLayer == 'dispatch_datalayer_object_from_window'
     ) {
-        // console.log('Content script received message: ' + JSON.stringify(event.data.datalayer_object));
         chrome.runtime.sendMessage(
             'aonbjkefnlgopjecdlhdllklkoppcjkn', {
                 message: 'accepted',

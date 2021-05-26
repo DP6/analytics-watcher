@@ -52,7 +52,6 @@ const inputDataLayerName = document.getElementById('inputDataLayerName');
 const btnStartPenguinDataLayer = document.getElementById('startTest');
 const btnStopPenguinDataLayer = document.getElementById('stopTest');
 const btnExportLogs = document.getElementById('export');
-const btnLudwig = document.getElementById('ludwigBtn');
 const btnClearReport = document.querySelector('.clear-report');
 const urlToVerify = document.querySelector('#inputUrl');
 
@@ -62,13 +61,6 @@ const warningData = document.querySelector('#warning-data');
 const errorData = document.querySelector('#error-data');
 
 const modalContent = document.getElementById('myModal');
-const btnModalClose = document.getElementsByClassName('close')[0];
-
-// pageURL.innerHTML = window.location.origin;
-// browser.innerHTML = 'Chrome Version ' + navigator.appVersion.match(/.*Chrome\/([0-9\.]+)/)[1];
-
-// var doc = new jsPDF();
-var data = new Date();
 
 // When a user uploads a file, the function handleFiles will be called.
 inputJSONFile.addEventListener('change', handleFiles, false);
@@ -99,7 +91,6 @@ function handleFiles() {
             }
             window.penguinDataLayer.file = JSON.parse(reader.result);
         } catch {
-            // alert('Select a JSON file to proceed!');
             btnStartPenguinDataLayer.setAttribute(
                 'class',
                 'modal-close modal-trigger waves-effect orange-text text-darken-2 orange lighten-5 btn waves-orange disabled'
@@ -115,22 +106,17 @@ btnStartPenguinDataLayer.onclick = () => {
         //Chrome runtime methods
         let tabId;
         chrome.tabs.query({ active: true }, function(tabs) {
-            console.log(tabs);
-
             tabs.forEach((tab) => {
                 if (tab.url.includes(urlToVerify.value)) {
                     tabId = tab.id;
-                    console.log(tab);
                 }
             });
 
             chrome.tabs.executeScript(tabId, {
                 file: 'js/penguinDataLayerContentScript.js',
             });
-            // console.log('Executed contentScript');
         });
         setTimeout(function() {
-            // console.log(tabId);
             chrome.runtime.sendMessage({
                     message: 'background_penguindatalayer_script',
                     dataLayerName: inputDataLayerName.value,
@@ -167,7 +153,6 @@ btnClearReport.onclick = () => {
 
 btnStopPenguinDataLayer.onclick = () => {
     /* Set domain. */
-    // pageURL.innerHTML = window.penguinDataLayer.pageUrl;
     validateObject(window.file, {});
     btnStopPenguinDataLayer.disabled = true;
     window.penguinDataLayer.resultExport = window.penguinDataLayer.resultExport.concat(
@@ -279,7 +264,6 @@ btnStopPenguinDataLayer.onclick = () => {
         }
 
         function treatment(event, objName, index) {
-            //console.log('entrou no treatment')
             let eventKeys = Object.keys(event); // Get the eventKeys in the object.
             let keyCount = 0;
             let valueCount = 0;
@@ -418,7 +402,6 @@ btnExportLogs.addEventListener('click', () => {
         let lineExport = line.split(';');
         let lineObject = lineExport[2].split(',').join(' ');
         fullResult.push(lineExport[0], lineExport[1], lineObject, '\n');
-        console.log('fullResult: ', fullResult);
     });
 
     let a = document.createElement('a');
@@ -437,61 +420,6 @@ btnExportLogs.addEventListener('click', () => {
     a.click();
     window.URL.revokeObjectURL(url);
 });
-
-// btnExportLogs.onclick = async() => {
-//     var arrayURLImg = [];
-//     var header;
-//     const tracks = $('.track');
-//     const contentTracks = $('.qsWrapper');
-
-//     for (var i = 0; i < contentTracks.length; i++) {
-//         contentTracks[i].style = 'display: inline';
-//     }
-
-//     await html2canvas(headerDOM).then(function(canvas) {
-//         header = canvas.toDataURL('image/png');
-//     });
-
-//     for (var i = 0; i < tracks.length; i++) {
-//         await html2canvas(tracks[i]).then(function(canvas) {
-//             arrayURLImg.push(canvas.toDataURL('image/png'));
-//         });
-//     }
-
-//     createPDF(arrayURLImg, header, tracks);
-
-//     doc = new jsPDF();
-
-//     for (var i = 0; i < contentTracks.length; i++) {
-//         contentTracks[i].style = 'display: none';
-//     }
-// };
-
-// const createPDF = (arrayURLImgTracks, headerURLImg, tracks) => {
-//     var pageSize = 267;
-
-//     for (var i = 0; i < tracks.length; i++) {
-//         var currImageSize = tracks[i].offsetHeight * 0.25;
-//         var currImage = arrayURLImgTracks[i];
-
-//         if (i === 0 && currImageSize <= pageSize) {
-//             addImageJSPDF(headerURLImg, 5, 40);
-//             addImageJSPDF(currImage, 50, currImageSize);
-//         } else if (accSizeContent + currImageSize < pageSize) {
-//             addImageJSPDF(currImage, accSizeContent + 5, currImageSize);
-//         } else {
-//             doc.addPage();
-//             addImageJSPDF(currImage, 5, currImageSize);
-//             accSizeContent = currImageSize;
-//         }
-//     }
-
-// };
-
-// const addImageJSPDF = (img, verticalPosition, height) => {
-//     doc.addImage(img, 'JPEG', 5, verticalPosition, 300, height, null, 'FAST', 180);
-//     accSizeContent += height;
-// };
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = (event) => {

@@ -10,8 +10,6 @@ let ajv = new Ajv({
 });
 
 let validateObject = (schema, obj, filename) => {
-    //let logsArray = [];
-    //let items = schema.array.items;
     let objTreated = false;
     let items = window.penguinDataLayer.file.array.items;
 
@@ -19,26 +17,10 @@ let validateObject = (schema, obj, filename) => {
     let isObjEmpty =
         Object.entries(obj).length === 0 && obj.constructor === Object;
 
-    // let saveLog = (filename, status, message, dlObject) => {
-    // console.log(`${status}, ${message}, ${dlObject}\n`);
-    //logsArray.push(`${status}, ${message}, ${dlObject}\n`);
-    // fs.appendFileSync(
-    //   filename,
-    //   `${status}, ${message}, ${dlObject}\n`,
-    //   (err) => {
-    //     if (err) throw err;
-    //   }
-    // );
-    // };
-
     let checkValidEvent = (items) => {
         for (let index = 0; index < items.length; index++) {
-            // console.log("schema: "+JSON.stringify(items[index],null,2));
-            // console.log("datalayer: "+JSON.stringify(obj,null,2));
             let valid = ajv.validate(items[index], obj);
             if (valid) {
-                // saveLog(filename, "OK", "Validated Successfully", JSON.stringify(obj));
-
                 window.penguinDataLayer.result.push(
                     `OK;Validated Successfully;${JSON.stringify(obj)}`
                 );
@@ -46,10 +28,7 @@ let validateObject = (schema, obj, filename) => {
                     'OK, Validated Successfully'
                 );
 
-                //items.forEach((item)=>{console.log(item);})
                 items.splice(index, 1);
-                //items.forEach((item)=>{console.log(item);})
-                //window.file.array.items.splice(index, 1);
                 return true;
             }
         }
@@ -66,22 +45,13 @@ let validateObject = (schema, obj, filename) => {
         let tempObj = JSON.parse(JSON.stringify(obj));
         const innerSchema = JSON.parse(JSON.stringify(shadowSchema)); //ajustei o innerSchema pra receber o objeto como uma nova instância, e não por referência
         let verify_required = Object.keys(innerSchema).indexOf('required'); //Verifica se existe required dentro do innerSchema
-        //console.log(JSON.parse(JSON.stringify(shadowSchema)))
-
-        //console.log(innerSchema)
 
         if (verify_required == -1) {
             let found = innerSchema.contains.required.indexOf(
                 errorMessage.params.missingProperty
             );
-            //console.log(found)
             if (found > -1) {
                 //e caso o valor seja encontrado
-                /* if (Object.keys(tempObj).length > 1) {
-                                   dlObjProperty = Object.keys(tempObj)[1];
-                                 } else {
-                                   dlObjProperty = Object.keys(tempObj)[0];
-                                 }*/
                 dlObjProperty = errorMessage.params.missingProperty;
 
                 innerSchema.contains.required = innerSchema.contains.required.filter(
@@ -101,16 +71,9 @@ let validateObject = (schema, obj, filename) => {
                 if (
                     innerSchema.contains.required.length > 0 &&
                     !isInnerSchemaEmpty &&
-                    /*ajv.validate(innerSchema, tempObj) &&*/
                     Object.keys(innerSchema.contains.properties)[0] !== 'event'
                 ) {
                     //essa validação tava cagada pq ele tava validando o event no nível de base e fodendo com a porra toda. Isso ainda pode ser um problema mais pra frente se alguém
-                    // saveLog(
-                    //     filename,
-                    //     "ERROR",
-                    //     `Hit sent without the following property: ${errorMessage.params.missingProperty}`,
-                    //     JSON.stringify(dlObj)
-                    // );
 
                     window.penguinDataLayer.result.push(
                         `ERROR;Hit "${
@@ -161,12 +124,9 @@ let validateObject = (schema, obj, filename) => {
                 }
             }
         } else {
-            //console.log(innerSchema);
             let found = innerSchema.required.indexOf(
                 errorMessage.params.missingProperty
             ); //ainda mantive esse laço que checa se o schema interno tem a propriedade descrita na mensagem de erro filtrada
-            //console.log(errorMessage.params.missingProperty);
-            //console.log(found)
             if (found > -1) {
                 //e caso o valor seja encontrado
                 if (Object.keys(tempObj).length > 1) {
@@ -174,12 +134,9 @@ let validateObject = (schema, obj, filename) => {
                 } else {
                     dlObjProperty = Object.keys(tempObj)[0];
                 }
-                //console.log(dlObjProperty);
-                //console.log(innerSchema.required);
                 innerSchema.required = innerSchema.required.filter(
                     (keyword) => keyword === dlObjProperty
                 ); //Então agora ele passa a remover do required todas as propriedades que não são iguais à que está dentro do tempObj
-                //console.log(innerSchema);
                 for (let prop in innerSchema.properties) {
                     if (prop !== dlObjProperty) {
                         delete innerSchema.properties[prop];
@@ -192,16 +149,9 @@ let validateObject = (schema, obj, filename) => {
                 if (
                     innerSchema.required.length > 0 &&
                     !isInnerSchemaEmpty &&
-                    /*ajv.validate(innerSchema, tempObj) &&*/
                     Object.keys(innerSchema.properties)[0] !== 'event'
                 ) {
                     //essa validação tava cagada pq ele tava validando o event no nível de base e fodendo com a porra toda. Isso ainda pode ser um problema mais pra frente se alguém
-                    // saveLog(
-                    //     filename,
-                    //     "ERROR",
-                    //     `Hit "${errorMessage.dataPath}" sent without the following property: ${errorMessage.params.missingProperty}`,
-                    //     JSON.stringify(dlObj)
-                    // );
 
                     window.penguinDataLayer.result.push(
                         `ERROR;Hit "${
@@ -256,7 +206,6 @@ let validateObject = (schema, obj, filename) => {
         items.forEach((item, index, arr) => {
             let valid = ajv.validate(item, obj);
             let errors = ajv.errors;
-            //console.log(item)
             if (!valid) {
                 errors
                     .filter(
@@ -272,13 +221,6 @@ let validateObject = (schema, obj, filename) => {
                             errorMessage.data.constructor === Object;
 
                         if (isErrorDataEmpty) {
-                            // saveLog(
-                            //     filename,
-                            //     "ERROR",
-                            //     `Hit sent without the following property: ${errorMessage.params.missingProperty}`,
-                            //     JSON.stringify(obj)
-                            // );
-
                             window.penguinDataLayer.result.push(
                                 `ERROR;Hit sent without the following property: ${
                   errorMessage.params.missingProperty
@@ -322,13 +264,6 @@ let validateObject = (schema, obj, filename) => {
                     .map((eachError) => {
                         switch (eachError.keyword) {
                             case 'pattern':
-                                // saveLog(
-                                //     filename,
-                                //     "WARNING",
-                                //     `"${eachError.dataPath.replace(/^\./g, "")}" ${eachError.message}, but Hit send: "${eachError.data}"`,
-                                //     JSON.stringify(obj)
-                                // );
-
                                 window.penguinDataLayer.result.push(
                                     `WARNING;${eachError.dataPath.replace(/^\./g, '')}" ${
                     eachError.message
@@ -343,13 +278,6 @@ let validateObject = (schema, obj, filename) => {
                                 break;
 
                             case 'enum':
-                                // saveLog(
-                                //     filename,
-                                //     "WARNING",
-                                //     `"${eachError.dataPath.replace(/^\./g, "")}" ${eachError.message}: "${eachError.schema.length > 1 ? eachError.schema.join(", ") : eachError.schema[0]}", but Hit send: "${eachError.data}"`,
-                                //     JSON.stringify(obj)
-                                // );
-
                                 window.penguinDataLayer.result.push(
                                     `WARNING;${eachError.dataPath.replace(/^\./g, '')}" ${
                     eachError.message
@@ -373,13 +301,6 @@ let validateObject = (schema, obj, filename) => {
                                 break;
 
                             case 'type':
-                                // saveLog(
-                                //     filename,
-                                //     "WARNING",
-                                //     `"${eachError.dataPath.replace(/^\./g, "")}" ${eachError.message}"`,
-                                //     JSON.stringify(obj)
-                                // );
-
                                 window.penguinDataLayer.result.push(
                                     `WARNING;"${eachError.dataPath.replace(/^\./g, '')}" ${
                     eachError.message
@@ -407,17 +328,9 @@ let validateObject = (schema, obj, filename) => {
     let checkMissingEvents = (items, obj) => {
         let missingEvents = parseToDataLayer(items);
         missingEvents.map((event) => {
-            // saveLog(
-            //     filename,
-            //     "ERROR",
-            //     `Hit not validated or missed during test`,
-            //     JSON.stringify(event)
-            // );
-
             window.penguinDataLayer.result.push(
                 `ERROR;Hit not validated or missed during test;${JSON.stringify(event)}`
             );
-            //window.penguinDataLayer.result.push("ERROR, " + `Hit not validated or missed during test ` + JSON.stringify(event));
             window.penguinDataLayer.resultWithoutObject.push(
                 'ERROR, ' +
                 `Hit not validated or missed during test, Event: ` +
@@ -427,12 +340,6 @@ let validateObject = (schema, obj, filename) => {
     };
 
     if (isSchemaEmpty) {
-        // saveLog(
-        //     filename,
-        //     "ERROR",
-        //     `No more items to validate`,
-        //     JSON.stringify(obj)
-        // );
         window.penguinDataLayer.result.push(
             `ERROR;No more items to validate;${JSON.stringify(obj)}`
         );
@@ -447,8 +354,6 @@ let validateObject = (schema, obj, filename) => {
     } else if (isObjEmpty) {
         checkMissingEvents(items, obj);
     }
-
-    //window.penguinDataLayer.result.push(logsArray);
 };
 
 export default validateObject;
