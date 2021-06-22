@@ -10,7 +10,6 @@
   </a>
   <a href="https://www.codacy.com/gh/DP6/analytics-watcher/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=DP6/analytics-watcher&amp;utm_campaign=Badge_Grade"><img src="https://app.codacy.com/project/badge/Grade/b336bb63fa374070885b139f3e711dec"/></a>
 </p>
-</p>
 
 
 Analytics Watcher é uma extensão do Google Chrome para ajudar na depuração do Universal Analytics. Ele irá registrar todos os acessos enviados aos servidores do Google, para que você possa verificar facilmente quais parâmetros estão sendo enviados, juntamente com seus valores, em um formato amigável. Além disso, fornece uma visualização fácil de quais ocorrências foram definidas incorretamente, com parâmetros ausentes ou incorretos.
