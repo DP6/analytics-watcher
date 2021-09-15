@@ -1,0 +1,56 @@
+nav
+  .nav-wrapper
+    ul.left.nav-buttons
+      li
+        a.logo-dp6(href='panel_analytics-watcher.html')
+          i.material-icons
+            img#logo-dp6(src='icons/rect4069.png')
+      li
+        i.material-icons.center-align
+          a.modal-trigger(title='Datalayer Penguin' href='panel_penguin-datalayer.html') settings_ethernet
+      li.add-filter.active-filter
+        i.material-icons.center-align
+          a.add-filter(href='#')
+            img#add-filter(src='img/filter-add.svg' title='Filters')
+        i.material-icons.center-align.not-hide
+          a.analytics4(title='GA 4' href='#')
+            | filter_4
+        i.material-icons.center-align.not-hide
+          a.pageview(title='Pageview' href='#')
+            | find_in_page
+        i.material-icons.center-align.not-hide
+          a.appview(title='App View' href='#')
+            | apps
+        i.material-icons.center-align.not-hide
+          a.event(title='Event' href='#')
+            | flash_on
+        i.material-icons.center-align.not-hide
+          a.timing(title='Timing' href='#')
+            | timelapse
+        i.material-icons.center-align.not-hide
+          a.social(title='Social' href='#')
+            | share
+        i.material-icons.center-align.not-hide
+          a.item(title='Item' href='#')
+            | shopping_basket
+        i.material-icons.center-align.not-hide
+          a.transaction(title='Transaction' href='#')
+            | monetization_on
+        i.material-icons.center-align.not-hide
+          a.exception(title='Exception' href='#')
+            | report
+        i.material-icons.center-align.clear.clear-report.not-hide
+          a#remove-filter.clear-filter(title='Clear Filters' href='#')
+            | clear_all
+      li
+        i.material-icons.center-align
+          a.clear-report(title='Clear Report' href='#') delete
+      li#search-input
+        form
+          .input-field
+            input#busca(placeholder='Search...' type='text')
+      li#search-icon
+        i.material-icons.center-align.search
+          a(title='Search') search
+  .progress.navbar-gradient
+    .determinate
