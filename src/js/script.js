@@ -224,12 +224,12 @@ const RW = (function() {
 
     function init({ url, method, requestBody, initiator = '' }) {
         if (initiator.includes('chrome-extension://')) return;
+
         if (!commonRules.universal_analytics(url) && !commonRules.analytics4(url))
             return;
-        if (method === 'GET') {
+        if (url.includes('v=1')) {
             modules.universal_analytics.handler(url);
-
-        } else if (method === 'POST') {
+        } else if (url.includes('v=2')) {
             modules.analytics4.handler(url);
         } else {
             requestBody.raw

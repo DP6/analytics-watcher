@@ -206,7 +206,7 @@ let validateObject = (schema, obj, filename) => {
         items.forEach((item, index, arr) => {
             let valid = ajv.validate(item, obj);
             let errors = ajv.errors;
-            if (!valid) {
+            if (!valid && !objTreated) {
                 errors
                     .filter(
                         (error) =>
