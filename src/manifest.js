@@ -12,7 +12,7 @@ module.exports = {
   permissions: [
     'tabs',
     'storage',
-    'webRequest',
+    //'webRequest',
     'activeTab',
     'http://*/',
     'https://*/'
