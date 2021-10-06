@@ -258,8 +258,8 @@ const RW = (function() {
         var elem = document.querySelectorAll('.collapsible.expandable');
         var instance = M.Collapsible.init(elem, {
             accordion: false,
-            inDuration: 1500,
-            outDuration: 1000,
+            inDuration: 750,
+            outDuration: 500,
         });
     }
 
