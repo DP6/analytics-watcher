@@ -320,11 +320,52 @@ btnStopPenguinDataLayer.onclick = () => {
                         tableLine.appendChild(tableValue); // Write the Value in the line.
                         tableQueryString.appendChild(tableLine); // Write the Line in the table.
                         for (let i = 0; i < event[key].length; i++) {
-                            if (!treatment(event[key][i], keyText, i)) {
+                            if (typeof event[key][i] == 'object' && !treatment(event[key][i], keyText, i)) {
                                 booleanAux = false;
                                 for (let index = 0; index < eventKeys.length; index++) {
                                     tableQueryString.deleteRow(0);
                                 }
+                            } else if (typeof event[key][i] == 'string') {
+
+                                let tableLineArray = document.createElement('tr');
+                                if (message.includes('WARNING') && messageWithoutObject.includes(key)) {
+                                    /* Paint the property that has the incorrect value. */
+                                    tableLineArray.setAttribute('id', 'warning');
+                                }
+
+                                let tableKeyArray = document.createElement('td');
+                                tableKeyArray.setAttribute('class', 'key');
+                                let keyTextArray = `${keyText}[${i}]`;
+                                tableKeyArray.appendChild(document.createTextNode(keyTextArray));
+                                tableLineArray.appendChild(tableKeyArray); // Write the Key in the line
+
+                                let tableValue = document.createElement('td');
+                                tableValue.setAttribute('class', 'value');
+
+                                tableValue.appendChild(document.createTextNode(`"${event[key][i]}"`));
+                                tableLineArray.appendChild(tableValue); // Write the Value in the line.
+                                tableQueryString.appendChild(tableLineArray); // Write the Line in the table.
+
+                            } else if(typeof event[key][i] != 'object') {
+
+                                let tableLineArray = document.createElement('tr');
+                                if (message.includes('WARNING') && messageWithoutObject.includes(key)) {
+                                    /* Paint the property that has the incorrect value. */
+                                    tableLineArray.setAttribute('id', 'warning');
+                                }
+
+                                let tableKeyArray = document.createElement('td');
+                                tableKeyArray.setAttribute('class', 'key');
+                                let keyTextArray = `${keyText}[${i}]`;
+                                tableKeyArray.appendChild(document.createTextNode(keyTextArray));
+                                tableLineArray.appendChild(tableKeyArray); // Write the Key in the line
+
+                                let tableValue = document.createElement('td');
+                                tableValue.setAttribute('class', 'value');
+
+                                tableValue.appendChild(document.createTextNode(event[key][i]));
+                                tableLineArray.appendChild(tableValue); // Write the Value in the line.
+                                tableQueryString.appendChild(tableLineArray); // Write the Line in the table.
                             }
                         }
                     } else if (event[key] != null && typeof event[key] == 'object') {
