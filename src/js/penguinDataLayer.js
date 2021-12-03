@@ -276,7 +276,7 @@ btnStopPenguinDataLayer.onclick = () => {
                 /* Verify if the event value is in the message with the respective key. */
                 if (Array.isArray(event[key]) || typeof event[key] == 'object') {
                     valueCount++;
-                } else if (typeof event[key] == 'number') {
+                } else if (typeof event[key] == 'number' || typeof event[key] == 'boolean') {
                     if (
                         message.includes(`"${key}":${event[key]},`) ||
                         message.includes(`"${key}":${event[key]}}`)
