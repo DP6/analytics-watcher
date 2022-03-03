@@ -40,8 +40,17 @@ A versão em produção já está disponível na loja de extensões do Google Ch
 Realize o download do repositório do github e insira os comandos abaixo para gerar o arquivo utilizado pela extensão do Google Chrome:
 
 ```
-$ npm install
-$ npm start
+1. Check if your [Node.js](https://nodejs.org/) version is >= **14**.
+2. Clone this repository.
+3. Change the package's `name`, `description`, and `repository` fields in `package.json`.
+4. Change the name of your extension on `src/manifest.json`.
+5. Run `npm install` to install the dependencies.
+6. Run `npm start`
+7. Load your extension on Chrome following:
+   1. Access `chrome://extensions/`
+   2. Check `Developer mode`
+   3. Click on `Load unpacked extension`
+   4. Select the `build` folder.
 ```
 
 Esse comando gerará uma pasta nomeada dist, ela será utilizada para importar a ferramenta ao Google Chrome. Para isso, habilite o modo desenvolvedor do navegador, através da janela de extensões, escolha o carregamento sem compactação e selecione a pasta gerada anteriormente (dist).
