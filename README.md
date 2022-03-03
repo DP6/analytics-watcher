@@ -1,161 +1,151 @@
-# Analytics Watcher
+<img src="src/assets/img/icon-128.png" width="64"/>
 
-<div align="center">
-  <img src="https://raw.githubusercontent.com/DP6/templates-centro-de-inovacoes/main/public/images/centro_de_inovacao_dp6.png" height="100px" />
-</div>
+# Chrome Extension Boilerplate with React 17 and Webpack 5
 
-<p align="center">
-  <a href="#badge">
-    <img alt="semantic-release" src="https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg">
-  </a>
-  <a href="https://www.codacy.com/gh/DP6/analytics-watcher/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=DP6/analytics-watcher&amp;utm_campaign=Badge_Grade"><img src="https://app.codacy.com/project/badge/Grade/b336bb63fa374070885b139f3e711dec"/></a>
-</p>
-</p>
+[![npm](https://img.shields.io/npm/v/chrome-extension-boilerplate-react)](https://www.npmjs.com/package/chrome-extension-boilerplate-react)
+[![npm-download](https://img.shields.io/npm/dw/chrome-extension-boilerplate-react)](https://www.npmjs.com/package/chrome-extension-boilerplate-react)
+[![npm](https://img.shields.io/npm/dm/chrome-extension-boilerplate-react)](https://www.npmjs.com/package/chrome-extension-boilerplate-react)
 
+[![dependencies Status](https://david-dm.org/lxieyang/chrome-extension-boilerplate-react/status.svg)](https://david-dm.org/lxieyang/chrome-extension-boilerplate-react)
+[![devDependencies Status](https://david-dm.org/lxieyang/chrome-extension-boilerplate-react/dev-status.svg)](https://david-dm.org/lxieyang/chrome-extension-boilerplate-react?type=dev)
 
-Analytics Watcher é uma extensão do Google Chrome para ajudar na depuração do Universal Analytics. Ele irá registrar todos os acessos enviados aos servidores do Google, para que você possa verificar facilmente quais parâmetros estão sendo enviados, juntamente com seus valores, em um formato amigável. Além disso, fornece uma visualização fácil de quais ocorrências foram definidas incorretamente, com parâmetros ausentes ou incorretos.
+## Announcements
 
-Contém também um módulo conjunto com o Penguin DataLayer, realizando um processo de validação da camada de dados (DataLayer) através da inserção de um modelo de dados (schema json).
+- **_This boilerplate adopts [Manifest V3](https://developer.chrome.com/docs/extensions/mv3/intro/mv3-overview/)!_** For V2 users, please check out the [manifest-v2](https://github.com/lxieyang/chrome-extension-boilerplate-react/tree/manifest-v2) branch, or use version [3.x](https://www.npmjs.com/package/chrome-extension-boilerplate-react/v/3.3.0).
+  - Check out the [Manifest V3 Migration Guide](https://developer.chrome.com/docs/extensions/mv3/intro/mv3-migration/).
+- Recently added [devtools](https://developer.chrome.com/docs/extensions/mv3/devtools/) Support! Thanks [GeekaholicLin](https://github.com/lxieyang/chrome-extension-boilerplate-react/issues/17)!
+- Recently updated from **[React](https://reactjs.org)** ~~16~~ to **17**!
+- Recently updated from **[Webpack Dev Server](https://webpack.js.org/configuration/dev-server/)** ~~3.x~~ to **4.x** and **[Webpack](https://webpack.js.org/)** ~~4~~ to **5**!
+- Recently added [TypeScript](https://www.typescriptlang.org/) Support!
 
+## Features
 
-# Conteúdo
+This is a basic Chrome Extensions boilerplate to help you write modular and modern Javascript code, load CSS easily and [automatic reload the browser on code changes](https://webpack.github.io/docs/webpack-dev-server.html#automatic-refresh).
 
-- Instalação
-- Como Utilizar
-  - Módulo de Requisições do Google Analytics
-  - Módulo de Validação da Camada de Dados
-  - JSON Schema
-    - Tipos Suportados
-    - Regras de validação
-    - Estrutura do JSON Schema
+This boilerplate is updated with:
 
+- [Chrome Extension Manifest V3](https://developer.chrome.com/docs/extensions/mv3/intro/mv3-overview/)
+- [React 17](https://reactjs.org)
+- [Webpack 5](https://webpack.js.org/)
+- [Webpack Dev Server 4](https://webpack.js.org/configuration/dev-server/)
+- [React Hot Loader](https://github.com/gaearon/react-hot-loader)
+- [eslint-config-react-app](https://www.npmjs.com/package/eslint-config-react-app)
+- [Prettier](https://prettier.io/)
+- [TypeScript](https://www.typescriptlang.org/)
 
-# Instalação
+This boilerplate is heavily inspired by and adapted from [https://github.com/samuelsimoes/chrome-extension-webpack-boilerplate](https://github.com/samuelsimoes/chrome-extension-webpack-boilerplate), with additional support for React 17 features, Webpack 5, and Webpack Dev Server 4.
 
-## Versão em Produção
+Please open up an issue to nudge me to keep the npm packages up-to-date. FYI, it takes time to make different packages with different versions work together nicely.
 
-A versão em produção já está disponível na loja de extensões do Google Chrome, busque pelo nome Roger Watcher ou [acesse o link da loja por aqui](https://chrome.google.com/webstore/detail/roger-watcher/impckkpjcejdmacpmkpegegnpagddajk), instale a versão apresentada e utilize por meio do devtools.
+## Installing and Running
 
-## Versão em Desenvolvimento
+### Procedures:
 
-Realize o download do repositório do github e insira os comandos abaixo para gerar o arquivo utilizado pela extensão do Google Chrome:
+1. Check if your [Node.js](https://nodejs.org/) version is >= **14**.
+2. Clone this repository.
+3. Change the package's `name`, `description`, and `repository` fields in `package.json`.
+4. Change the name of your extension on `src/manifest.json`.
+5. Run `npm install` to install the dependencies.
+6. Run `npm start`
+7. Load your extension on Chrome following:
+   1. Access `chrome://extensions/`
+   2. Check `Developer mode`
+   3. Click on `Load unpacked extension`
+   4. Select the `build` folder.
+8. Happy hacking.
+
+## Structure
+
+All your extension's code must be placed in the `src` folder.
+
+The boilerplate is already prepared to have a popup, an options page, a background page, and a new tab page (which replaces the new tab page of your browser). But feel free to customize these.
+
+## TypeScript
+
+This boilerplate now supports TypeScript! The `Options` Page is implemented using TypeScript. Please refer to `src/pages/Options/` for example usages.
+
+## Webpack auto-reload and HRM
+
+To make your workflow much more efficient this boilerplate uses the [webpack server](https://webpack.github.io/docs/webpack-dev-server.html) to development (started with `npm start`) with auto reload feature that reloads the browser automatically every time that you save some file in your editor.
+
+You can run the dev mode on other port if you want. Just specify the env var `port` like this:
 
 ```
-$ npm install -g grunt-cli
-$ npm install
-$ grunt
+$ PORT=6002 npm run start
 ```
 
-Esse comando gerará uma pasta nomeada dist, ela será utilizada para importar a ferramenta ao Google Chrome. Para isso, habilite o modo desenvolvedor do navegador, através da janela de extensões, escolha o carregamento sem compactação e selecione a pasta gerada anteriormente (dist).
+## Content Scripts
 
-Com isso, a extensão estará disponível dentro do painel devtools do navegador.
+Although this boilerplate uses the webpack dev server, it's also prepared to write all your bundles files on the disk at every code change, so you can point, on your extension manifest, to your bundles that you want to use as [content scripts](https://developer.chrome.com/extensions/content_scripts), but you need to exclude these entry points from hot reloading [(why?)](https://github.com/samuelsimoes/chrome-extension-webpack-boilerplate/issues/4#issuecomment-261788690). To do so you need to expose which entry points are content scripts on the `webpack.config.js` using the `chromeExtensionBoilerplate -> notHotReload` config. Look the example below.
 
+Let's say that you want use the `myContentScript` entry point as content script, so on your `webpack.config.js` you will configure the entry point and exclude it from hot reloading, like this:
 
-# Como Utilizar
-
-## Módulo de Requisições do Google Analytics
-
-Para visualizar as requisições do Google Analytics habilite o painel da extensão e realize as interações com o site, a cada hit disparado para o servido do Google Analytics a extensão do Analytics Watcher irá apresentar um bloco, informando quais foram os dados passados e quais parâmetros foram populados.
-
-Utilize o barra de navegação para facilitar a visualização, adicionando filtros conforme o tipo de hit ou através do conteúdo inserido no campo de busca.
-
-## Módulo de Validação da Camada de Dados
-
-O módulo de validação da camada de dados utiliza como core a biblioteca [penguin-datalayer](https://www.npmjs.com/package/@dp6/penguin-datalayer-core) desenvolvida para garantir a qualidade dos dados inseridos dentro da camada de dados do site, monitorando sua estrutura e o valores através de um modelo de dados (schema) inserido previamente na extensão.
-
-Para utilizar a funcionalidade, através da aba Penguin DataLayer faça o upload das informações do schema modelo, informe qual a nomenclatura do objeto que é utilizado como dataLayer no site, a URL da página que será validada e importe o arquivo JSON que será utilizado como modelo. 
-
-A partir da importação, realize as interações com o site para popular a camada de dados e finalize a execução, com isso a aplicação irá apresentar o resultado da validação, informando o status de cada objeto validado.
-
-- - - 
-
-### JSON Schema
-
-O JSON Schema é uma estrutura que permite a **validação** de documentos JSON. Esta estrutura é utilizada no projeto pois permite a declaração dos formatos de dados esperados dentro da camada de dados.
-
-#### Tipos Suportados
-
-Os seguintes tip;;os de dados são suportados:
-
-- String
-- Number
-- Boolean
-- Object
-- Array
-
-#### Regras de validação
-
-As seguintes regras para validação são aceitas:
-
-- **Enum (Equals)**: A ser utilizada quando houver a necessidade de validar a **igualdade** entre o valor informado no schema _versus_ o que foi enviado para a camada de dados
-- **Pattern (Regex - String)**: É possível criar expressões regulares para validar valores das chaves
-- **minItems (Array)**: Valida o número mínimo de itens contidos no array
-- **Required**: Quando houver a obrigatoriedade de validar uma determinada chave
-
-#### Estrutura do JSON Schema
-
-A estrutura a seguir é um exemplo de um JSON Schema:
-
-```json
+```js
 {
-  "$schema": "",
-  "title": "Schema example",
-  "array": {
-    "$id": "#/properties/schema",
-    "type": "array",
-    "items": [
-      {
-        "type": "object",
-        "properties": {
-          "event": {
-            "type": "string",
-            "enum": ["teste"]
-          },
-          "key1": {
-            "type": "object",
-            "properties": {
-              "key1_sub1": {
-                "type": "number",
-                "enum": [10]
-              },
-              "key1_sub2": {
-                "type": "string",
-                "pattern": "teste|test|.*"
-              },
-              "key1_sub3": {
-                "type": "string",
-                "enum": ["producao"]
-              },
-              "key1_sub4": {
-                "type": "boolean",
-                "enum": "desktop|mobile|msite"
-              }
-            },
-            "required": ["key1_sub1", "key1_sub2", "key1_sub3", "key1_sub4"]
-          }
-        },
-        "required": ["event"]
-      }
-    ]
+  …
+  entry: {
+    myContentScript: "./src/js/myContentScript.js"
+  },
+  chromeExtensionBoilerplate: {
+    notHotReload: ["myContentScript"]
   }
+  …
 }
 ```
 
+and on your `src/manifest.json`:
 
-# Como contribuir
+```json
+{
+  "content_scripts": [
+    {
+      "matches": ["https://www.google.com/*"],
+      "js": ["myContentScript.bundle.js"]
+    }
+  ]
+}
+```
 
-Pull requests são bem-vindos! Nós vamos adorar ajuda para evoluir esse modulo. Sinta-se livre para navegar por _open issues_ buscando por algo que possa fazer. Caso tenha uma nova _feature_ ou _bug_, por favor abra uma nova _issue_ para ser acompanhada pelo nosso time.
+## Intelligent Code Completion
 
-## Requisitos obrigatórios
+Thanks to [@hudidit](https://github.com/lxieyang/chrome-extension-boilerplate-react/issues/4)'s kind suggestions, this boilerplate supports chrome-specific intelligent code completion using [@types/chrome](https://www.npmjs.com/package/@types/chrome).
 
-Só serão aceito as contribuições que estiverem seguindo os seguintes requisitos:
+## Packing
 
-- [Padrão de commit](https://www.conventionalcommits.org/en/v1.0.0/)
+After the development of your extension run the command
 
-## Suporte:
+```
+$ NODE_ENV=production npm run build
+```
 
-**DP6 Koopa-troopa Team**
+Now, the content of `build` folder will be the extension ready to be submitted to the Chrome Web Store. Just take a look at the [official guide](https://developer.chrome.com/webstore/publish) to more infos about publishing.
 
-_e-mail: <koopas@dp6.com.br>_
+## Secrets
 
-<img src="https://raw.githubusercontent.com/DP6/templates-centro-de-inovacoes/main/public/images/koopa.png" height="100" />
+If you are developing an extension that talks with some API you probably are using different keys for testing and production. Is a good practice you not commit your secret keys and expose to anyone that have access to the repository.
+
+To this task this boilerplate import the file `./secrets.<THE-NODE_ENV>.js` on your modules through the module named as `secrets`, so you can do things like this:
+
+_./secrets.development.js_
+
+```js
+export default { key: '123' };
+```
+
+_./src/popup.js_
+
+```js
+import secrets from 'secrets';
+ApiCall({ key: secrets.key });
+```
+
+:point_right: The files with name `secrets.*.js` already are ignored on the repository.
+
+## Resources:
+
+- [Webpack documentation](https://webpack.js.org/concepts/)
+- [Chrome Extension documentation](https://developer.chrome.com/extensions/getstarted)
+
+---
+
+Michael Xieyang Liu | [Website](https://lxieyang.github.io)
