@@ -51,7 +51,7 @@ Realize o download do repositório do github e insira os comandos abaixo para ge
    3. Click on `Load unpacked extension`
    4. Select the `build` folder.
 
-Esse comando gerará uma pasta nomeada dist, ela será utilizada para importar a ferramenta ao Google Chrome. Para isso, habilite o modo desenvolvedor do navegador, através da janela de extensões, escolha o carregamento sem compactação e selecione a pasta gerada anteriormente (dist).
+Esse comando gerará uma pasta nomeada build, ela será utilizada para importar a ferramenta ao Google Chrome. Para isso, habilite o modo desenvolvedor do navegador, através da janela de extensões, escolha o carregamento sem compactação e selecione a pasta gerada anteriormente (build).
 
 Com isso, a extensão estará disponível dentro do painel devtools do navegador.
 
