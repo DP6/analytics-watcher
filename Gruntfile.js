@@ -54,13 +54,15 @@ module.exports = (grunt) => {
                         'src/js/eventos.js',
                         'src/js/rules.js',
                     ],
-                    'dist/js/allPenguinDataLayer.js': [
+                    'dist/js/allPenguinDataLayer.js': [                        
                         'src/js/ajv.min.js',
                         'src/js/penguinDataLayer.js',
+                        'src/js/tagueamentoBowser.js',
                     ],
-                    'dist/js/allAnalyticsWatcher.js': [
-                        'src/js/metadata.js',
+                    'dist/js/allAnalyticsWatcher.js': [                        
+                        'src/js/metadata.js',                        
                         'src/js/script.js',
+                        'src/js/tagueamentoAnalyticsWatcher.js',                      
                     ],
                     'dist/js/devtools.js': 'src/js/devtools.js',
                     'dist/js/schema_parser.js': 'src/js/schema_parser.js',

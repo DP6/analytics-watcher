@@ -1,5 +1,5 @@
 /* global jQuery: false, window: false, document: false, chrome: false */
-const RW = (function() {
+const RW = (function() {    
     const info = chrome.runtime.getManifest();
     const notifier = jQuery({});
     const panel = jQuery('#panel');
