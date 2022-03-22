@@ -1,4 +1,4 @@
-import RW from './script.js';
+//import RW from './script.js';
 
 class Tracker {
     constructor(id) {
