@@ -39,17 +39,17 @@
         "debugger"
     ],
     "devDependencies": {
-        "eslint": "^7.17.0",
-        "eslint-config-prettier": "^7.1.0",
-        "eslint-plugin-prettier": "^3.3.1",
-        "grunt": "^1.2.1",
+        "eslint": "^8.12.0",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint-plugin-prettier": "^4.0.0",
+        "grunt": "^1.4.1",
         "grunt-contrib-clean": "^2.0.0",
-        "grunt-contrib-concat": "^1.0.1",
+        "grunt-contrib-concat": "^2.0.0",
         "grunt-contrib-copy": "^1.0.0",
-        "grunt-contrib-cssmin": "^3.0.0",
-        "grunt-contrib-jshint": "^2.1.0",
+        "grunt-contrib-cssmin": "^4.0.0",
+        "grunt-contrib-jshint": "^3.2.0",
         "grunt-text-replace": "^0.4.0",
-        "prettier": "^2.2.1"
+        "prettier": "^2.6.1"
     },
     "dependencies": {}
 }
