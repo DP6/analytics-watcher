@@ -1,17 +1,17 @@
-import React from 'react';
+import React, { Component } from 'react';
 import '../../assets/css/materialize.css';
 import './Panel.css';
 
+
 const Panel: React.FC = () => {
   return (
-    <div className="container">
+    <div className="main-container">
       <div>
         <nav>
           <div className="nav-wrapper">
             <ul className="left nav-buttons">
               <li>
-                <a href="panel_analytics-watcher.html" className="logo-dp6"><i className="material-icons">logo-dp6 teste"</i></a
-                >
+                <a href="panel_analytics-watcher.html" className="logo-dp6"><i className="material-icons"><img src={require('../../assets/icons/rect4069.png')} id="logo-dp6" /></i></a>
               </li>
               <li>
                 <i className="material-icons center-align"
@@ -26,7 +26,7 @@ const Panel: React.FC = () => {
               <li className="add-filter active-filter">
                 <i className="material-icons center-align">
                   <a className="add-filter" href="#">
-                    <img src="" id="add-filter" title="Filters" />
+                    <img src={require('../../assets/img/filter-add.svg')} id="add-filter" title="Filters" />
                   </a>
                 </i>
                 <i className="material-icons center-align not-hide">
