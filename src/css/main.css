@@ -11,7 +11,7 @@ nav ul li {
 
 nav ul {
     white-space: nowrap;
-    overflow-x: auto;
+    /*overflow-x: auto;*/
     width: 600px;
 }
 
