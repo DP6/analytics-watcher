@@ -1,5 +1,5 @@
 /* global jQuery: false, window: false, document: false, chrome: false */
-const RW = (function() {    
+const RW = (function () {
     const info = chrome.runtime.getManifest();
     const notifier = jQuery({});
     const panel = jQuery('#panel');
@@ -87,9 +87,9 @@ const RW = (function() {
                 }
 
                 const errors = [
-                        ['all', params],
-                        [params.t, params],
-                    ]
+                    ['all', params],
+                    [params.t, params],
+                ]
                     .map(this.parseByType)
                     .filter((error) => error.length > 0);
 
@@ -143,8 +143,8 @@ const RW = (function() {
                 let content = params.en ? params.en : params.dl;
 
                 const errors = [
-                        ['analytics4', params]
-                    ]
+                    ['analytics4', params]
+                ]
                     .map(this.parseByType)
                     .filter((error) => error.length > 0);
 
@@ -233,7 +233,7 @@ const RW = (function() {
             modules.analytics4.handler(url);
         } else {
             requestBody.raw
-                .map(function(data) {
+                .map(function (data) {
                     return String.fromCharCode(...new Uint8Array(data.bytes));
                 })
                 .forEach((row) => modules.universal_analytics.handler(url, row));
@@ -247,7 +247,7 @@ const RW = (function() {
         let searchTerm = document.querySelector('#busca');
         let s = new RegExp(searchTerm.value, 'i');
 
-        jQuery('.track:not(.history-change)').each(function() {
+        jQuery('.track:not(.history-change)').each(function () {
             const $this = jQuery(this);
             $this.toggleClass('hide', !s.test($this.find('td.value').text()));
         });
@@ -280,15 +280,12 @@ const RW = (function() {
     };
 })();
 
-chrome.webRequest.onBeforeRequest.addListener(
-    RW.init, {
-        urls: [
-            '*://*.google-analytics.com/collect*',
-            '*://*.google-analytics.com/*/collect*',
-            '*://*.analytics.google.com/*/collect*',
-            '*://*.analytics.google.com/collect*'
-        ],
-    }, ['requestBody'],
+chrome.devtools.network.onRequestFinished.addListener(
+    function (request) {
+        if (request.request.url.match(/.(google-analytics.com|analytics.google.com)(\/.)?\/collect.*$/)) {
+            RW.init(request.request);
+        }
+    }
 );
 //chrome.devtools.network.onRequestFinished.addListener();
 
