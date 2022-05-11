@@ -280,13 +280,14 @@ const RW = (function () {
     };
 })();
 
-chrome.devtools.network.onRequestFinished.addListener(
-    function (request) {
-        if (request.request.url.match(/.(google-analytics.com|analytics.google.com)(\/.)?\/collect.*$/)) {
-            RW.init(request.request);
+chrome.webRequest.onBeforeRequest.addListener(
+    function (details) {
+        if (details.url.match(/.(google-analytics.com|analytics.google.com)(\/.)?\/collect.*$/)) {
+            RW.init(details);
         }
-    }
+    },
+	{ urls: [ '<all_urls>'] },
+	[]
 );
-//chrome.devtools.network.onRequestFinished.addListener();
 
 export default RW;
