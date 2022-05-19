@@ -287,7 +287,7 @@ chrome.webRequest.onBeforeRequest.addListener(
         }
     },
 	{ urls: [ '<all_urls>'] },
-	[]
+	[ "requestBody" ]
 );
 
 export default RW;
