@@ -1,7 +1,7 @@
 {
     "name": "Analytics-Watcher",
     "description": "A validator for Universal Analytics implementations",
-    "version": "2.0.4",
+    "version": "2.0.3",
     "author": "dp6",
     "homepage": "http://www.dp6.com.br/",
     "repository": {
