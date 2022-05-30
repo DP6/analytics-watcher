@@ -361,7 +361,7 @@ nav ul .add-filter i:nth-child(n + 2) a:hover {
 
 .queryString td,
 .queryString th {
-  padding: 8px 15px;
+  padding: 4px 8px;
 }
 
 #count-table {
