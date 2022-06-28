@@ -6,6 +6,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import Typography from '@mui/material/Typography';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Paper from '@mui/material/Paper';
+import Alert, { AlertColor } from '@mui/material/Alert';
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -26,6 +27,9 @@ import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import ReportIcon from '@mui/icons-material/Report';
 import ClearIcon from '@mui/icons-material/Clear';
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
 import * as RW from '../utils/3.hitParser';
 import { metadata } from '../utils/2.metadata';
@@ -47,6 +51,15 @@ const hitTypeIconImg: { [key: string]: JSX.Element } = {
 };
 
 
+/**
+ * Status icons
+ */
+const statusIcon: { [key: string]: JSX.Element } = {
+    ERROR: <ErrorOutlineIcon fontSize='small' color='error' sx={{ mr: 1 }} />,
+    WARNING: <WarningAmberIcon fontSize='small' color='warning' sx={{ mr: 1 }} />,
+    SUCCESS: <CheckCircleOutlineIcon fontSize='small' color='success' sx={{ mr: 1 }} />,
+};
+
 // --------------------------------------------------------
 // Hit element: Accordion
 // --------------------------------------------------------
@@ -58,7 +71,8 @@ interface HitAccordionProps {
     removeHit: Function,
     expanded: boolean,
     handleAccordionChange: Function,
-    color: string,
+    validationStatus: string,
+    validationResult: any[],
 }
 
 
@@ -72,7 +86,8 @@ interface HitAccordionProps {
  * @param  props.removeHit      Function that removes a hit entry
  * @param  props.expanded       Hit accordion state (expanded or not)
  * @param  props.handleAccordionChange  Function that handles accordion expansion
- * @param  props.color       Color indicating validation status
+ * @param  props.validationStatus       Status of validation ('ERROR', 'WARNING' or 'SUCCESS')
+ * @param  props.validationResult       Validation result object, containing status and messages
  * @return      JSX.Element
  */
 function HitAccordion(props: HitAccordionProps) {
@@ -97,7 +112,8 @@ function HitAccordion(props: HitAccordionProps) {
                 <div style={{ width: '100%' }}>
                     <Box display="flex" flexDirection="row" sx={{ justifyContent: 'space-between', }}>
                         <Box display="flex" alignItems="center" flexDirection="row">
-                            <Box component="span" sx={{ mr: 1, bgcolor: props.color, width: 15, height: 15, borderRadius: '50%' }} />
+                            {/* <Box component="span" sx={{ mr: 1, bgcolor: props.color, width: 15, height: 15, borderRadius: '50%' }} /> */}
+                            {statusIcon[props.validationStatus]? statusIcon[props.validationStatus] : statusIcon['WARNING']}
                             {hitTypeIconImg[props.hitTypeIcon]}
                             <Typography fontSize='small' sx={{ ml: 1, flexGrow: 1 }}>{props.contentTitle}</Typography>
                         </Box>
@@ -110,6 +126,20 @@ function HitAccordion(props: HitAccordionProps) {
                 </div>
             </AccordionSummary>
             <AccordionDetails sx={{ p: 0, '& .MuiAccordionDetails-root': { pt: 0 }, }}>
+                {props.validationResult
+                    .map((key, index) => {
+                        let severity: AlertColor;
+                        if (key.status === 'ERROR') {
+                            severity = 'error';
+                        } else if (key.status === 'WARNING') {
+                            severity = 'warning';
+                        } else {
+                            severity = 'success';
+                        }
+                        return <Alert key={index} severity={severity}>{key.status} - {key.message}</Alert>;
+                    })
+                }
+
                 <TableContainer component={Paper}>
                     <Table size="small">
                         <TableHead>

@@ -26,12 +26,14 @@ import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import ReportIcon from '@mui/icons-material/Report';
 import ClearAllIcon from '@mui/icons-material/ClearAll';
 import SearchIcon from '@mui/icons-material/Search';
+import FileUploadIcon from '@mui/icons-material/FileUpload';
 
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import ToggleButton from '@mui/material/ToggleButton';
 
 // Logo DP6
 import logoDP6 from '../../../assets/img/Logo Oficial SemAssinatura Negativo SemBox RGB_025mp.png';
+import IconButton from '@mui/material/IconButton';
 
 
 // --------------------------------------------------------
@@ -45,16 +47,20 @@ interface NavbarProps {
         searchedText: string;
         filterListActive: boolean;
         filterButtons: string[];
+        filterStatus: string[];
     },
     setFilters: React.Dispatch<React.SetStateAction<{
         searchBarActive: boolean;
         searchedText: string;
         filterListActive: boolean;
         filterButtons: string[];
+        filterStatus: string[];
     }>>,
 
     setHitList: React.Dispatch<React.SetStateAction<Map<number, any>>>,
     searchBarToggler: () => void,
+
+    handleFileUpload: (event: React.ChangeEvent<HTMLInputElement>) => void,
 }
 
 
@@ -273,8 +279,7 @@ function Navbar(props: NavbarProps) {
                         Upload Button
                         -----------------------------
                         */}
-                        {/* <ToggleButton
-                        {/* <Box >
+                        <Box >
                             <IconButton
                                 aria-label="upload JSON chema"
                                 component="label"
@@ -282,9 +287,9 @@ function Navbar(props: NavbarProps) {
                                 title='Upload JSON Schema'
                             >
                                 <input hidden type="file" onChange={props.handleFileUpload} />
-                                <FileUpload fontSize='small' sx={{ color: 'white' }} />
+                                <FileUploadIcon fontSize='small' sx={{ color: 'white' }} />
                             </IconButton>
-                        </Box> */}
+                        </Box>
                     </Stack>
                     {/*
                     -----------------------------

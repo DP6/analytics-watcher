@@ -45,5 +45,10 @@
       ],
       "matches": []
     }
-  ]
+  ],
+  "sandbox": {
+    "pages": [
+      "sandbox.html"
+    ]
+  }
 }

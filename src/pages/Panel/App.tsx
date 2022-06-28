@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { createTheme, ThemeOptions, ThemeProvider } from '@mui/material/styles';
@@ -13,6 +13,7 @@ import PanelBar from './components/PanelBar';
 
 import { commonRules } from './utils/1.rules';
 import * as RW from './utils/3.hitParser';
+import validateHit, { StatusInterface } from './utils/4.hitValidation';
 
 
 // --------------------------------------------------------
@@ -89,6 +90,12 @@ function App() {
     // Map with all hits {hit_id: {hit_parameters}}
     const [hitList, setHitList] = useState(new Map() as Map<number, any>);
 
+    // JSON schema used for validation
+    const [dataLayerSchema, setDataLayerSchema] = useState({
+        fileName: '',
+        schema: {}
+    });
+
     // Dark theme state
     const [filters, setFilters] = useState({
         // Whether the searchbar is open or closed
@@ -102,8 +109,16 @@ function App() {
 
         // Array with hitType filters applied (eg. ['analytics4', 'pageview', 'appview', 'event'])
         filterButtons: [] as string[],
+
+        // Array with validation status filters applied (eg. ['SUCCESS', 'WARNING', 'ERROR'])
+        filterStatus: [] as string[],
     });
 
+    const dataLayerSchemaRef = useRef({
+        fileName: '',
+        schema: {}
+    });
+    dataLayerSchemaRef.current = dataLayerSchema;
 
     /**
     * Handle accordion state (expanded or not)
@@ -186,6 +201,25 @@ function App() {
 
 
     /**
+    * Returns de number of hits with the specified 'status', or the total, if 'status' is not provided
+    *
+    * @param  status  Status to consider. Set to undefined to count all hits.
+    */
+    function getValidationIndicators(status?: string) {
+
+        let total = hitList.size;
+
+        if (status) {
+            total = Array.from(hitList.values())
+                .filter(item => item.validationStatus === status)
+                .length;
+        };
+
+        return total;
+    }
+
+
+    /**
     * Filters displayed hits, based on active filterButtons and searched text.
     *
     * @param  hitListArray Array with hits parameters.
@@ -218,32 +252,32 @@ function App() {
 
 
     /**
+    * Filters displayed hits, based on active status filtered.
+    *
+    * @param  hitListArray  Array of hits parameters to filter.
+    */
+    function filterHitsByStatus(hitListArray: any[]) {
+
+        if (filters.filterStatus.length > 0) {
+            return hitListArray.filter(item => filters.filterStatus.includes(item.validationStatus));
+        } else {
+            return hitListArray;
+        }
+
+    }
+
+
+    /**
     * Generate array of <Hit/> components
     */
     function renderHits() {
-
-        console.log('renderHits called');
-
         // Array of filtered hits parameters
         let hitListArray = Array.from(hitList.values());
         hitListArray = filterHitsByType(hitListArray);
+        hitListArray = filterHitsByStatus(hitListArray);
 
         // Array of <Hit/> components
         const renderedHitsArray = hitListArray.reverse().map((hit) => {
-
-            let color;
-
-            switch (hit.status) {
-                case 'error':
-                    color = 'red';
-                    break;
-                case 'ok':
-                    color = 'success.main';
-                    break;
-                default:
-                    color = 'red';
-            }
-
             return (
                 <HitAccordion
                     hitParameters={hit.hitParameters}
@@ -254,12 +288,53 @@ function App() {
                     key={hit.hitListKey}
                     expanded={hit.expanded}
                     handleAccordionChange={handleAccordionChange}
-                    color={color}
+                    validationStatus={hit.validationStatus}
+                    validationResult={hit.validationResult}
                 />
             );
         });
         return renderedHitsArray;
     }
+
+
+    /**
+    * Handles JSON file upload.
+    *
+    * @param  event     Change event.
+    */
+    function handleFileUpload(event: React.ChangeEvent<HTMLInputElement>) {
+
+        // Return if no file
+        if (!event.target.files) {
+            return;
+        }
+
+        // File reader
+        const reader = new FileReader();
+        reader.onload = (evt) => {
+
+            // Return if no result
+            if (!evt?.target?.result) {
+                return;
+            }
+
+            // Parse JSON
+            let schema = JSON.parse(JSON.parse(JSON.stringify(evt.target.result)));
+
+            // Update state
+            setDataLayerSchema({ fileName: file.name, schema: schema });
+
+        };
+
+        // File
+        const file = event.target.files[0];
+
+        // Read file
+        reader.readAsBinaryString(file);
+
+        // Remove <input> value, so a file with the same name can be reuploaded
+        event.target.value = '';
+    };
 
 
     /**
@@ -347,13 +422,13 @@ function App() {
         }
 
         /**
-        * Handle method to add new hit
-        *
-        * @param  url          URL
-        * @param  queryString  Query string
-        * @param  ga4          True if it's a GA4 hit. False if it's a UA hit.
-        */
-        function handler(url: string, queryString: string, ga4: boolean) {
+       * Handle method to add new hit
+       *
+       * @param  url          URL
+       * @param  queryString  Query string
+       * @param  ga4          True if it's a GA4 hit. False if it's a UA hit.
+       */
+        async function handler(url: string, queryString: string, ga4: boolean) {
 
             // Identify queryString, if empty
             if (queryString === '') {
@@ -371,6 +446,9 @@ function App() {
             // Required parameters
             let requiredParametersToCheck;
 
+            let validationStatus: StatusInterface;
+            let validationResult: any[];
+
             if (ga4) {
                 // GA4 events
 
@@ -378,9 +456,9 @@ function App() {
                 contentTitle = params.en ? params.en : params.dl;
 
                 // Required parameters
-                requiredParametersToCheck = [
-                    { type: 'analytics4', params: params },
-                ];
+                requiredParametersToCheck = ['analytics4'];
+
+                [validationStatus, validationResult] = await validateHit(dataLayerSchemaRef.current.schema, requiredParametersToCheck, params);
 
             } else {
                 // UA events
@@ -389,20 +467,13 @@ function App() {
                 contentTitle = RW.setUAContent(params, contentTitle);
 
                 // Required parameters
-                requiredParametersToCheck = [
-                    { type: 'all', params: params },
-                    { type: params.t, params: params },
-                ];
+                requiredParametersToCheck = ['all', params.t];
+
+                [validationStatus, validationResult] = await validateHit(dataLayerSchemaRef.current.schema, requiredParametersToCheck, params);
             }
 
             // Decode contentTitle
             contentTitle = RW.decode(contentTitle);
-
-            // Identify required parameters that are undefined
-            const missingRequiredParameters =
-                requiredParametersToCheck
-                    .map(RW.identifyUndefinedRequiredParameters)
-                    .filter((error: string[]) => error.length > 0);
 
             // Hit type
             let hitType;
@@ -412,13 +483,11 @@ function App() {
                 hitType = params.t;
             };
 
-            const validationStatus = missingRequiredParameters.length ? 'error' : 'ok';
-
-
-            // Add new hit
+            // Insert new hit info on Analytics Watcher's HTML page
             addNewHit(
                 params,
                 validationStatus,
+                validationResult,
                 contentTitle,
                 hitType,
             );
@@ -432,7 +501,7 @@ function App() {
         * @param  contentTitle      Hit title
         * @param  hitType           Type of hit
         */
-        function addNewHit(hitParameters: { [key: string]: string }, validationStatus: 'error' | 'ok', contentTitle: string, hitType: string) {
+        function addNewHit(hitParameters: { [key: string]: string }, validationStatus: StatusInterface, validationResult: any[], contentTitle: string, hitType: string) {
 
             setHitList(oldHitList => {
                 // Generate hitListKey = biggest key + 1
@@ -443,6 +512,7 @@ function App() {
                     {
                         hitParameters: hitParameters,
                         validationStatus: validationStatus,
+                        validationResult: validationResult,
                         contentTitle: contentTitle,
                         hitType: hitType,
                         hitListKey: hitListKey,
@@ -473,8 +543,6 @@ function App() {
             );
         }, 6000);
 
-        console.log('Mounted');
-
     }, []);
 
     /**
@@ -498,9 +566,16 @@ function App() {
                     setFilters={setFilters}
                     setHitList={setHitList}
                     searchBarToggler={searchBarToggler}
+                    handleFileUpload={handleFileUpload}
                 />
                 <PanelBar
+                    getValidationIndicators={getValidationIndicators}
                     accordionExpandAll={accordionExpandAll}
+                    filters={filters}
+                    setFilters={setFilters}
+                    dataLayerSchema={dataLayerSchema}
+                    setDataLayerSchema={setDataLayerSchema}
+                    handleFileUpload={handleFileUpload}
                 />
                 <Divider sx={{ mt: 1, mb: 1 }} />
                 {renderHits()}

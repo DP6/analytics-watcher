@@ -43,6 +43,7 @@ let options = {
         contentScript: path.join(__dirname, 'src', 'pages', 'Content', 'index.js'),
         devtools: path.join(__dirname, 'src', 'pages', 'Devtools', 'index.js'),
         panel: path.join(__dirname, 'src', 'pages', 'Panel', 'index.jsx'),
+        sandbox: path.join(__dirname, 'src', 'pages', 'Panel', 'sandbox.ts'),
     },
     chromeExtensionBoilerplate: {
         notHotReload: ['background', 'contentScript', 'devtools'],
@@ -76,12 +77,12 @@ let options = {
             },
             {
                 test: new RegExp('.(' + fileExtensions.join('|') + ')$'),
-                type: 'asset/resource',
+                // type: 'asset/resource',
                 exclude: /node_modules/,
-                // loader: 'file-loader',
-                // options: {
-                //   name: '[name].[ext]',
-                // },
+                loader: 'file-loader',
+                options: {
+                    name: '[name].[ext]',
+                },
             },
             {
                 test: /\.html$/,
@@ -189,6 +190,15 @@ let options = {
             filename: 'panel.html',
             chunks: ['panel'],
             cache: false,
+        }),
+        new HtmlWebpackPlugin({
+            template: path.join(__dirname, 'src', 'pages', 'Panel', 'sandbox.html'),
+            filename: 'sandbox.html',
+            chunks: ['sandbox'],
+            cache: false,
+        }),
+        new webpack.ProvidePlugin({
+            process: 'process/browser',
         }),
     ],
     infrastructureLogging: {
