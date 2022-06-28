@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../../assets/img/logo.svg';
+import logo from '../../assets/img/Logo Oficial SemAssinatura Negativo SemBox RGB_025mp.png';
 import Greetings from '../../containers/Greetings/Greetings';
 import './Popup.css';
 
