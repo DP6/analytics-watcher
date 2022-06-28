@@ -5,9 +5,11 @@ import { createTheme, ThemeOptions, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 
 import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
 
 import Navbar from './components/Navbar';
 import HitAccordion from './components/HitAccordion';
+import PanelBar from './components/PanelBar';
 
 import { commonRules } from './utils/1.rules';
 import * as RW from './utils/3.hitParser';
@@ -157,6 +159,26 @@ function App() {
 
         // Delete hit
         newHitList.delete(hitKey);
+
+        // Update state
+        setHitList(newHitList);
+    }
+
+
+    /**
+    * Expands or Collapses all accordions
+    *
+    * @param  expand  Wheter to expand (true) or collapse (false) all the accordions
+    */
+    function accordionExpandAll(expand: boolean) {
+
+        // // Copy accordionsExpanded object state
+        let newHitList = new Map(hitList);
+
+        // Update all accordions
+        newHitList.forEach((value, key) => {
+            newHitList.set(key, { ...newHitList.get(key), expanded: expand });
+        });
 
         // Update state
         setHitList(newHitList);
@@ -477,6 +499,10 @@ function App() {
                     setHitList={setHitList}
                     searchBarToggler={searchBarToggler}
                 />
+                <PanelBar
+                    accordionExpandAll={accordionExpandAll}
+                />
+                <Divider sx={{ mt: 1, mb: 1 }} />
                 {renderHits()}
             </Box>
         </ThemeProvider >
