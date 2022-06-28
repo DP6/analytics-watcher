@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import ToggleButton from '@mui/material/ToggleButton';
 import Button from '@mui/material/Button';
+import Chip from '@mui/material/Chip';
 
 // Icons
 import UnfoldLessIcon from '@mui/icons-material/UnfoldLess';
@@ -12,6 +13,9 @@ import UnfoldMoreIcon from '@mui/icons-material/UnfoldMore';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+
+import SchemaDialog from './SchemaDialog';
+
 
 // --------------------------------------------------------
 // PanelBar
@@ -58,6 +62,7 @@ interface PanelBarProps {
  * @return      JSX.Element
  */
 function PanelBar(props: PanelBarProps) {
+    const [open, setOpen] = React.useState(false);
     return (
         <Stack direction='row' spacing={1} sx={{ mt: 1, px: 1, justifyContent: 'space-between', flexWrap: 'wrap', }}>
             <Stack direction='row' spacing={1} sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
@@ -100,6 +105,25 @@ function PanelBar(props: PanelBarProps) {
                         </Typography>
                     </ToggleButton>
                 </ToggleButtonGroup>
+
+                {/*
+                -----------------------------
+                JSON Schema
+                -----------------------------
+                */}
+                <Chip
+                    label='JSON SCHEMA'
+                    variant={props.dataLayerSchema.fileName ? 'filled' : 'outlined'}
+                    onClick={() => setOpen(!open)}
+                    onDelete={() => props.setDataLayerSchema({ fileName: '', schema: {} })}
+                />
+                <SchemaDialog
+                    open={open}
+                    setOpen={setOpen}
+                    setDataLayerSchema={props.setDataLayerSchema}
+                    dataLayerSchema={props.dataLayerSchema}
+                    handleFileUpload={props.handleFileUpload}
+                />
             </Stack>
 
             {/*

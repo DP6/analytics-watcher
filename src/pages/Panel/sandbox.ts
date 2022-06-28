@@ -20,7 +20,6 @@ window.addEventListener('message', function (event: any) {
 
         let result: any[] = penguin.validate(schema, obj, () => { });
 
-        // event.source.postMessage({ 'result': result }, event.origin);
         event.ports[0].postMessage({ 'result': result }); // 2
     }
 }, false);

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { createTheme, ThemeOptions, ThemeProvider } from '@mui/material/styles';
@@ -52,12 +52,6 @@ const light = {
         primary: {
             main: cores['Midnight Dream'],
         },
-        // secondary: {
-        //     main: '#FFFFFF',
-        // },
-        // warning: {
-        //     main: cores['Orange Red Crayola'],
-        // },
         mode: 'light',
     },
     typography: {
@@ -75,7 +69,7 @@ const dark = {
 };
 
 // --------------------------------------------------------
-// App - App with <Navbar> and <HitList>
+// App - App with all components
 // --------------------------------------------------------
 
 /** Main component with <Navbar> and <HitList> */
@@ -309,6 +303,7 @@ function App() {
             return;
         }
 
+
         // File reader
         const reader = new FileReader();
         reader.onload = (evt) => {
@@ -346,7 +341,6 @@ function App() {
         * Requests listener
         */
         function requestListener() {
-            // const requestListener = useCallback(() => {
 
             // Restrict to current tab
             chrome.tabs.query({ active: true, currentWindow: true, lastFocusedWindow: true }, function (tab) {
@@ -526,22 +520,22 @@ function App() {
         // Set up obBeforeRequest listener
         requestListener();
 
-        initParser(
-            'https://www.google-analytics.com/g/collect?v=2&tid=G-N4J2F78CPK&gtm=2oe4r0&_p=1314753210&_z=ccd.NbB&cid=1642312484.1651168350&ul=pt-br&sr=1280x720&sid=1651171814&sct=1&seg=1&dl=http%3A%2F%2F127.0.0.1%2Findex.html&dr=http%3A%2F%2F127.0.0.1%3A5000%2Fanalise.html&dt=DP6%20Case%20-%20Prova%20T%C3%A9cnica&_s=1',
-            'post',
-            null,
-            ''
-        );
+        // initParser(
+        //     'https://www.google-analytics.com/g/collect?v=2&tid=G-N4J2F78CPK&gtm=2oe4r0&_p=1314753210&_z=ccd.NbB&cid=1642312484.1651168350&ul=pt-br&sr=1280x720&sid=1651171814&sct=1&seg=1&dl=http%3A%2F%2F127.0.0.1%2Findex.html&dr=http%3A%2F%2F127.0.0.1%3A5000%2Fanalise.html&dt=DP6%20Case%20-%20Prova%20T%C3%A9cnica&_s=1',
+        //     'post',
+        //     null,
+        //     ''
+        // );
 
 
-        setTimeout(() => {
-            initParser(
-                'https://www.google-analytics.com/j/collect?v=1&_v=j96&a=163765863&t=event&ni=1&_s=1&dl=https%3A%2F%2Fwww.prudential.com.br%2Fcontent%2Fprudential%2Fhome%2Fpara-voce%2Fseguro-individual.html&ul=pt-br&de=UTF-8&dt=Prudential%3A%20Seguro%20de%20Vida%20-%20Veja%20o%20Plano%20Individual%20%7C%20Prudential&sd=24-bit&sr=1280x720&vp=1263x577&je=0&ec=web-vitals&ea=CLS&el=v2-1651857106243-2938432349121&_u=SCCACUABBAAAAG~&jid=1772300202&gjid=523459683&cid=1489834817.1651778536&tid=UA-185685971-1&_gid=1523670321.1651778536&_r=1&gtm=2wg540NS2KDGF&cm1=11&cm2=11&z=1529625290',
-                'POST',
-                null,
-                ''
-            );
-        }, 6000);
+        // setTimeout(() => {
+        //     initParser(
+        //         'https://www.google-analytics.com/j/collect?v=1&_v=j96&a=163765863&t=event&ni=1&_s=1&dl=https%3A%2F%2Fwww.prudential.com.br%2Fcontent%2Fprudential%2Fhome%2Fpara-voce%2Fseguro-individual.html&ul=pt-br&de=UTF-8&dt=Prudential%3A%20Seguro%20de%20Vida%20-%20Veja%20o%20Plano%20Individual%20%7C%20Prudential&sd=24-bit&sr=1280x720&vp=1263x577&je=0&ec=web-vitals&ea=CLS&el=v2-1651857106243-2938432349121&_u=SCCACUABBAAAAG~&jid=1772300202&gjid=523459683&cid=1489834817.1651778536&tid=UA-185685971-1&_gid=1523670321.1651778536&_r=1&gtm=2wg540NS2KDGF&cm1=11&cm2=11&z=1529625290',
+        //         'POST',
+        //         null,
+        //         ''
+        //     );
+        // }, 6000);
 
     }, []);
 
