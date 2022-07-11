@@ -16,11 +16,13 @@ import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
 import SchemaDialog from './SchemaDialog';
 
+import FileErrorDialog from './FileErrorDialog';
+
 
 // --------------------------------------------------------
-// PanelBar
+// ActionsBar
 // --------------------------------------------------------
-interface PanelBarProps {
+interface ActionsBarProps {
     getValidationIndicators: Function,
     accordionExpandAll: Function,
     filters: {
@@ -46,11 +48,17 @@ interface PanelBarProps {
         schema: {};
     }>>,
     handleFileUpload: (event: React.ChangeEvent<HTMLInputElement>) => void,
+
+    schemaDialogOpen: boolean,
+    setSchemaDialogOpen: React.Dispatch<React.SetStateAction<boolean>>,
+
+    fileErrorDialogOpen: boolean,
+    setFileErrorDialogOpen: React.Dispatch<React.SetStateAction<boolean>>,
 }
 
 
 /**
- * PanelBar, with status filters / indicators, JSON schema handler and Expand / Collapse all buttons.
+ * ActionsBar, with status filters / indicators, JSON schema handler and Expand / Collapse all buttons.
  *
  * @param  props.getValidationIndicators    Function that returns the number of hits, filtered by specified status
  * @param  props.accordionExpandAll     Function to expand or collapse all hits.
@@ -59,10 +67,11 @@ interface PanelBarProps {
  * @param  props.dataLayerSchema        JSON schema used for validation.
  * @param  props.setDataLayerSchema     dataLayerSchema setter function.
  * @param  props.handleFileUpload     Function that handles JSON schema file.
+ * @param  props.fileErrorDialogOpen    Wether the FileErrorDialog is open.
+ * @param  props.setFileErrorDialogOpen     FileErrorDialog state setter.
  * @return      JSX.Element
  */
-function PanelBar(props: PanelBarProps) {
-    const [open, setOpen] = React.useState(false);
+function ActionsBar(props: ActionsBarProps) {
     return (
         <Stack direction='row' spacing={1} sx={{ mt: 1, px: 1, justifyContent: 'space-between', flexWrap: 'wrap', }}>
             <Stack direction='row' spacing={1} sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
@@ -114,15 +123,19 @@ function PanelBar(props: PanelBarProps) {
                 <Chip
                     label='JSON SCHEMA'
                     variant={props.dataLayerSchema.fileName ? 'filled' : 'outlined'}
-                    onClick={() => setOpen(!open)}
+                    onClick={() => props.setSchemaDialogOpen(!props.schemaDialogOpen)}
                     onDelete={() => props.setDataLayerSchema({ fileName: '', schema: {} })}
                 />
                 <SchemaDialog
-                    open={open}
-                    setOpen={setOpen}
+                    open={props.schemaDialogOpen}
+                    setOpen={props.setSchemaDialogOpen}
                     setDataLayerSchema={props.setDataLayerSchema}
                     dataLayerSchema={props.dataLayerSchema}
                     handleFileUpload={props.handleFileUpload}
+                />
+                <FileErrorDialog
+                    open={props.fileErrorDialogOpen}
+                    setOpen={props.setFileErrorDialogOpen}
                 />
             </Stack>
 
@@ -159,4 +172,4 @@ function PanelBar(props: PanelBarProps) {
 }
 
 
-export default PanelBar;
+export default ActionsBar;

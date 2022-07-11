@@ -55,6 +55,8 @@ interface NavbarProps {
         filterStatus: string[];
     }>>,
 
+    removeHit: (hitKey?: number | undefined) => void,
+
     setHitList: React.Dispatch<React.SetStateAction<Map<number, any>>>,
     searchBarToggler: () => void,
 
@@ -69,6 +71,7 @@ interface NavbarProps {
  * @param props.setIsDarkTheme  Dark theme setter function.
  * @param props.filters     Filters applied.
  * @param props.setFilters  Filters setter function.
+ * @param props.removeHit Function that removes hits.
  * @param props.setHitList  HitList setter function.
  * @param props.searchBarToggler    Search bar toggler function.
  * @param  props.handleFileUpload     Function that handles JSON schema file.
@@ -225,7 +228,7 @@ function Navbar(props: NavbarProps) {
                             title='Clear Report'
                             value='clear-report'
                             sx={{ borderRadius: 3, ml: 1, p: 1 }}
-                            onClick={() => props.setHitList(new Map())}
+                            onClick={() => props.removeHit()}
                         >
                             <DeleteIcon fontSize='small' sx={{ color: 'white' }} />
                         </ToggleButton >
