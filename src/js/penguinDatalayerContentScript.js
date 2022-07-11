@@ -1,47 +1,54 @@
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-    if (request.message == 'inject_penguindatalayer_script') {
+	if (request.message == 'inject_penguindatalayer_script') {
         var script = document.createElement('script');
         script.innerHTML = ` 
-        if (!window["${request.datalayer}"].push_c) {
-            window["${request.datalayer}"].forEach((elem, index, array) => {
-                try {
-                    window.postMessage({
-                        dataLayer: "dispatch_datalayer_object_from_window",
-                        datalayer_object: JSON.parse(JSON.stringify(elem)),
-                        url: window.location.href
-                    }, "*");
-                } catch (error) {
-                    console.error(\`PenguinDataLayer
-ERROR, event not validated: \${array[index].event}
-Event index: \${index}
-Error: \${error}
-                    \`)
-                }
-            });
-            window["${request.datalayer}"].push_c = window["${request.datalayer}"].push;
-            window["${request.datalayer}"].push = function (obj) {
-                window["${request.datalayer}"].push_c(obj);
-                window.postMessage({
-                    dataLayer: "dispatch_datalayer_object_from_window",
-                    datalayer_object: obj,
-                    url: window.location.href
-                }, "*");
-            }
-        };`;
-        document.head.appendChild(script);
+		var runPenguinDatalayer = function() {
+			if (!window["${request.datalayer}"].push_c) {
+				window["${request.datalayer}"].forEach((elem, index, array) => {
+					try {
+						window.postMessage({
+							dataLayer: "dispatch_datalayer_object_from_window",
+							datalayer_object: JSON.parse(JSON.stringify(elem)),
+							url: window.location.href
+						}, "*");
+					} catch (error) {
+						console.error(\`PenguinDataLayer
+	ERROR, event not validated: \${array[index].event}
+	Event index: \${index}
+	Error: \${error}
+						\`)
+					}
+				});
+				window["${request.datalayer}"].push_c = window["${request.datalayer}"].push;
+				window["${request.datalayer}"].push = function (obj) {
+					window["${request.datalayer}"].push_c(obj);
+					window.postMessage({
+						dataLayer: "dispatch_datalayer_object_from_window",
+						datalayer_object: obj,
+						url: window.location.href
+					}, "*");
+				}
+			};
+		}`;
     }
+	document.head.appendChild(script);
+	let button = document.createElement('button');
+	button.style.display = 'none';
+	button.id = 'penguinDatalayerButton';
+	button.setAttribute('onclick', 'runPenguinDatalayer()');
+	document.body.appendChild(button);
+	document.getElementById('penguinDatalayerButton').click();
     sendResponse({
         message: 'script_injected_successfully',
     });
 });
 
 window.addEventListener('message', function (event) {
-    if (
-        event.data.dataLayer &&
+	if (
+		event.data.dataLayer &&
         event.data.dataLayer == 'dispatch_datalayer_object_from_window'
-    ) {
-        chrome.runtime.sendMessage(
-            'aonbjkefnlgopjecdlhdllklkoppcjkn', {
+		) {
+        chrome.runtime.sendMessage({
                 message: 'accepted',
                 datalayer_object: event.data.datalayer_object,
                 url: event.data.url,
