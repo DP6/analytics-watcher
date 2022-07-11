@@ -11,15 +11,19 @@ window.addEventListener('message', function (event: any) {
         // console.log({ event });
         // console.log();
 
+        // JSON schema
         let schema = event.data.schema;
 
+        // TODO
         let obj: any = {
             'event': 'update',
             'hit': event.data.parametersObj
         };
 
+        // Penguin validation
         let result: any[] = penguin.validate(schema, obj, () => { });
 
-        event.ports[0].postMessage({ 'result': result }); // 2
+        // Send result back
+        event.ports[0].postMessage({ 'result': result });
     }
 }, false);

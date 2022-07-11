@@ -43,7 +43,7 @@ let options = {
         contentScript: path.join(__dirname, 'src', 'pages', 'Content', 'index.js'),
         devtools: path.join(__dirname, 'src', 'pages', 'Devtools', 'index.js'),
         panel: path.join(__dirname, 'src', 'pages', 'Panel', 'index.jsx'),
-        sandbox: path.join(__dirname, 'src', 'pages', 'Panel', 'sandbox.ts'),
+        sandboxPenguinValidation: path.join(__dirname, 'src', 'pages', 'Panel', 'sandbox', 'sandbox-penguinValidation.ts'),
     },
     chromeExtensionBoilerplate: {
         notHotReload: ['background', 'contentScript', 'devtools'],
@@ -192,9 +192,9 @@ let options = {
             cache: false,
         }),
         new HtmlWebpackPlugin({
-            template: path.join(__dirname, 'src', 'pages', 'Panel', 'sandbox.html'),
+            template: path.join(__dirname, 'src', 'pages', 'Panel', 'sandbox', 'sandbox.html'),
             filename: 'sandbox.html',
-            chunks: ['sandbox'],
+            chunks: ['sandboxPenguinValidation'],
             cache: false,
         }),
         new webpack.ProvidePlugin({

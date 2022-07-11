@@ -1,7 +1,3 @@
-// import React from 'react';
-// import { metadata } from './2.metadata';
-
-
 /**
  * Details about the app or extension from the manifest. The object returned is a serialization of the full manifest file.
  */
@@ -18,21 +14,6 @@ const requiredParameters: { [key: string]: string[] } = {
     item: ['ti', 'in'],
     analytics4: ['v', 'en', 'cid', 'tid'],
 };
-
-// /**
-//  * Render Materialize icon
-//  */
-// export const hitTypeImg: { [key: string]: string } = {
-//     event: 'flash_on',
-//     pageview: 'find_in_page',
-//     appview: 'apps',
-//     transaction: 'monetization_on',
-//     item: 'shopping_basket',
-//     social: 'share',
-//     exception: 'report',
-//     timing: 'timelapse',
-//     analytics4: 'filter_4',
-// };
 
 
 /**
@@ -64,19 +45,6 @@ export function encode(str: string): string {
         return encodeURI(str);
     }
 }
-
-
-// /**
-//  * Makes elements collapsible
-//  */
-// export function collapse() {
-//     let elem = document.querySelectorAll('.collapsible.expandable');
-//     M.Collapsible.init(elem, {
-//         accordion: true,
-//         inDuration: 750,
-//         outDuration: 500,
-//     });
-// }
 
 
 /**
@@ -115,19 +83,6 @@ export function queryToObject(url: string = ''): { [key: string]: string } {
 }
 
 
-// /**
-//  * Receives an object and format it as query string
-//  * @param  {Ojectg} url Object to be formatted as query string
-//  * @return {String}     query string formed from 'url' object
-//  */
-// export function objectToQuery(obj: {}): string {
-//     // return Object.keys(obj)
-//     //     .reduce((acc, key) => acc.concat(`${key}=${escape(obj[key])}`), [])
-//     //     .join('&');
-//     return new URLSearchParams(obj).toString();
-// }
-
-
 /**
  * Set "content" cariable for Universal Analytics hits
  * @param  {Ojectg} url Object to be formatted as query string
@@ -164,32 +119,3 @@ export function setUAContent(params: { [key: string]: string }, content: string)
     }
     return content;
 }
-
-
-// /**
-//  * Creates array of HTML table rows <tr> from object "obj".
-// *
-//  * Generates one row to Each 'key': 'value' pair from object, with 'key' and 'value' as two table datas <td> on each row.
-//  * @param obj  Object used to gerenate teble rows
-//  * @return Array of JSX table rows <tr>
-//  */
-// export function objectToRows(obj: { [key: string]: string }): JSX.Element[] {
-//     // Array of parameters names (keys) that doesn't start with underscore (_)
-//     const html = Object.keys(obj)
-//         // that doesn't start with underscore (_)
-//         .filter((key) => !key.startsWith('_'))
-
-//         // map to array of (strings representing 2 HTML <td>'s)
-//         .map((key) => {
-//             const keyName = decode(metadata[key] ? metadata[key].name : key);
-//             const value = decode(obj[key]);
-//             return (
-//                 <tr key={key}>
-//                     <td className="key" title={key}>{keyName}</td>
-//                     <td className="value" title={value}>{value}</td>
-//                 </tr>
-//             );
-//         });
-
-//     return html;
-// }
