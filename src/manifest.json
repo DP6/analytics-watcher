@@ -2,7 +2,7 @@
     "name": "Analytics Watcher",
     "short_name": "analyticswatcher",
     "description": "A validator for Universal Analytics implementations",
-    "version": "2.0.3",
+    "version": "2.0.5",
     "icons": {
         "16": "icons/min36.png",
         "36": "icons/rect4069.png",
@@ -20,6 +20,10 @@
     "background": {
         "scripts": ["js/background.js"]
     },
+	"content_scripts": [{
+		"matches": ["http://*/*", "https://*/*"],
+		"js": ["js/content.js"]
+	}],
     "devtools_page": "devtools.html",
     "minimum_chrome_version": "49.0",
     "web_accessible_resources": ["*"],

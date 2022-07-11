@@ -117,6 +117,7 @@ btnStartPenguinDataLayer.onclick = () => {
             });
         });
         setTimeout(function() {
+			alert('0')
             chrome.runtime.sendMessage({
                     message: 'background_penguindatalayer_script',
                     dataLayerName: inputDataLayerName.value,

@@ -14,7 +14,14 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
             });
             break;
         case 'script_injected_successfully':
-            sendResponse({
+			chrome.tabs.query({ active: true }, function(tabs) {
+				tabs.forEach((tab) => {
+					chrome.tabs.executeScript(tab.id, {
+						code: 'runPenguinDatalayer()',
+					});
+				});
+			});            
+			sendResponse({
                 message: 'teste_ok',
             });
             break;
