@@ -1,0 +1,130 @@
+{
+    "list": [
+        {
+            "title": "commonRules",
+            "link": "<a href=\"commonRules.html\">commonRules</a>",
+            "description": "<p>Namespace with validation rules</p>"
+        },
+        {
+            "title": "commonRules.analytics4",
+            "link": "<a href=\"commonRules.html#.analytics4\">commonRules &rtrif; analytics4</a>"
+        },
+        {
+            "title": "commonRules.boolean",
+            "link": "<a href=\"commonRules.html#.boolean\">commonRules &rtrif; boolean</a>"
+        },
+        {
+            "title": "commonRules.currency",
+            "link": "<a href=\"commonRules.html#.currency\">commonRules &rtrif; currency</a>"
+        },
+        {
+            "title": "commonRules.hit",
+            "link": "<a href=\"commonRules.html#.hit\">commonRules &rtrif; hit</a>"
+        },
+        {
+            "title": "commonRules.integer",
+            "link": "<a href=\"commonRules.html#.integer\">commonRules &rtrif; integer</a>"
+        },
+        {
+            "title": "commonRules.session",
+            "link": "<a href=\"commonRules.html#.session\">commonRules &rtrif; session</a>"
+        },
+        {
+            "title": "commonRules.string",
+            "link": "<a href=\"commonRules.html#.string\">commonRules &rtrif; string</a>"
+        },
+        {
+            "title": "commonRules.trackingID",
+            "link": "<a href=\"commonRules.html#.trackingID\">commonRules &rtrif; trackingID</a>"
+        },
+        {
+            "title": "commonRules.universal_analytics",
+            "link": "<a href=\"commonRules.html#.universal_analytics\">commonRules &rtrif; universal_analytics</a>"
+        },
+        {
+            "title": "App",
+            "link": "<a href=\"global.html#App\">App</a>",
+            "description": "<p>Main component with <Navbar> and <HitList></p>"
+        },
+        {
+            "title": "decode",
+            "link": "<a href=\"global.html#decode\">decode</a>",
+            "description": "<p>Decodes an encoded URI. Replaces escape sequences with the character that it represents.</p>"
+        },
+        {
+            "title": "encode",
+            "link": "<a href=\"global.html#encode\">encode</a>",
+            "description": "<p>Encodes an URI. Replaces some characters with escape sequences.</p>"
+        },
+        {
+            "title": "HitAccordion",
+            "link": "<a href=\"global.html#HitAccordion\">HitAccordion</a>",
+            "description": "<p>Render a Hit component, with data from one single hit</p>"
+        },
+        {
+            "title": "hitTypeIconImg",
+            "link": "<a href=\"global.html#hitTypeIconImg\">hitTypeIconImg</a>",
+            "description": "<p>Render Hit type icon</p>"
+        },
+        {
+            "title": "identifyUndefinedRequiredParameters",
+            "link": "<a href=\"global.html#identifyUndefinedRequiredParameters\">identifyUndefinedRequiredParameters</a>",
+            "description": "<p>Identify which required parameters are undefined, based on 'type' (requiredParameters properties)</p>"
+        },
+        {
+            "title": "info",
+            "link": "<a href=\"global.html#info\">info</a>",
+            "description": "<p>Details about the app or extension from the manifest. The object returned is a serialization of the full manifest file.</p>"
+        },
+        {
+            "title": "Navbar",
+            "link": "<a href=\"global.html#Navbar\">Navbar</a>",
+            "description": "<p>Navigation bar.</p>"
+        },
+        {
+            "title": "PanelBar",
+            "link": "<a href=\"global.html#PanelBar\">PanelBar</a>",
+            "description": "<p>PanelBar, with status filters / indicators, JSON schema handler and Expand / Collapse all buttons.</p>"
+        },
+        {
+            "title": "penguinValidation",
+            "link": "<a href=\"global.html#penguinValidation\">penguinValidation</a>",
+            "description": "<p>Send message to sandbox and listen for response.</p>"
+        },
+        {
+            "title": "queryToObject",
+            "link": "<a href=\"global.html#queryToObject\">queryToObject</a>",
+            "description": "<p>Receives a query string and format it as object</p>"
+        },
+        {
+            "title": "requiredParameters",
+            "link": "<a href=\"global.html#requiredParameters\">requiredParameters</a>",
+            "description": "<p>Parameters that are required and cannot be undefined</p>"
+        },
+        {
+            "title": "SchemaDialog",
+            "link": "<a href=\"global.html#SchemaDialog\">SchemaDialog</a>",
+            "description": "<p>Dialog window that handles JSON schema file.</p>"
+        },
+        {
+            "title": "setUAContent",
+            "link": "<a href=\"global.html#setUAContent\">setUAContent</a>",
+            "description": "<p>Set &quot;content&quot; cariable for Universal Analytics hits</p>"
+        },
+        {
+            "title": "statusIcon",
+            "link": "<a href=\"global.html#statusIcon\">statusIcon</a>",
+            "description": "<p>Status icons</p>"
+        },
+        {
+            "title": "StatusInterface",
+            "link": "<a href=\"global.html#StatusInterface\">StatusInterface</a>",
+            "description": "<p>Allowed status values</p>"
+        },
+        {
+            "title": "validateHit",
+            "link": "<a href=\"global.html#validateHit\">validateHit</a>",
+            "description": "<p>Handles hit validation.</p>"
+        }
+    ]
+}

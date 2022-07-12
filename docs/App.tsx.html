@@ -1,0 +1,585 @@
+<!DOCTYPE html><html lang="en" style="font-size:16px"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href=".\min128.png"><title>App.tsx</title><!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]--><script src="scripts/third-party/hljs.js" defer="defer"></script><script src="scripts/third-party/hljs-line-num.js" defer="defer"></script><script src="scripts/third-party/popper.js" defer="defer"></script><script src="scripts/third-party/tippy.js" defer="defer"></script><script src="scripts/third-party/tocbot.js"></script><script>var baseURL="/",locationPathname="",baseURL=(locationPathname=document.location.pathname).substr(0,locationPathname.lastIndexOf("/")+1)</script><link rel="stylesheet" href="styles/clean-jsdoc-theme.min.css"><svg aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="display:none"><defs><symbol id="copy-icon" viewbox="0 0 488.3 488.3"><g><path d="M314.25,85.4h-227c-21.3,0-38.6,17.3-38.6,38.6v325.7c0,21.3,17.3,38.6,38.6,38.6h227c21.3,0,38.6-17.3,38.6-38.6V124    C352.75,102.7,335.45,85.4,314.25,85.4z M325.75,449.6c0,6.4-5.2,11.6-11.6,11.6h-227c-6.4,0-11.6-5.2-11.6-11.6V124    c0-6.4,5.2-11.6,11.6-11.6h227c6.4,0,11.6,5.2,11.6,11.6V449.6z"/><path d="M401.05,0h-227c-21.3,0-38.6,17.3-38.6,38.6c0,7.5,6,13.5,13.5,13.5s13.5-6,13.5-13.5c0-6.4,5.2-11.6,11.6-11.6h227    c6.4,0,11.6,5.2,11.6,11.6v325.7c0,6.4-5.2,11.6-11.6,11.6c-7.5,0-13.5,6-13.5,13.5s6,13.5,13.5,13.5c21.3,0,38.6-17.3,38.6-38.6    V38.6C439.65,17.3,422.35,0,401.05,0z"/></g></symbol><symbol id="search-icon" viewBox="0 0 512 512"><g><g><path d="M225.474,0C101.151,0,0,101.151,0,225.474c0,124.33,101.151,225.474,225.474,225.474    c124.33,0,225.474-101.144,225.474-225.474C450.948,101.151,349.804,0,225.474,0z M225.474,409.323    c-101.373,0-183.848-82.475-183.848-183.848S124.101,41.626,225.474,41.626s183.848,82.475,183.848,183.848    S326.847,409.323,225.474,409.323z"/></g></g><g><g><path d="M505.902,476.472L386.574,357.144c-8.131-8.131-21.299-8.131-29.43,0c-8.131,8.124-8.131,21.306,0,29.43l119.328,119.328    c4.065,4.065,9.387,6.098,14.715,6.098c5.321,0,10.649-2.033,14.715-6.098C514.033,497.778,514.033,484.596,505.902,476.472z"/></g></g></symbol><symbol id="font-size-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M11.246 15H4.754l-2 5H.6L7 4h2l6.4 16h-2.154l-2-5zm-.8-2L8 6.885 5.554 13h4.892zM21 12.535V12h2v8h-2v-.535a4 4 0 1 1 0-6.93zM19 18a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></symbol><symbol id="add-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z"/></symbol><symbol id="minus-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M5 11h14v2H5z"/></symbol><symbol id="dark-theme-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M10 7a7 7 0 0 0 12 4.9v.1c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2h.1A6.979 6.979 0 0 0 10 7zm-6 5a8 8 0 0 0 15.062 3.762A9 9 0 0 1 8.238 4.938 7.999 7.999 0 0 0 4 12z"/></symbol><symbol id="light-theme-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M12 18a6 6 0 1 1 0-12 6 6 0 0 1 0 12zm0-2a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM11 1h2v3h-2V1zm0 19h2v3h-2v-3zM3.515 4.929l1.414-1.414L7.05 5.636 5.636 7.05 3.515 4.93zM16.95 18.364l1.414-1.414 2.121 2.121-1.414 1.414-2.121-2.121zm2.121-14.85l1.414 1.415-2.121 2.121-1.414-1.414 2.121-2.121zM5.636 16.95l1.414 1.414-2.121 2.121-1.414-1.414 2.121-2.121zM23 11v2h-3v-2h3zM4 11v2H1v-2h3z"/></symbol><symbol id="reset-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M18.537 19.567A9.961 9.961 0 0 1 12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10c0 2.136-.67 4.116-1.81 5.74L17 12h3a8 8 0 1 0-2.46 5.772l.997 1.795z"/></symbol><symbol id="down-icon" viewBox="0 0 16 16"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.7803 6.21967C13.0732 6.51256 13.0732 6.98744 12.7803 7.28033L8.53033 11.5303C8.23744 11.8232 7.76256 11.8232 7.46967 11.5303L3.21967 7.28033C2.92678 6.98744 2.92678 6.51256 3.21967 6.21967C3.51256 5.92678 3.98744 5.92678 4.28033 6.21967L8 9.93934L11.7197 6.21967C12.0126 5.92678 12.4874 5.92678 12.7803 6.21967Z"></path></symbol><symbol id="codepen-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M16.5 13.202L13 15.535v3.596L19.197 15 16.5 13.202zM14.697 12L12 10.202 9.303 12 12 13.798 14.697 12zM20 10.869L18.303 12 20 13.131V10.87zM19.197 9L13 4.869v3.596l3.5 2.333L19.197 9zM7.5 10.798L11 8.465V4.869L4.803 9 7.5 10.798zM4.803 15L11 19.131v-3.596l-3.5-2.333L4.803 15zM4 13.131L5.697 12 4 10.869v2.262zM2 9a1 1 0 0 1 .445-.832l9-6a1 1 0 0 1 1.11 0l9 6A1 1 0 0 1 22 9v6a1 1 0 0 1-.445.832l-9 6a1 1 0 0 1-1.11 0l-9-6A1 1 0 0 1 2 15V9z"/></symbol><symbol id="close-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z"/></symbol><symbol id="menu-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z"/></symbol></defs></svg></head><body class="dark" data-theme="dark"><div class="sidebar-container"><div class="sidebar" id="sidebar"><a href="/" class="sidebar-title sidebar-title-anchor">Home</a><div class="sidebar-items-container"><div class="sidebar-section-title with-arrow" data-isopen="false" id="d1bftQ1OzBFvw7yFArQIi"><div>Namespaces</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="commonRules.html">commonRules</a></div></div><div class="sidebar-section-title with-arrow" data-isopen="false" id="A24J_zlM8hmk0LCtHMw9g"><div>Global</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="global.html#App">App</a></div><div class="sidebar-section-children"><a href="global.html#decode">decode</a></div><div class="sidebar-section-children"><a href="global.html#encode">encode</a></div><div class="sidebar-section-children"><a href="global.html#HitAccordion">HitAccordion</a></div><div class="sidebar-section-children"><a href="global.html#hitTypeIconImg">hitTypeIconImg</a></div><div class="sidebar-section-children"><a href="global.html#identifyUndefinedRequiredParameters">identifyUndefinedRequiredParameters</a></div><div class="sidebar-section-children"><a href="global.html#info">info</a></div><div class="sidebar-section-children"><a href="global.html#Navbar">Navbar</a></div><div class="sidebar-section-children"><a href="global.html#PanelBar">PanelBar</a></div><div class="sidebar-section-children"><a href="global.html#penguinValidation">penguinValidation</a></div><div class="sidebar-section-children"><a href="global.html#queryToObject">queryToObject</a></div><div class="sidebar-section-children"><a href="global.html#requiredParameters">requiredParameters</a></div><div class="sidebar-section-children"><a href="global.html#SchemaDialog">SchemaDialog</a></div><div class="sidebar-section-children"><a href="global.html#setUAContent">setUAContent</a></div><div class="sidebar-section-children"><a href="global.html#statusIcon">statusIcon</a></div><div class="sidebar-section-children"><a href="global.html#StatusInterface">StatusInterface</a></div><div class="sidebar-section-children"><a href="global.html#validateHit">validateHit</a></div></div></div></div></div><div class="navbar-container" id="VuAckcnZhf"><nav class="navbar"><div class="navbar-left-items"><div class="navbar-item"><a id="dp6-href" href="https://www.dp6.com.br/" target="_blank"><img height="32" src=".\Logo Oficial SemAssinatura Negativo SemBox RGB_025mp.png" alt="DP6"></a></div></div><div class="navbar-right-items"><div class="navbar-right-item"><button class="icon-button search-button" aria-label="open-search"><svg><use xlink:href="#search-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button theme-toggle" aria-label="toggle-theme"><svg><use class="theme-svg-use" xlink:href="#light-theme-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button font-size" aria-label="change-font-size"><svg><use xlink:href="#font-size-icon"></use></svg></button></div></div><nav></nav></nav></div><div class="toc-container"><div class="toc-content"><span class="bold">On this page</span><div id="eed4d2a0bfd64539bb9df78095dec881"></div></div></div><div class="body-wrapper"><div class="main-content"><div class="main-wrapper"><section id="source-page" class="source-page"><header><h1 id="title" class="has-anchor">App.tsx</h1></header><article><pre class="prettyprint source lang-js"><code>import React, { useEffect, useRef, useState } from 'react';
+
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { createTheme, ThemeOptions, ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+
+import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
+
+import Navbar from './components/Navbar';
+import HitAccordion from './components/HitAccordion';
+import PanelBar from './components/PanelBar';
+
+import { commonRules } from './utils/1.rules';
+import * as RW from './utils/3.hitParser';
+import validateHit, { StatusInterface } from './utils/4.hitValidation';
+
+
+// --------------------------------------------------------
+// Theme
+// --------------------------------------------------------
+const cores = {
+    // Principais - vermelho
+    'Orange Red Crayola': '#FD4239',
+    'Amaranth': '#E70F47',
+    'Red NCS': '#BE0F34',
+
+    // Principais - Verde
+    'Sky Blue Crayola': '#14E0F8',
+    // 'Sky Blue Crayola': '#14E0F8',
+    'PAcific Blue': '#00C0D9',
+    'Mettalic Seaweed': '#007A94',
+    'Midnight Dream': '#004054',
+
+    // Neutras e omplementares
+    'Manatee': '#979BA3',
+    'Black Coral': '#5B626C',
+    'Charcoal': '#3C3F48',
+    'Rich Black': '#091923',
+
+    // Tons pastéis
+    'Linen': '#FFF4E8',
+    'Melon': '#FFCBBB',
+    'Smoothie': '#FFCCD7',
+    'Celeste': '#BEF9FF',
+    'Blizzard Blue': '#BDF0FF',
+    'Alice blue': '#E4EAF1',
+};
+
+const light = {
+    palette: {
+        primary: {
+            main: cores['Midnight Dream'],
+        },
+        mode: 'light',
+    },
+    typography: {
+        fontFamily: 'Ubuntu Bold 700'
+    }
+};
+
+const dark = {
+    palette: {
+        mode: 'dark',
+    },
+    typography: {
+        fontFamily: 'Ubuntu Bold 700'
+    }
+};
+
+// --------------------------------------------------------
+// App - App with all components
+// --------------------------------------------------------
+
+/** Main component with &lt;Navbar> and &lt;HitList> */
+function App() {
+
+    // Check if OS is set to dark theme
+    const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+
+    // Dark theme state
+    const [isDarkTheme, setIsDarkTheme] = useState(prefersDarkMode);
+
+    // Map with all hits {hit_id: {hit_parameters}}
+    const [hitList, setHitList] = useState(new Map() as Map&lt;number, any>);
+
+    // JSON schema used for validation
+    const [dataLayerSchema, setDataLayerSchema] = useState({
+        fileName: '',
+        schema: {}
+    });
+
+    // Dark theme state
+    const [filters, setFilters] = useState({
+        // Whether the searchbar is open or closed
+        searchBarActive: false,
+
+        // Text inputed in searchbar
+        searchedText: '',
+
+        // Whether the filterButtons are displayed or not
+        filterListActive: true,
+
+        // Array with hitType filters applied (eg. ['analytics4', 'pageview', 'appview', 'event'])
+        filterButtons: [] as string[],
+
+        // Array with validation status filters applied (eg. ['SUCCESS', 'WARNING', 'ERROR'])
+        filterStatus: [] as string[],
+    });
+
+    const dataLayerSchemaRef = useRef({
+        fileName: '',
+        schema: {}
+    });
+    dataLayerSchemaRef.current = dataLayerSchema;
+
+    /**
+    * Handle accordion state (expanded or not)
+    *
+    * @param  hitKey  Hit key
+    */
+    function handleAccordionChange(hitKey: number) {
+
+        // Copy hitList object state
+        let newHitList = new Map(hitList);
+
+        // Toggle the expanded attribute of the hit
+        newHitList.set(hitKey, { ...newHitList.get(hitKey), expanded: !newHitList.get(hitKey)!.expanded });
+
+        // Update state
+        setHitList(newHitList);
+
+    };
+
+
+    /**
+    * Toggles the search bar (open or closed)
+    */
+    function searchBarToggler() {
+
+        // Toggle the filterButtons
+        let filterListActive = filters.filterListActive;
+        if ((filters.searchBarActive) &amp;&amp; (!filters.filterListActive)) {
+            filterListActive = true;
+        } else if ((!filters.searchBarActive) &amp;&amp; (filters.filterListActive)) {
+            filterListActive = false;
+        }
+
+        // Update state
+        setFilters({
+            ...filters,
+            filterListActive: filterListActive,
+            searchBarActive: !filters.searchBarActive,
+            searchedText: ''
+        });
+    }
+
+
+    /**
+    * Remove a hit from hitList
+    *
+    * @param  hitKey  Hit key to delete
+    */
+    function removeHit(hitKey: number) {
+
+        // Copy hitList object state
+        let newHitList = new Map(hitList);
+
+        // Delete hit
+        newHitList.delete(hitKey);
+
+        // Update state
+        setHitList(newHitList);
+    }
+
+
+    /**
+    * Expands or Collapses all accordions
+    *
+    * @param  expand  Wheter to expand (true) or collapse (false) all the accordions
+    */
+    function accordionExpandAll(expand: boolean) {
+
+        // // Copy accordionsExpanded object state
+        let newHitList = new Map(hitList);
+
+        // Update all accordions
+        newHitList.forEach((value, key) => {
+            newHitList.set(key, { ...newHitList.get(key), expanded: expand });
+        });
+
+        // Update state
+        setHitList(newHitList);
+    }
+
+
+    /**
+    * Returns de number of hits with the specified 'status', or the total, if 'status' is not provided
+    *
+    * @param  status  Status to consider. Set to undefined to count all hits.
+    */
+    function getValidationIndicators(status?: string) {
+
+        let total = hitList.size;
+
+        if (status) {
+            total = Array.from(hitList.values())
+                .filter(item => item.validationStatus === status)
+                .length;
+        };
+
+        return total;
+    }
+
+
+    /**
+    * Filters displayed hits, based on active filterButtons and searched text.
+    *
+    * @param  hitListArray Array with hits parameters.
+    */
+    function filterHitsByType(hitListArray: any[]) {
+
+        // no filterButtons
+        if ((filters.filterButtons.length === 0) &amp;&amp; (filters.searchedText === '')) {
+            return hitListArray;
+        }
+
+        // Only search filter
+        if (filters.filterButtons.length === 0) {
+            return hitListArray
+                .filter((obj) => Object.values(obj.hitParameters as { [key: string]: string }).some(val => val.toLowerCase().includes(filters.searchedText.toLowerCase())));
+        }
+
+        // Only button filter
+        if (filters.searchedText === '') {
+            return hitListArray
+                .filter(item => filters.filterButtons.includes(item.hitType));
+        }
+
+        // Both filters
+        return hitListArray
+            .filter(item => filters.filterButtons.includes(item.hitType))
+            // .filter((obj) => Object.values(obj.hitParameters as { [key: string]: string }).includes(filters.searchedText.toLowerCase())) // Exact match
+            .filter((obj) => Object.values(obj.hitParameters as { [key: string]: string }).some(val => val.toLowerCase().includes(filters.searchedText.toLowerCase())));
+    }
+
+
+    /**
+    * Filters displayed hits, based on active status filtered.
+    *
+    * @param  hitListArray  Array of hits parameters to filter.
+    */
+    function filterHitsByStatus(hitListArray: any[]) {
+
+        if (filters.filterStatus.length > 0) {
+            return hitListArray.filter(item => filters.filterStatus.includes(item.validationStatus));
+        } else {
+            return hitListArray;
+        }
+
+    }
+
+
+    /**
+    * Generate array of &lt;Hit/> components
+    */
+    function renderHits() {
+        // Array of filtered hits parameters
+        let hitListArray = Array.from(hitList.values());
+        hitListArray = filterHitsByType(hitListArray);
+        hitListArray = filterHitsByStatus(hitListArray);
+
+        // Array of &lt;Hit/> components
+        const renderedHitsArray = hitListArray.reverse().map((hit) => {
+            return (
+                &lt;HitAccordion
+                    hitParameters={hit.hitParameters}
+                    contentTitle={hit.contentTitle}
+                    hitTypeIcon={hit.hitType}
+                    hitListKey={hit.hitListKey}
+                    removeHit={removeHit}
+                    key={hit.hitListKey}
+                    expanded={hit.expanded}
+                    handleAccordionChange={handleAccordionChange}
+                    validationStatus={hit.validationStatus}
+                    validationResult={hit.validationResult}
+                />
+            );
+        });
+        return renderedHitsArray;
+    }
+
+
+    /**
+    * Handles JSON file upload.
+    *
+    * @param  event     Change event.
+    */
+    function handleFileUpload(event: React.ChangeEvent&lt;HTMLInputElement>) {
+
+        // Return if no file
+        if (!event.target.files) {
+            return;
+        }
+
+
+        // File reader
+        const reader = new FileReader();
+        reader.onload = (evt) => {
+
+            // Return if no result
+            if (!evt?.target?.result) {
+                return;
+            }
+
+            // Parse JSON
+            let schema = JSON.parse(JSON.parse(JSON.stringify(evt.target.result)));
+
+            // Update state
+            setDataLayerSchema({ fileName: file.name, schema: schema });
+
+        };
+
+        // File
+        const file = event.target.files[0];
+
+        // Read file
+        reader.readAsBinaryString(file);
+
+        // Remove &lt;input> value, so a file with the same name can be reuploaded
+        event.target.value = '';
+    };
+
+
+    /**
+    * After component mounts hook.
+    */
+    useEffect(() => {
+
+        /**
+        * Requests listener
+        */
+        function requestListener() {
+
+            // Restrict to current tab
+            chrome.tabs.query({ active: true, currentWindow: true, lastFocusedWindow: true }, function (tab) {
+
+                // Add listener
+                chrome.webRequest.onBeforeRequest.addListener(
+                    function (details) {
+                        if (details.url.match(/.(google-analytics.com|analytics.google.com)(\/.)?\/collect.*$/)) {
+
+                            initParser(
+                                details.url,
+                                details.method,
+                                details.requestBody,
+                                details.initiator ? details.initiator : ''
+                            );
+                        }
+                    },
+                    {
+                        urls: ['&lt;all_urls>'],
+                        tabId: tab[0].id
+                    },
+                    ['requestBody']
+                );
+            });
+        }
+
+
+        /**
+        * Start the handler
+        *
+        * @param  url          URL
+        * @param  method       HTTP Method
+        * @param  requestBody  Body of request
+        * @param  initiator    The origin where the request was initiated.
+        * @return              Void or string ...
+        */
+        function initParser(url: string, method: string, requestBody: chrome.webRequest.WebRequestBody | null, initiator: string) {
+
+            // Ignore requests comming from chrome extensions
+            if (initiator.includes('chrome-extension://')) return;
+
+            // Return void if requested url doesn't fit UA or GA4 patterns
+            if (!commonRules.universal_analytics(url) &amp;&amp; !commonRules.analytics4(url)) {
+                return;
+            }
+
+            if (url.includes('v=1')) {
+                // UA handler
+                handler(url, '', false);
+
+            } else if (url.includes('v=2')) {
+                // GA4 handler
+                handler(url, '', true);
+
+            } else {
+                // Measurement Protocol
+
+                let ga4: boolean = false;
+
+                // Checks if GA4
+                if (url.includes('/mp/collect')) {
+                    ga4 = true;
+                };
+
+                // For each line in requestBody:
+                //   Decodes Uint8Array array (from ArrayBuffer) into string
+                //   Call handler function
+                requestBody?.raw?.map(function (data) {
+                    return String.fromCharCode.apply(null, Array.from&lt;number>(new Uint8Array(data.bytes!)));
+                })
+                    .forEach((row) => handler(url, row, ga4));
+            }
+        }
+
+        /**
+       * Handle method to add new hit
+       *
+       * @param  url          URL
+       * @param  queryString  Query string
+       * @param  ga4          True if it's a GA4 hit. False if it's a UA hit.
+       */
+        async function handler(url: string, queryString: string, ga4: boolean) {
+
+            // Identify queryString, if empty
+            if (queryString === '') {
+                if (url.includes('?')) {
+                    queryString = url.slice(url.indexOf('?') + 1);
+                } else return;
+            };
+
+            // Generate object from query string
+            let params = RW.queryToObject(queryString);
+
+            // content = Hit/event "title" on Analytics Watcher's HTML page
+            let contentTitle = '';
+
+            // Required parameters
+            let requiredParametersToCheck;
+
+            let validationStatus: StatusInterface;
+            let validationResult: any[];
+
+            if (ga4) {
+                // GA4 events
+
+                // set contentTitle
+                contentTitle = params.en ? params.en : params.dl;
+
+                // Required parameters
+                requiredParametersToCheck = ['analytics4'];
+
+                [validationStatus, validationResult] = await validateHit(dataLayerSchemaRef.current.schema, requiredParametersToCheck, params);
+
+            } else {
+                // UA events
+
+                // set contentTitle
+                contentTitle = RW.setUAContent(params, contentTitle);
+
+                // Required parameters
+                requiredParametersToCheck = ['all', params.t];
+
+                [validationStatus, validationResult] = await validateHit(dataLayerSchemaRef.current.schema, requiredParametersToCheck, params);
+            }
+
+            // Decode contentTitle
+            contentTitle = RW.decode(contentTitle);
+
+            // Hit type
+            let hitType;
+            if (ga4) {
+                hitType = 'analytics4';
+            } else {
+                hitType = params.t;
+            };
+
+            // Insert new hit info on Analytics Watcher's HTML page
+            addNewHit(
+                params,
+                validationStatus,
+                validationResult,
+                contentTitle,
+                hitType,
+            );
+        }
+
+        /**
+        * Append new hit information to hitList state
+        *
+        * @param  hitParameters     Object formed from qery string
+        * @param  validationStatus  'error' if missing any "required parameters" or 'ok' otherwise
+        * @param  contentTitle      Hit title
+        * @param  hitType           Type of hit
+        */
+        function addNewHit(hitParameters: { [key: string]: string }, validationStatus: StatusInterface, validationResult: any[], contentTitle: string, hitType: string) {
+
+            setHitList(oldHitList => {
+                // Generate hitListKey = biggest key + 1
+                let hitListKey = oldHitList.size > 0 ? Math.max(...oldHitList.keys()) + 1 : 0;
+
+                // Append new hit on hitList
+                return new Map(oldHitList.set(hitListKey,
+                    {
+                        hitParameters: hitParameters,
+                        validationStatus: validationStatus,
+                        validationResult: validationResult,
+                        contentTitle: contentTitle,
+                        hitType: hitType,
+                        hitListKey: hitListKey,
+                        expanded: false,
+                    }
+                ));
+            });
+        }
+
+
+        // Set up obBeforeRequest listener
+        requestListener();
+
+        // initParser(
+        //     'https://www.google-analytics.com/g/collect?v=2&amp;tid=G-N4J2F78CPK&amp;gtm=2oe4r0&amp;_p=1314753210&amp;_z=ccd.NbB&amp;cid=1642312484.1651168350&amp;ul=pt-br&amp;sr=1280x720&amp;sid=1651171814&amp;sct=1&amp;seg=1&amp;dl=http%3A%2F%2F127.0.0.1%2Findex.html&amp;dr=http%3A%2F%2F127.0.0.1%3A5000%2Fanalise.html&amp;dt=DP6%20Case%20-%20Prova%20T%C3%A9cnica&amp;_s=1',
+        //     'post',
+        //     null,
+        //     ''
+        // );
+
+
+        // setTimeout(() => {
+        //     initParser(
+        //         'https://www.google-analytics.com/j/collect?v=1&amp;_v=j96&amp;a=163765863&amp;t=event&amp;ni=1&amp;_s=1&amp;dl=https%3A%2F%2Fwww.prudential.com.br%2Fcontent%2Fprudential%2Fhome%2Fpara-voce%2Fseguro-individual.html&amp;ul=pt-br&amp;de=UTF-8&amp;dt=Prudential%3A%20Seguro%20de%20Vida%20-%20Veja%20o%20Plano%20Individual%20%7C%20Prudential&amp;sd=24-bit&amp;sr=1280x720&amp;vp=1263x577&amp;je=0&amp;ec=web-vitals&amp;ea=CLS&amp;el=v2-1651857106243-2938432349121&amp;_u=SCCACUABBAAAAG~&amp;jid=1772300202&amp;gjid=523459683&amp;cid=1489834817.1651778536&amp;tid=UA-185685971-1&amp;_gid=1523670321.1651778536&amp;_r=1&amp;gtm=2wg540NS2KDGF&amp;cm1=11&amp;cm2=11&amp;z=1529625290',
+        //         'POST',
+        //         null,
+        //         ''
+        //     );
+        // }, 6000);
+
+    }, []);
+
+    /**
+    * Hook to set up dark theme, based on OS preference
+    */
+    useEffect(() => {
+        setIsDarkTheme(prefersDarkMode);
+    }, [prefersDarkMode]);
+
+
+    return (
+        &lt;ThemeProvider theme={isDarkTheme ? createTheme(dark as ThemeOptions) : createTheme(light as ThemeOptions)} >
+            &lt;CssBaseline />
+            &lt;Box sx={{
+                flexGrow: 1,
+            }}>
+                &lt;Navbar
+                    isDarkTheme={isDarkTheme}
+                    setIsDarkTheme={setIsDarkTheme}
+                    filters={filters}
+                    setFilters={setFilters}
+                    setHitList={setHitList}
+                    searchBarToggler={searchBarToggler}
+                    handleFileUpload={handleFileUpload}
+                />
+                &lt;PanelBar
+                    getValidationIndicators={getValidationIndicators}
+                    accordionExpandAll={accordionExpandAll}
+                    filters={filters}
+                    setFilters={setFilters}
+                    dataLayerSchema={dataLayerSchema}
+                    setDataLayerSchema={setDataLayerSchema}
+                    handleFileUpload={handleFileUpload}
+                />
+                &lt;Divider sx={{ mt: 1, mb: 1 }} />
+                {renderHits()}
+            &lt;/Box>
+        &lt;/ThemeProvider >
+    );
+}
+
+
+export default App;
+</code></pre></article></section></div></div></div><div class="search-container" id="PkfLWpAbet" style="display:none"><div class="wrapper" id="iCxFxjkHbP"><button class="icon-button search-close-button" id="VjLlGakifb" aria-label="close search"><svg><use xlink:href="#close-icon"></use></svg></button><div class="search-box-c"><svg><use xlink:href="#search-icon"></use></svg> <input type="text" id="vpcKVYIppa" class="search-input" placeholder="Search..." autofocus></div><div class="search-result-c" id="fWwVHRuDuN">Type anything to view search result</div></div></div><div class="mobile-menu-icon-container"><button class="icon-button" id="mobile-menu" data-isopen="false" aria-label="menu"><svg><use xlink:href="#menu-icon"></use></svg></button></div><div id="mobile-sidebar" class="mobile-sidebar-container"><div class="mobile-sidebar-wrapper"><a href="/" class="sidebar-title sidebar-title-anchor">Home</a><div class="mobile-nav-links"><div class="navbar-item"><a id="dp6-href-mobile" href="https://www.dp6.com.br/" target="_blank"><img height="32" src=".\Logo Oficial SemAssinatura Negativo SemBox RGB_025mp.png" alt="DP6"></a></div></div><div class="mobile-sidebar-items-c"><div class="sidebar-section-title with-arrow" data-isopen="false" id="d1bftQ1OzBFvw7yFArQIi"><div>Namespaces</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="commonRules.html">commonRules</a></div></div><div class="sidebar-section-title with-arrow" data-isopen="false" id="A24J_zlM8hmk0LCtHMw9g"><div>Global</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="global.html#App">App</a></div><div class="sidebar-section-children"><a href="global.html#decode">decode</a></div><div class="sidebar-section-children"><a href="global.html#encode">encode</a></div><div class="sidebar-section-children"><a href="global.html#HitAccordion">HitAccordion</a></div><div class="sidebar-section-children"><a href="global.html#hitTypeIconImg">hitTypeIconImg</a></div><div class="sidebar-section-children"><a href="global.html#identifyUndefinedRequiredParameters">identifyUndefinedRequiredParameters</a></div><div class="sidebar-section-children"><a href="global.html#info">info</a></div><div class="sidebar-section-children"><a href="global.html#Navbar">Navbar</a></div><div class="sidebar-section-children"><a href="global.html#PanelBar">PanelBar</a></div><div class="sidebar-section-children"><a href="global.html#penguinValidation">penguinValidation</a></div><div class="sidebar-section-children"><a href="global.html#queryToObject">queryToObject</a></div><div class="sidebar-section-children"><a href="global.html#requiredParameters">requiredParameters</a></div><div class="sidebar-section-children"><a href="global.html#SchemaDialog">SchemaDialog</a></div><div class="sidebar-section-children"><a href="global.html#setUAContent">setUAContent</a></div><div class="sidebar-section-children"><a href="global.html#statusIcon">statusIcon</a></div><div class="sidebar-section-children"><a href="global.html#StatusInterface">StatusInterface</a></div><div class="sidebar-section-children"><a href="global.html#validateHit">validateHit</a></div></div></div><div class="mobile-navbar-actions"><div class="navbar-right-item"><button class="icon-button search-button" aria-label="open-search"><svg><use xlink:href="#search-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button theme-toggle" aria-label="toggle-theme"><svg><use class="theme-svg-use" xlink:href="#light-theme-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button font-size" aria-label="change-font-size"><svg><use xlink:href="#font-size-icon"></use></svg></button></div></div></div></div><script type="text/javascript" src="scripts/core.min.js"></script><script src="scripts/search.min.js" defer="defer"></script><script src="scripts/third-party/fuse.js" defer="defer"></script><script type="text/javascript">tocbot.init({tocSelector:"#eed4d2a0bfd64539bb9df78095dec881",contentSelector:".main-content",headingSelector:"h1, h2, h3",hasInnerContainers:!0,scrollContainer:".main-content",headingsOffset:130,onClick:bringLinkToView})</script></body></html>
