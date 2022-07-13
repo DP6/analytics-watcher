@@ -36,17 +36,13 @@ if (fileSystem.existsSync(secretsPath)) {
 let options = {
     mode: process.env.NODE_ENV || 'development',
     entry: {
-        // newtab: path.join(__dirname, 'src', 'pages', 'Newtab', 'index.jsx'),
-        options: path.join(__dirname, 'src', 'pages', 'Options', 'index.jsx'),
         popup: path.join(__dirname, 'src', 'pages', 'Popup', 'index.jsx'),
-        background: path.join(__dirname, 'src', 'pages', 'Background', 'index.js'),
-        contentScript: path.join(__dirname, 'src', 'pages', 'Content', 'index.js'),
         devtools: path.join(__dirname, 'src', 'pages', 'Devtools', 'index.js'),
         panel: path.join(__dirname, 'src', 'pages', 'Panel', 'index.jsx'),
         sandboxPenguinValidation: path.join(__dirname, 'src', 'pages', 'Panel', 'sandbox', 'sandbox-penguinValidation.ts'),
     },
     chromeExtensionBoilerplate: {
-        notHotReload: ['background', 'contentScript', 'devtools'],
+        notHotReload: ['devtools'],
     },
     output: {
         filename: '[name].bundle.js',
@@ -137,15 +133,6 @@ let options = {
         new CopyWebpackPlugin({
             patterns: [
                 {
-                    from: 'src/pages/Content/content.styles.css',
-                    to: path.join(__dirname, 'build'),
-                    force: true,
-                },
-            ],
-        }),
-        new CopyWebpackPlugin({
-            patterns: [
-                {
                     from: 'src/assets/img/icon-128.png',
                     to: path.join(__dirname, 'build'),
                     force: true,
@@ -160,18 +147,6 @@ let options = {
                     force: true,
                 },
             ],
-        }),
-        // new HtmlWebpackPlugin({
-        //     template: path.join(__dirname, 'src', 'pages', 'Newtab', 'index.html'),
-        //     filename: 'newtab.html',
-        //     chunks: ['newtab'],
-        //     cache: false,
-        // }),
-        new HtmlWebpackPlugin({
-            template: path.join(__dirname, 'src', 'pages', 'Options', 'index.html'),
-            filename: 'options.html',
-            chunks: ['options'],
-            cache: false,
         }),
         new HtmlWebpackPlugin({
             template: path.join(__dirname, 'src', 'pages', 'Popup', 'index.html'),
