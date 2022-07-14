@@ -85,7 +85,6 @@ function Navbar(props: NavbarProps) {
             <Container maxWidth='xl' disableGutters={true} sx={{ px: 1 }}>
                 <Toolbar
                     disableGutters
-                    style={{ backgroundImage: './Grafismo Oficial DP6_png.png' }}
                     sx={{ zIndex: 'tooltip', color: 'white', mt: 0.7 }}
                     color='primary'
                 >
