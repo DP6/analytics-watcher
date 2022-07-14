@@ -3,7 +3,8 @@ window.commonRules = {
         universal_analytics_url: /^https?:\/\/(www|ssl)\.google-analytics.com\/([a-z]\/)?collect\??/i,
         analytics4_url: /^https?:\/\/analytics.google.com\/([a-z]\/)?collect\??/i,
         trackingID: /^UA\-\d+\-\d{1,2}$/,
-        hitType: /^(pageview|appview|event|transaction|item|social|exception|timing)$/
+        hitType: /^(pageview|appview|event|transaction|item|social|exception|timing)$/,
+        gtmServerSide: /\/.\/collect\?/
     },
     universal_analytics(url) {
         return this.regex.universal_analytics_url.test(url);

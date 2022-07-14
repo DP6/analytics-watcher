@@ -1,5 +1,5 @@
-import validateObject from './ajv.js';
 // import jsPDF from './jspdf.min.js';
+import validateObject from './ajv.js';
 
 window.penguinDataLayer = {};
 window.penguinDataLayer.dataLayer = [];
