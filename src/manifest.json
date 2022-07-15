@@ -20,10 +20,6 @@
     "background": {
         "scripts": ["js/background.js"]
     },
-	"content_scripts": [{
-		"matches": ["http://*/*", "https://*/*"],
-		"js": ["js/content.js"]
-	}],
     "devtools_page": "devtools.html",
     "minimum_chrome_version": "49.0",
     "web_accessible_resources": ["*"],
