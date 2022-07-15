@@ -285,9 +285,6 @@ chrome.webRequest.onBeforeRequest.addListener(
         if (details.url.match(/.(google-analytics.com|analytics.google.com)(\/.)?\/collect.*$/)) {
             RW.init(details);
         }
-        else if (details.url.match(/\/.\/collect\?/)) {
-            RW.init(details);
-        }
     },
 	{ urls: [ '<all_urls>'] },
 	[ "requestBody" ]
