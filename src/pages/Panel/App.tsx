@@ -405,7 +405,7 @@ function App() {
         function requestListener() {
 
             // Restrict to current tab
-            chrome.tabs.query({ active: true, currentWindow: true, lastFocusedWindow: true }, function (tab) {
+            chrome.tabs.query({ active: true }, function (tab) {
 
                 // Add listener
                 chrome.webRequest.onBeforeRequest.addListener(
@@ -422,7 +422,7 @@ function App() {
                     },
                     {
                         urls: ['<all_urls>'],
-                        tabId: tab[0].id
+                        tabId: chrome.devtools.inspectedWindow.tabId
                     },
                     ['requestBody']
                 );
@@ -478,12 +478,12 @@ function App() {
         }
 
         /**
-       * Handle method to add new hit
-       *
-       * @param  url          URL
-       * @param  queryString  Query string
-       * @param  ga4          True if it's a GA4 hit. False if it's a UA hit.
-       */
+        * Handle method to add new hit
+        *
+        * @param  url          URL
+        * @param  queryString  Query string
+        * @param  ga4          True if it's a GA4 hit. False if it's a UA hit.
+        */
         async function handler(url: string, queryString: string, ga4: boolean) {
 
             // Identify queryString, if empty
