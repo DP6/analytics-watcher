@@ -1,13 +1,6 @@
 import * as React from 'react';
 
-import Box from '@mui/material/Box';
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import Typography from '@mui/material/Typography';
-import AccordionDetails from '@mui/material/AccordionDetails';
 import Paper from '@mui/material/Paper';
-import Alert, { AlertColor } from '@mui/material/Alert';
-
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -33,6 +26,15 @@ import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
 import * as RW from '../utils/3.hitParser';
 import { metadata } from '../utils/2.metadata';
+import { HitModel } from '../models/HitModel';
+
+import List from '@mui/material/List';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import Collapse from '@mui/material/Collapse';
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
 
 
 /**
@@ -68,9 +70,8 @@ interface HitAccordionProps {
     contentTitle: string,
     hitTypeIcon: string,
     hitListKey: number,
-    removeHit: Function,
     expanded: boolean,
-    handleAccordionChange: Function,
+    setHitList: React.Dispatch<React.SetStateAction<HitModel>>,
     validationStatus: string,
     validationResult: any[],
 }
@@ -83,64 +84,49 @@ interface HitAccordionProps {
  * @param  props.contentTitle   Hit title
  * @param  props.hitTypeIcon    Type of hit
  * @param  props.hitListKey     key ID of hit
- * @param  props.removeHit      Function that removes a hit entry
  * @param  props.expanded       Hit accordion state (expanded or not)
- * @param  props.handleAccordionChange  Function that handles accordion expansion
+ * @param  props.setHitList       hitList setter function
  * @param  props.validationStatus       Status of validation ('ERROR', 'WARNING' or 'SUCCESS')
  * @param  props.validationResult       Validation result object, containing status and messages
  * @return      JSX.Element
  */
 function HitAccordion(props: HitAccordionProps) {
-    return (
-        <Accordion
-            expanded={props.expanded}
-            onChange={() => props.handleAccordionChange(props.hitListKey)}
-        >
-            <AccordionSummary
-                sx={{
-                    '& .MuiAccordionSummary-content': {
-                        mt: 0,
-                        mb: 0,
-                    },
-                    '& .MuiAccordionSummary-content.Mui-expanded.MuiAccordionSummary-contentGutters': {
-                        mt: 0,
-                        mb: 0,
-                    },
-                    minHeight: 40,
-                }}
-            >
-                <div style={{ width: '100%' }}>
-                    <Box display="flex" flexDirection="row" sx={{ justifyContent: 'space-between', }}>
-                        <Box display="flex" alignItems="center" flexDirection="row">
-                            {/* <Box component="span" sx={{ mr: 1, bgcolor: props.color, width: 15, height: 15, borderRadius: '50%' }} /> */}
-                            {statusIcon[props.validationStatus]? statusIcon[props.validationStatus] : statusIcon['WARNING']}
-                            {hitTypeIconImg[props.hitTypeIcon]}
-                            <Typography fontSize='small' sx={{ ml: 1, flexGrow: 1 }}>{props.contentTitle}</Typography>
-                        </Box>
-                        <div onClick={(event) => event.stopPropagation()}>
-                            <IconButton onClick={() => props.removeHit(props.hitListKey)} title='Delete'>
-                                <ClearIcon fontSize="small" />
-                            </IconButton>
-                        </div>
-                    </Box>
-                </div>
-            </AccordionSummary>
-            <AccordionDetails sx={{ p: 0, '& .MuiAccordionDetails-root': { pt: 0 }, }}>
-                {props.validationResult
-                    .map((key, index) => {
-                        let severity: AlertColor;
-                        if (key.status === 'ERROR') {
-                            severity = 'error';
-                        } else if (key.status === 'WARNING') {
-                            severity = 'warning';
-                        } else {
-                            severity = 'success';
-                        }
-                        return <Alert key={index} severity={severity}>{key.status} - {key.message}</Alert>;
-                    })
-                }
 
-                <TableContainer component={Paper}>
+    return (
+        <List
+            sx={{ mx: 2, py: 0, my: 1 }}
+            component={Paper}
+            elevation={3}
+        >
+            <ListItemButton
+                sx={{ px: 2, py: 0, border: 1, borderColor: 'rgba(255, 255, 255, 0.12)', }}
+                onClick={() => props.setHitList(oldHitList => {
+                    let newhitList = new HitModel(oldHitList);
+                    newhitList.toggleDataExpanded(props.hitListKey);
+                    return newhitList;
+                })}
+            >
+                <ListItemIcon>
+                    {props.expanded ? <ExpandLess /> : <ExpandMore />}
+                    {statusIcon[props.validationStatus] ? statusIcon[props.validationStatus] : statusIcon['WARNING']}
+                    {hitTypeIconImg[props.hitTypeIcon]}
+                </ListItemIcon>
+                <ListItemText sx={{ ml: 1 }} primary={props.contentTitle} />
+                <div onClick={(event) => event.stopPropagation()}>
+                    <IconButton
+                        title='Delete'
+                        onClick={() => props.setHitList(oldHitList => {
+                            let newhitList = new HitModel(oldHitList);
+                            newhitList.removeData(props.hitListKey);
+                            return newhitList;
+                        })}
+                    >
+                        <ClearIcon fontSize="small" />
+                    </IconButton>
+                </div>
+            </ListItemButton>
+            <Collapse in={props.expanded} timeout={0} mountOnEnter unmountOnExit>
+                <TableContainer component={Paper} sx={{ mb: 2 }}>
                     <Table size="small">
                         <TableHead>
                             <TableRow>
@@ -163,8 +149,8 @@ function HitAccordion(props: HitAccordionProps) {
                         </TableBody>
                     </Table>
                 </TableContainer>
-            </AccordionDetails>
-        </Accordion >
+            </Collapse>
+        </List>
     );
 }
 

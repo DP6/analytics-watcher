@@ -18,13 +18,13 @@ import SchemaDialog from './SchemaDialog';
 
 import FileErrorDialog from './FileErrorDialog';
 
+import { HitModel } from '../models/HitModel';
+
 
 // --------------------------------------------------------
 // ActionsBar
 // --------------------------------------------------------
 interface ActionsBarProps {
-    getValidationIndicators: Function,
-    accordionExpandAll: Function,
     filters: {
         searchBarActive: boolean;
         searchedText: string;
@@ -54,6 +54,9 @@ interface ActionsBarProps {
 
     fileErrorDialogOpen: boolean,
     setFileErrorDialogOpen: React.Dispatch<React.SetStateAction<boolean>>,
+
+    hitList: HitModel,
+    setHitList: React.Dispatch<React.SetStateAction<HitModel>>,
 }
 
 
@@ -98,19 +101,19 @@ function ActionsBar(props: ActionsBarProps) {
                     <ToggleButton aria-label='Toggle GA 4 filter' title='Error' value='ERROR' sx={{ color: 'inherit', py: 0.3 }}>
                         <ErrorOutlineIcon fontSize='small' color='error' />
                         <Typography color='error.main'>
-                            {props.getValidationIndicators('ERROR')}
+                            {props.hitList.getValidationIndicators('ERROR')}
                         </Typography>
                     </ToggleButton>
                     <ToggleButton aria-label='Toggle Pageview filter' title='Warning' value='WARNING' sx={{ color: 'inherit', py: 0.3 }}>
                         <WarningAmberIcon fontSize='small' color='warning' />
                         <Typography color='warning.main'>
-                            {props.getValidationIndicators('WARNING')}
+                            {props.hitList.getValidationIndicators('WARNING')}
                         </Typography>
                     </ToggleButton>
                     <ToggleButton aria-label='Toggle App View filter' title='Success' value='SUCCESS' sx={{ color: 'inherit', py: 0.3 }}>
                         <CheckCircleOutlineIcon fontSize='small' color='success' />
                         <Typography color='success.main'>
-                            {props.getValidationIndicators('SUCCESS')}
+                            {props.hitList.getValidationIndicators('SUCCESS')}
                         </Typography>
                     </ToggleButton>
                 </ToggleButtonGroup>
@@ -149,7 +152,11 @@ function ActionsBar(props: ActionsBarProps) {
                     variant='outlined'
                     size='small'
                     startIcon={<UnfoldMoreIcon />}
-                    onClick={() => props.accordionExpandAll(true)}
+                    onClick={() => props.setHitList(oldHitList => {
+                        let newhitList = new HitModel(oldHitList);
+                        newhitList.expandAll(true);
+                        return newhitList;
+                    })}
                 >
 
                     <Typography sx={{ fontSize: 12 }}>
@@ -160,7 +167,11 @@ function ActionsBar(props: ActionsBarProps) {
                     variant='outlined'
                     size='small'
                     startIcon={<UnfoldLessIcon />}
-                    onClick={() => props.accordionExpandAll(false)}
+                    onClick={() => props.setHitList(oldHitList => {
+                        let newhitList = new HitModel(oldHitList);
+                        newhitList.expandAll(false);
+                        return newhitList;
+                    })}
                 >
                     <Typography sx={{ fontSize: 12 }}>
                         Collapse All

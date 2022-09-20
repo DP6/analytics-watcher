@@ -7,13 +7,15 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
 
 import Navbar from './components/Navbar';
-import HitAccordion from './components/HitAccordion';
 import ActionsBar from './components/ActionsBar';
 import PaginationBar from './components/PaginationBar';
 
 import { commonRules } from './utils/1.rules';
 import * as RW from './utils/3.hitParser';
 import validateHit, { StatusInterface } from './utils/4.hitValidation';
+
+import { HitModel } from './models/HitModel';
+import HitAccordion from './components/HitAccordion';
 
 
 // --------------------------------------------------------
@@ -82,7 +84,7 @@ function App() {
     const [isDarkTheme, setIsDarkTheme] = useState(prefersDarkMode);
 
     // Map with all hits {hit_id: {hit_parameters}}
-    const [hitList, setHitList] = useState(new Map() as Map<number, any>);
+    const [hitList, setHitList] = useState(new HitModel());
 
     // State of fileErrorDialog
     const [schemaDialogOpen, setSchemaDialogOpen] = React.useState(false);
@@ -128,23 +130,6 @@ function App() {
 
 
     /**
-    * Handle accordion state (expanded or not)
-    *
-    * @param  hitKey  Hit key
-    */
-    function handleAccordionChange(hitKey: number) {
-        // Copy hitList object state
-        let newHitList = new Map(hitList);
-
-        // Toggle the expanded attribute of the hit
-        newHitList.set(hitKey, { ...newHitList.get(hitKey), expanded: !newHitList.get(hitKey)!.expanded });
-
-        // Update state
-        setHitList(newHitList);
-    };
-
-
-    /**
     * Toggles the search bar (open or closed)
     */
     function searchBarToggler() {
@@ -167,129 +152,6 @@ function App() {
 
 
     /**
-    * Remove a hit from hitList if 'hitKey' is specified. Otherwise remove all hits.
-    *
-    * @param  hitKey  Hit key to delete
-    */
-    function removeHit(hitKey?: number) {
-        if (hitKey) {
-            // Copy hitList object state
-            let newHitList = new Map(hitList);
-
-            // Delete hit
-            newHitList.delete(hitKey);
-
-            // Update state
-            setHitList(newHitList);
-        } else {
-            // Remnove all hits
-            setHitList(new Map());
-
-            // Set pagination to page one.
-            setPagination({
-                ...pagination,
-                currentPage: 1,
-            });
-        }
-    }
-
-
-    /**
-    * Expands or Collapses all accordions
-    *
-    * @param  expand  Wheter to expand (true) or collapse (false) all the accordions
-    */
-    function accordionExpandAll(expand: boolean) {
-        // // Copy accordionsExpanded object state
-        let newHitList = new Map(hitList);
-
-        // Update all accordions
-        newHitList.forEach((value, key) => {
-            newHitList.set(key, { ...newHitList.get(key), expanded: expand });
-        });
-
-        // Update state
-        setHitList(newHitList);
-    }
-
-
-    /**
-    * Returns de number of hits with the specified 'status', or the total, if 'status' is not provided.
-    *
-    * @param  status  Status to consider. Set to undefined to count all hits.
-    */
-    function getValidationIndicators(status?: string) {
-        let total = hitList.size;
-
-        if (status) {
-            total = Array.from(hitList.values())
-                .filter(item => item.validationStatus === status)
-                .length;
-        };
-
-        return total;
-    }
-
-
-    /**
-    * Filters displayed hits, based on active filterButtons.
-    *
-    * @param  hitListArray Array with hits parameters.
-    */
-    function filterHitsByType(hitListArray: any[]) {
-        // no filterButtons
-        if (filters.filterButtons.length === 0) {
-            return hitListArray;
-        } else {
-            return hitListArray
-                .filter(item => filters.filterButtons.includes(item.hitType));
-        }
-    }
-
-
-    /**
-    * Filters displayed hits, based on searched text.
-    *
-    * @param  hitListArray Array with hits parameters.
-    */
-    function filterHitsBySearchText(hitListArray: any[]) {
-        if (filters.searchedText === '') {
-            // No text input
-            return hitListArray;
-        } else {
-            // With text
-            return hitListArray
-                // .filter((obj) => Object.values(obj.hitParameters as { [key: string]: string }).includes(filters.searchedText.toLowerCase())) // Exact match
-                .filter((obj) => Object.values(obj.hitParameters as { [key: string]: string }).some(val => val.toLowerCase().includes(filters.searchedText.toLowerCase())));
-        }
-    }
-
-
-    /**
-    * Filters displayed hits, based on active status filtered.
-    *
-    * @param  hitListArray  Array of hits parameters to filter.
-    */
-    function filterHitsByStatus(hitListArray: any[]) {
-        if (filters.filterStatus.length > 0) {
-            return hitListArray.filter(item => filters.filterStatus.includes(item.validationStatus));
-        } else {
-            return hitListArray;
-        }
-    }
-
-
-    /**
-    * Filters displayed hits, based on pagination.
-    *
-    * @param  hitListArray  Array of hits parameters to filter.
-    */
-    function filterHitsByPage(hitListArray: any[]) {
-        return hitListArray.slice((pagination.currentPage - 1) * pagination.pageSize, pagination.currentPage * pagination.pageSize);
-    }
-
-
-    /**
     * Changes pagination.
     *
     * @param  event  Change event.
@@ -303,34 +165,40 @@ function App() {
 
 
     /**
-    * Generate array of <Hit/> components
+    * Changes pagination page.
+    *
+    * @param  event     Change event.
+    * @param  value     New page number to set.
     */
-    function renderHits() {
-        // Reverse hitList array
-        let hitListArray = Array.from(hitList.values()).reverse();
+    function handlePageChange(event: React.ChangeEvent<unknown>, value: number) {
+        setPagination({
+            ...pagination,
+            currentPage: value,
+        });
+    };
 
-        // Array of filtered hits parameters
-        hitListArray = filterHitsByType(hitListArray);
-        hitListArray = filterHitsBySearchText(hitListArray);
-        hitListArray = filterHitsByStatus(hitListArray);
-        hitListArray = filterHitsByPage(hitListArray);
 
-        // Array of <Hit/> components
-        const renderedHitsArray = hitListArray.map((hit) => {
-            return (
-                <HitAccordion
-                    hitParameters={hit.hitParameters}
-                    contentTitle={hit.contentTitle}
-                    hitTypeIcon={hit.hitType}
-                    hitListKey={hit.hitListKey}
-                    removeHit={removeHit}
-                    key={hit.hitListKey}
-                    expanded={hit.expanded}
-                    handleAccordionChange={handleAccordionChange}
-                    validationStatus={hit.validationStatus}
-                    validationResult={hit.validationResult}
-                />
-            );
+    /**
+    * Generate array of <Hit/> components
+    * @return {JSX.Element[]} Array of <HitAccordion>
+    */
+    function renderHits(): JSX.Element[] {
+
+        let filteredHitList = hitList.reverse().filteredData(filters.filterButtons, filters.searchedText, filters.filterStatus, pagination);
+
+        const renderedHitsArray = [...filteredHitList.dataMap.values()].map((entry, index) => {
+
+            return <HitAccordion
+                hitParameters={entry.hitParameters}
+                contentTitle={entry.contentTitle}
+                hitTypeIcon={entry.hitType}
+                hitListKey={entry.hitKey}
+                setHitList={setHitList}
+                key={entry.hitKey}
+                expanded={entry.expanded}
+                validationStatus={entry.validationStatus}
+                validationResult={entry.validationResult}
+            />;
         });
         return renderedHitsArray;
     }
@@ -381,20 +249,6 @@ function App() {
 
 
     /**
-    * Changes pagination page.
-    *
-    * @param  event     Change event.
-    * @param  value     New page number to set.
-    */
-    function handlePageChange(event: React.ChangeEvent<unknown>, value: number) {
-        setPagination({
-            ...pagination,
-            currentPage: value,
-        });
-    };
-
-
-    /**
     * After component mounts hook.
     */
     useEffect(() => {
@@ -404,29 +258,29 @@ function App() {
         */
         function requestListener() {
 
-            // Restrict to current tab
-            chrome.tabs.query({ active: true }, function (tab) {
+            // Add listener
+            chrome.webRequest.onBeforeRequest.addListener(
+                function (details) {
 
-                // Add listener
-                chrome.webRequest.onBeforeRequest.addListener(
-                    function (details) {
-                        if (details.url.match(/.(google-analytics.com|analytics.google.com)(\/.)?\/collect.*$/)) {
+                    if (details.url.match(/.(google-analytics.com|analytics.google.com|google.analytics.com)(\/.)?\/collect.*$/)) {
 
-                            initParser(
-                                details.url,
-                                details.method,
-                                details.requestBody,
-                                details.initiator ? details.initiator : ''
-                            );
-                        }
-                    },
-                    {
-                        urls: ['<all_urls>'],
-                        tabId: chrome.devtools.inspectedWindow.tabId
-                    },
-                    ['requestBody']
-                );
-            });
+                        // console.log({ details });
+
+                        initParser(
+                            details.url,
+                            details.method,
+                            details.requestBody,
+                            details.initiator ? details.initiator : '',
+                            undefined,
+                        );
+                    }
+                },
+                {
+                    urls: ['<all_urls>'],
+                    tabId: chrome.devtools.inspectedWindow.tabId,
+                },
+                ['requestBody', 'extraHeaders']
+            );
         }
 
 
@@ -439,7 +293,7 @@ function App() {
         * @param  initiator    The origin where the request was initiated.
         * @return              Void or string ...
         */
-        function initParser(url: string, method: string, requestBody: chrome.webRequest.WebRequestBody | null, initiator: string) {
+        function initParser(url: string, method: string, requestBody: chrome.webRequest.WebRequestBody | null, initiator: string, favIconUrl: string | undefined) {
 
             // Ignore requests comming from chrome extensions
             if (initiator.includes('chrome-extension://')) return;
@@ -449,14 +303,13 @@ function App() {
                 return;
             }
 
-            if (url.includes('v=1')) {
+            if (url.includes('v=1&') || url.includes('&v=1')) {
                 // UA handler
-                handler(url, '', false);
+                handler(url, '', false, initiator, favIconUrl);
 
-            } else if (url.includes('v=2')) {
+            } else if (url.includes('v=2&') || url.includes('&v=2')) {
                 // GA4 handler
-                handler(url, '', true);
-
+                handler(url, '', true, initiator, favIconUrl);
             } else {
                 // Measurement Protocol
 
@@ -473,7 +326,7 @@ function App() {
                 requestBody?.raw?.map(function (data) {
                     return String.fromCharCode.apply(null, Array.from<number>(new Uint8Array(data.bytes!)));
                 })
-                    .forEach((row) => handler(url, row, ga4));
+                    .forEach((row) => handler(url, row, ga4, initiator, favIconUrl));
             }
         }
 
@@ -484,7 +337,7 @@ function App() {
         * @param  queryString  Query string
         * @param  ga4          True if it's a GA4 hit. False if it's a UA hit.
         */
-        async function handler(url: string, queryString: string, ga4: boolean) {
+        async function handler(url: string, queryString: string, ga4: boolean, initiator: string, favIconUrl: string | undefined) {
 
             // Identify queryString, if empty
             if (queryString === '') {
@@ -541,11 +394,14 @@ function App() {
 
             // Insert new hit info on Analytics Watcher's HTML page
             addNewHit(
+                url,
                 params,
                 validationStatus,
                 validationResult,
                 contentTitle,
                 hitType,
+                initiator,
+                favIconUrl,
             );
         }
 
@@ -557,24 +413,22 @@ function App() {
         * @param  contentTitle      Hit title
         * @param  hitType           Type of hit
         */
-        function addNewHit(hitParameters: { [key: string]: string }, validationStatus: StatusInterface, validationResult: any[], contentTitle: string, hitType: string) {
+        function addNewHit(url: string, hitParameters: { [key: string]: string }, validationStatus: StatusInterface, validationResult: any[], contentTitle: string, hitType: string, initiator: string, favIconUrl: string | undefined) {
 
             setHitList(oldHitList => {
-                // Generate hitListKey = biggest key + 1
-                let hitListKey = oldHitList.size > 0 ? Math.max(...oldHitList.keys()) + 1 : 0;
+                let newhitList = new HitModel(oldHitList);
+                newhitList.addData({
+                    hitParameters: hitParameters,
+                    validationStatus: validationStatus,
+                    validationResult: validationResult,
+                    contentTitle: contentTitle,
+                    hitType: hitType,
+                    expanded: false,
+                    url: initiator,
+                    favIconUrl: favIconUrl ? favIconUrl : '',
+                });
 
-                // Append new hit on hitList
-                return new Map(oldHitList.set(hitListKey,
-                    {
-                        hitParameters: hitParameters,
-                        validationStatus: validationStatus,
-                        validationResult: validationResult,
-                        contentTitle: contentTitle,
-                        hitType: hitType,
-                        hitListKey: hitListKey,
-                        expanded: false,
-                    }
-                ));
+                return newhitList;
             });
         }
 
@@ -600,14 +454,16 @@ function App() {
                 setIsDarkTheme={setIsDarkTheme}
                 filters={filters}
                 setFilters={setFilters}
-                removeHit={removeHit}
+                // removeHit={removeHit}
                 setHitList={setHitList}
                 searchBarToggler={searchBarToggler}
                 handleFileUpload={handleFileUpload}
             />
             <ActionsBar
-                getValidationIndicators={getValidationIndicators}
-                accordionExpandAll={accordionExpandAll}
+                // getValidationIndicators={getValidationIndicators}
+                // accordionExpandAll={accordionExpandAll}
+                hitList={hitList}
+                setHitList={setHitList}
                 filters={filters}
                 setFilters={setFilters}
                 dataLayerSchema={dataLayerSchema}
@@ -622,7 +478,7 @@ function App() {
             />
             <Divider sx={{ mt: 1, mb: 0.5 }} />
             <PaginationBar
-                size={hitList.size}
+                size={hitList.dataMap.size}
                 page={pagination.currentPage}
                 pagination={pagination.pageSize}
                 handlePageChange={handlePageChange}

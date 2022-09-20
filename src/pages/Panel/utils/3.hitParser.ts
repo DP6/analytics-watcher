@@ -84,11 +84,12 @@ export function queryToObject(url: string = ''): { [key: string]: string } {
 
 
 /**
- * Set "content" cariable for Universal Analytics hits
- * @param  {Ojectg} url Object to be formatted as query string
+ * Set "content" variable for Universal Analytics hits
+ * @param  {Ojectg} params Query string object
+ * @param  {Ojectg} content Content initial variable
  * @return {String}     query string formed from 'url' object
  */
-export function setUAContent(params: { [key: string]: string }, content: string) {
+export function setUAContent(params: { [key: string]: string }, content: string): string {
     let utp;
     switch (params.t) {
         case 'pageview':
