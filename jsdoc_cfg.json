@@ -1,0 +1,35 @@
+{
+    "tags": {
+        "allowUnknownTags": true,
+        "dictionaries": ["jsdoc", "closure"]
+    },
+    "source": {
+        "include": ["src"],
+        "includePattern": ".+\\.(js|ts)(doc|x)?$",
+        "excludePattern": "(^|\\/|\\\\)_"
+    },
+    "plugins": ["plugins/markdown", "node_modules/better-docs/typescript", "better-docs/component"],
+    "templates": {
+        "referenceTitle": "Analytics Watcher"
+    },
+    "opts": {
+        "destination": "docs/",
+        "template": "./node_modules/clean-jsdoc-theme",
+        "encoding": "utf8",
+        "recurse": true,
+        "readme": "README.md",
+        "theme_opts": {
+            "default_theme": "dark",
+            "favicon": ".\\min128.png",
+            "menu" : [
+                {
+                    "title": "<img height='32' src='.\\Logo Oficial SemAssinatura Negativo SemBox RGB_025mp.png' alt='DP6' />",
+                    "link": "https://www.dp6.com.br/",
+                    "target": "_blank",
+                    "class": "",
+                    "id": "dp6-href"
+                }
+            ]
+        }
+    }
+}

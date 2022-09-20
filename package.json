@@ -10,7 +10,8 @@
   "scripts": {
     "build": "node utils/build.js",
     "start": "node utils/webserver.js",
-    "prettier": "prettier --write '**/*.{js,jsx,ts,tsx,json,css,scss,md}'"
+    "prettier": "prettier --write '**/*.{js,jsx,ts,tsx,json,css,scss,md}'",
+    "docs": "jsdoc -r --configure ./jsdoc_cfg.json --verbose"
   },
   "dependencies": {
     "@dp6/penguin-datalayer-core": "^1.1.5",
@@ -20,6 +21,8 @@
     "@hot-loader/react-dom": "^17.0.2",
     "@mui/icons-material": "^5.8.2",
     "@mui/material": "^5.8.2",
+    "better-docs": "^2.7.2",
+    "jsdoc": "^3.6.10",
     "prop-types": "^15.8.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -36,6 +39,7 @@
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.3",
     "babel-preset-react-app": "^10.0.1",
+    "clean-jsdoc-theme": "^4.1.6",
     "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^7.0.0",
     "css-loader": "^6.6.0",

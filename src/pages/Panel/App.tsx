@@ -4,12 +4,12 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { createTheme, ThemeOptions, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 
-import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 
 import Navbar from './components/Navbar';
 import HitAccordion from './components/HitAccordion';
-import PanelBar from './components/PanelBar';
+import ActionsBar from './components/ActionsBar';
+import PaginationBar from './components/PaginationBar';
 
 import { commonRules } from './utils/1.rules';
 import * as RW from './utils/3.hitParser';
@@ -19,7 +19,7 @@ import validateHit, { StatusInterface } from './utils/4.hitValidation';
 // --------------------------------------------------------
 // Theme
 // --------------------------------------------------------
-const cores = {
+const paleta_dp6 = {
     // Principais - vermelho
     'Orange Red Crayola': '#FD4239',
     'Amaranth': '#E70F47',
@@ -50,7 +50,7 @@ const cores = {
 const light = {
     palette: {
         primary: {
-            main: cores['Midnight Dream'],
+            main: paleta_dp6['Midnight Dream'],
         },
         mode: 'light',
     },
@@ -84,10 +84,16 @@ function App() {
     // Map with all hits {hit_id: {hit_parameters}}
     const [hitList, setHitList] = useState(new Map() as Map<number, any>);
 
-    // JSON schema used for validation
-    const [dataLayerSchema, setDataLayerSchema] = useState({
-        fileName: '',
-        schema: {}
+    // State of fileErrorDialog
+    const [schemaDialogOpen, setSchemaDialogOpen] = React.useState(false);
+
+    // State of fileErrorDialog
+    const [fileErrorDialogOpen, setFileErrorDialogOpen] = React.useState(false);
+
+    // Pagination
+    const [pagination, setPagination] = React.useState({
+        currentPage: 1,
+        pageSize: 30
     });
 
     // Dark theme state
@@ -108,11 +114,18 @@ function App() {
         filterStatus: [] as string[],
     });
 
+    // JSON schema used for validation
+    const [dataLayerSchema, setDataLayerSchema] = useState({
+        fileName: '',
+        schema: {}
+    });
+
     const dataLayerSchemaRef = useRef({
         fileName: '',
         schema: {}
     });
     dataLayerSchemaRef.current = dataLayerSchema;
+
 
     /**
     * Handle accordion state (expanded or not)
@@ -120,7 +133,6 @@ function App() {
     * @param  hitKey  Hit key
     */
     function handleAccordionChange(hitKey: number) {
-
         // Copy hitList object state
         let newHitList = new Map(hitList);
 
@@ -129,7 +141,6 @@ function App() {
 
         // Update state
         setHitList(newHitList);
-
     };
 
 
@@ -137,7 +148,6 @@ function App() {
     * Toggles the search bar (open or closed)
     */
     function searchBarToggler() {
-
         // Toggle the filterButtons
         let filterListActive = filters.filterListActive;
         if ((filters.searchBarActive) && (!filters.filterListActive)) {
@@ -157,20 +167,30 @@ function App() {
 
 
     /**
-    * Remove a hit from hitList
+    * Remove a hit from hitList if 'hitKey' is specified. Otherwise remove all hits.
     *
     * @param  hitKey  Hit key to delete
     */
-    function removeHit(hitKey: number) {
+    function removeHit(hitKey?: number) {
+        if (hitKey) {
+            // Copy hitList object state
+            let newHitList = new Map(hitList);
 
-        // Copy hitList object state
-        let newHitList = new Map(hitList);
+            // Delete hit
+            newHitList.delete(hitKey);
 
-        // Delete hit
-        newHitList.delete(hitKey);
+            // Update state
+            setHitList(newHitList);
+        } else {
+            // Remnove all hits
+            setHitList(new Map());
 
-        // Update state
-        setHitList(newHitList);
+            // Set pagination to page one.
+            setPagination({
+                ...pagination,
+                currentPage: 1,
+            });
+        }
     }
 
 
@@ -180,7 +200,6 @@ function App() {
     * @param  expand  Wheter to expand (true) or collapse (false) all the accordions
     */
     function accordionExpandAll(expand: boolean) {
-
         // // Copy accordionsExpanded object state
         let newHitList = new Map(hitList);
 
@@ -195,12 +214,11 @@ function App() {
 
 
     /**
-    * Returns de number of hits with the specified 'status', or the total, if 'status' is not provided
+    * Returns de number of hits with the specified 'status', or the total, if 'status' is not provided.
     *
     * @param  status  Status to consider. Set to undefined to count all hits.
     */
     function getValidationIndicators(status?: string) {
-
         let total = hitList.size;
 
         if (status) {
@@ -214,34 +232,36 @@ function App() {
 
 
     /**
-    * Filters displayed hits, based on active filterButtons and searched text.
+    * Filters displayed hits, based on active filterButtons.
     *
     * @param  hitListArray Array with hits parameters.
     */
     function filterHitsByType(hitListArray: any[]) {
-
         // no filterButtons
-        if ((filters.filterButtons.length === 0) && (filters.searchedText === '')) {
-            return hitListArray;
-        }
-
-        // Only search filter
         if (filters.filterButtons.length === 0) {
-            return hitListArray
-                .filter((obj) => Object.values(obj.hitParameters as { [key: string]: string }).some(val => val.toLowerCase().includes(filters.searchedText.toLowerCase())));
-        }
-
-        // Only button filter
-        if (filters.searchedText === '') {
+            return hitListArray;
+        } else {
             return hitListArray
                 .filter(item => filters.filterButtons.includes(item.hitType));
         }
+    }
 
-        // Both filters
-        return hitListArray
-            .filter(item => filters.filterButtons.includes(item.hitType))
-            // .filter((obj) => Object.values(obj.hitParameters as { [key: string]: string }).includes(filters.searchedText.toLowerCase())) // Exact match
-            .filter((obj) => Object.values(obj.hitParameters as { [key: string]: string }).some(val => val.toLowerCase().includes(filters.searchedText.toLowerCase())));
+
+    /**
+    * Filters displayed hits, based on searched text.
+    *
+    * @param  hitListArray Array with hits parameters.
+    */
+    function filterHitsBySearchText(hitListArray: any[]) {
+        if (filters.searchedText === '') {
+            // No text input
+            return hitListArray;
+        } else {
+            // With text
+            return hitListArray
+                // .filter((obj) => Object.values(obj.hitParameters as { [key: string]: string }).includes(filters.searchedText.toLowerCase())) // Exact match
+                .filter((obj) => Object.values(obj.hitParameters as { [key: string]: string }).some(val => val.toLowerCase().includes(filters.searchedText.toLowerCase())));
+        }
     }
 
 
@@ -251,13 +271,34 @@ function App() {
     * @param  hitListArray  Array of hits parameters to filter.
     */
     function filterHitsByStatus(hitListArray: any[]) {
-
         if (filters.filterStatus.length > 0) {
             return hitListArray.filter(item => filters.filterStatus.includes(item.validationStatus));
         } else {
             return hitListArray;
         }
+    }
 
+
+    /**
+    * Filters displayed hits, based on pagination.
+    *
+    * @param  hitListArray  Array of hits parameters to filter.
+    */
+    function filterHitsByPage(hitListArray: any[]) {
+        return hitListArray.slice((pagination.currentPage - 1) * pagination.pageSize, pagination.currentPage * pagination.pageSize);
+    }
+
+
+    /**
+    * Changes pagination.
+    *
+    * @param  event  Change event.
+    */
+    function changePagination(event: React.ChangeEvent<HTMLSelectElement>) {
+        setPagination({
+            currentPage: 1,
+            pageSize: parseInt(event.target.value)
+        });
     }
 
 
@@ -265,13 +306,17 @@ function App() {
     * Generate array of <Hit/> components
     */
     function renderHits() {
+        // Reverse hitList array
+        let hitListArray = Array.from(hitList.values()).reverse();
+
         // Array of filtered hits parameters
-        let hitListArray = Array.from(hitList.values());
         hitListArray = filterHitsByType(hitListArray);
+        hitListArray = filterHitsBySearchText(hitListArray);
         hitListArray = filterHitsByStatus(hitListArray);
+        hitListArray = filterHitsByPage(hitListArray);
 
         // Array of <Hit/> components
-        const renderedHitsArray = hitListArray.reverse().map((hit) => {
+        const renderedHitsArray = hitListArray.map((hit) => {
             return (
                 <HitAccordion
                     hitParameters={hit.hitParameters}
@@ -303,7 +348,6 @@ function App() {
             return;
         }
 
-
         // File reader
         const reader = new FileReader();
         reader.onload = (evt) => {
@@ -313,12 +357,16 @@ function App() {
                 return;
             }
 
-            // Parse JSON
-            let schema = JSON.parse(JSON.parse(JSON.stringify(evt.target.result)));
+            // Tries to parse json
+            try {
+                // Parse JSON
+                let schema = JSON.parse(JSON.parse(JSON.stringify(evt.target.result)));
 
-            // Update state
-            setDataLayerSchema({ fileName: file.name, schema: schema });
-
+                // Update state
+                setDataLayerSchema({ fileName: file.name, schema: schema });
+            } catch (err) {
+                setFileErrorDialogOpen(true);
+            }
         };
 
         // File
@@ -333,6 +381,20 @@ function App() {
 
 
     /**
+    * Changes pagination page.
+    *
+    * @param  event     Change event.
+    * @param  value     New page number to set.
+    */
+    function handlePageChange(event: React.ChangeEvent<unknown>, value: number) {
+        setPagination({
+            ...pagination,
+            currentPage: value,
+        });
+    };
+
+
+    /**
     * After component mounts hook.
     */
     useEffect(() => {
@@ -343,7 +405,7 @@ function App() {
         function requestListener() {
 
             // Restrict to current tab
-            chrome.tabs.query({ active: true, currentWindow: true, lastFocusedWindow: true }, function (tab) {
+            chrome.tabs.query({ active: true }, function (tab) {
 
                 // Add listener
                 chrome.webRequest.onBeforeRequest.addListener(
@@ -360,7 +422,7 @@ function App() {
                     },
                     {
                         urls: ['<all_urls>'],
-                        tabId: tab[0].id
+                        tabId: chrome.devtools.inspectedWindow.tabId
                     },
                     ['requestBody']
                 );
@@ -416,12 +478,12 @@ function App() {
         }
 
         /**
-       * Handle method to add new hit
-       *
-       * @param  url          URL
-       * @param  queryString  Query string
-       * @param  ga4          True if it's a GA4 hit. False if it's a UA hit.
-       */
+        * Handle method to add new hit
+        *
+        * @param  url          URL
+        * @param  queryString  Query string
+        * @param  ga4          True if it's a GA4 hit. False if it's a UA hit.
+        */
         async function handler(url: string, queryString: string, ga4: boolean) {
 
             // Identify queryString, if empty
@@ -519,25 +581,8 @@ function App() {
 
         // Set up obBeforeRequest listener
         requestListener();
-
-        // initParser(
-        //     'https://www.google-analytics.com/g/collect?v=2&tid=G-N4J2F78CPK&gtm=2oe4r0&_p=1314753210&_z=ccd.NbB&cid=1642312484.1651168350&ul=pt-br&sr=1280x720&sid=1651171814&sct=1&seg=1&dl=http%3A%2F%2F127.0.0.1%2Findex.html&dr=http%3A%2F%2F127.0.0.1%3A5000%2Fanalise.html&dt=DP6%20Case%20-%20Prova%20T%C3%A9cnica&_s=1',
-        //     'post',
-        //     null,
-        //     ''
-        // );
-
-
-        // setTimeout(() => {
-        //     initParser(
-        //         'https://www.google-analytics.com/j/collect?v=1&_v=j96&a=163765863&t=event&ni=1&_s=1&dl=https%3A%2F%2Fwww.prudential.com.br%2Fcontent%2Fprudential%2Fhome%2Fpara-voce%2Fseguro-individual.html&ul=pt-br&de=UTF-8&dt=Prudential%3A%20Seguro%20de%20Vida%20-%20Veja%20o%20Plano%20Individual%20%7C%20Prudential&sd=24-bit&sr=1280x720&vp=1263x577&je=0&ec=web-vitals&ea=CLS&el=v2-1651857106243-2938432349121&_u=SCCACUABBAAAAG~&jid=1772300202&gjid=523459683&cid=1489834817.1651778536&tid=UA-185685971-1&_gid=1523670321.1651778536&_r=1&gtm=2wg540NS2KDGF&cm1=11&cm2=11&z=1529625290',
-        //         'POST',
-        //         null,
-        //         ''
-        //     );
-        // }, 6000);
-
     }, []);
+
 
     /**
     * Hook to set up dark theme, based on OS preference
@@ -550,30 +595,41 @@ function App() {
     return (
         <ThemeProvider theme={isDarkTheme ? createTheme(dark as ThemeOptions) : createTheme(light as ThemeOptions)} >
             <CssBaseline />
-            <Box sx={{
-                flexGrow: 1,
-            }}>
-                <Navbar
-                    isDarkTheme={isDarkTheme}
-                    setIsDarkTheme={setIsDarkTheme}
-                    filters={filters}
-                    setFilters={setFilters}
-                    setHitList={setHitList}
-                    searchBarToggler={searchBarToggler}
-                    handleFileUpload={handleFileUpload}
-                />
-                <PanelBar
-                    getValidationIndicators={getValidationIndicators}
-                    accordionExpandAll={accordionExpandAll}
-                    filters={filters}
-                    setFilters={setFilters}
-                    dataLayerSchema={dataLayerSchema}
-                    setDataLayerSchema={setDataLayerSchema}
-                    handleFileUpload={handleFileUpload}
-                />
-                <Divider sx={{ mt: 1, mb: 1 }} />
-                {renderHits()}
-            </Box>
+            <Navbar
+                isDarkTheme={isDarkTheme}
+                setIsDarkTheme={setIsDarkTheme}
+                filters={filters}
+                setFilters={setFilters}
+                removeHit={removeHit}
+                setHitList={setHitList}
+                searchBarToggler={searchBarToggler}
+                handleFileUpload={handleFileUpload}
+            />
+            <ActionsBar
+                getValidationIndicators={getValidationIndicators}
+                accordionExpandAll={accordionExpandAll}
+                filters={filters}
+                setFilters={setFilters}
+                dataLayerSchema={dataLayerSchema}
+                setDataLayerSchema={setDataLayerSchema}
+                handleFileUpload={handleFileUpload}
+
+                schemaDialogOpen={schemaDialogOpen}
+                setSchemaDialogOpen={setSchemaDialogOpen}
+
+                fileErrorDialogOpen={fileErrorDialogOpen}
+                setFileErrorDialogOpen={setFileErrorDialogOpen}
+            />
+            <Divider sx={{ mt: 1, mb: 0.5 }} />
+            <PaginationBar
+                size={hitList.size}
+                page={pagination.currentPage}
+                pagination={pagination.pageSize}
+                handlePageChange={handlePageChange}
+                changePagination={changePagination}
+            />
+            <Divider sx={{ mt: 0.5, mb: 1 }} />
+            {renderHits()}
         </ThemeProvider >
     );
 }
