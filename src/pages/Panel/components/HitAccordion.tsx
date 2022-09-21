@@ -36,46 +36,45 @@ import Collapse from '@mui/material/Collapse';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 
-
 /**
  * Render Hit type icon
  */
 const hitTypeIconImg: { [key: string]: JSX.Element } = {
-    event: <FlashOnIcon fontSize="small" />,
-    pageview: <FindInPageIcon fontSize="small" />,
-    appview: <AppsIcon fontSize="small" />,
-    transaction: <MonetizationOnIcon fontSize="small" />,
-    item: < ShoppingBasketIcon fontSize="small" />,
-    social: <ShareIcon fontSize="small" />,
-    exception: <ReportIcon fontSize="small" />,
-    timing: <TimelapseIcon fontSize="small" />,
-    analytics4: <Filter4Icon fontSize="small" />,
+  event: <FlashOnIcon fontSize="small" />,
+  pageview: <FindInPageIcon fontSize="small" />,
+  appview: <AppsIcon fontSize="small" />,
+  transaction: <MonetizationOnIcon fontSize="small" />,
+  item: <ShoppingBasketIcon fontSize="small" />,
+  social: <ShareIcon fontSize="small" />,
+  exception: <ReportIcon fontSize="small" />,
+  timing: <TimelapseIcon fontSize="small" />,
+  analytics4: <Filter4Icon fontSize="small" />,
 };
-
 
 /**
  * Status icons
  */
 const statusIcon: { [key: string]: JSX.Element } = {
-    ERROR: <ErrorOutlineIcon fontSize='small' color='error' sx={{ mr: 1 }} />,
-    WARNING: <WarningAmberIcon fontSize='small' color='warning' sx={{ mr: 1 }} />,
-    SUCCESS: <CheckCircleOutlineIcon fontSize='small' color='success' sx={{ mr: 1 }} />,
+  ERROR: <ErrorOutlineIcon fontSize="small" color="error" sx={{ mr: 1 }} />,
+  WARNING: <WarningAmberIcon fontSize="small" color="warning" sx={{ mr: 1 }} />,
+  SUCCESS: (
+    <CheckCircleOutlineIcon fontSize="small" color="success" sx={{ mr: 1 }} />
+  ),
 };
 
 // --------------------------------------------------------
 // Hit element: Accordion
 // --------------------------------------------------------
 interface HitAccordionProps {
-    hitParameters: { [key: string]: string },
-    contentTitle: string,
-    hitTypeIcon: string,
-    hitListKey: number,
-    expanded: boolean,
-    setHitList: React.Dispatch<React.SetStateAction<HitModel>>,
-    validationStatus: string,
-    validationResult: any[],
+  hitParameters: { [key: string]: string };
+  contentTitle: string;
+  hitTypeIcon: string;
+  hitListKey: number;
+  expanded: boolean;
+  setHitList: React.Dispatch<React.SetStateAction<HitModel>>;
+  validationStatus: string;
+  validationResult: any[];
 }
-
 
 /**
  * Render a Hit component, with data from one single hit
@@ -91,67 +90,79 @@ interface HitAccordionProps {
  * @return      JSX.Element
  */
 function HitAccordion(props: HitAccordionProps) {
-
-    return (
-        <List
-            sx={{ mx: 2, py: 0, my: 1 }}
-            component={Paper}
-            elevation={3}
-        >
-            <ListItemButton
-                sx={{ px: 2, py: 0, border: 1, borderColor: 'rgba(255, 255, 255, 0.12)', }}
-                onClick={() => props.setHitList(oldHitList => {
-                    let newhitList = new HitModel(oldHitList);
-                    newhitList.toggleDataExpanded(props.hitListKey);
-                    return newhitList;
-                })}
-            >
-                <ListItemIcon>
-                    {props.expanded ? <ExpandLess /> : <ExpandMore />}
-                    {statusIcon[props.validationStatus] ? statusIcon[props.validationStatus] : statusIcon['WARNING']}
-                    {hitTypeIconImg[props.hitTypeIcon]}
-                </ListItemIcon>
-                <ListItemText sx={{ ml: 1 }} primary={props.contentTitle} />
-                <div onClick={(event) => event.stopPropagation()}>
-                    <IconButton
-                        title='Delete'
-                        onClick={() => props.setHitList(oldHitList => {
-                            let newhitList = new HitModel(oldHitList);
-                            newhitList.removeData(props.hitListKey);
-                            return newhitList;
-                        })}
+  return (
+    <List sx={{ mx: 2, py: 0, my: 1 }} component={Paper} elevation={3}>
+      <ListItemButton
+        sx={{
+          px: 2,
+          py: 0,
+          border: 1,
+          borderColor: 'rgba(255, 255, 255, 0.12)',
+        }}
+        onClick={() =>
+          props.setHitList(oldHitList => {
+            let newhitList = new HitModel(oldHitList);
+            newhitList.toggleDataExpanded(props.hitListKey);
+            return newhitList;
+          })
+        }
+      >
+        <ListItemIcon>
+          {props.expanded ? <ExpandLess /> : <ExpandMore />}
+          {statusIcon[props.validationStatus]
+            ? statusIcon[props.validationStatus]
+            : statusIcon['WARNING']}
+          {hitTypeIconImg[props.hitTypeIcon]}
+        </ListItemIcon>
+        <ListItemText sx={{ ml: 1 }} primary={props.contentTitle} />
+        <div onClick={event => event.stopPropagation()}>
+          <IconButton
+            title="Delete"
+            onClick={() =>
+              props.setHitList(oldHitList => {
+                let newhitList = new HitModel(oldHitList);
+                newhitList.removeData(props.hitListKey);
+                return newhitList;
+              })
+            }
+          >
+            <ClearIcon fontSize="small" />
+          </IconButton>
+        </div>
+      </ListItemButton>
+      <Collapse in={props.expanded} timeout={0} mountOnEnter unmountOnExit>
+        <TableContainer component={Paper} sx={{ mb: 2 }}>
+          <Table size="small">
+            <TableHead>
+              <TableRow>
+                <TableCell>Parameter</TableCell>
+                <TableCell>Value</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {Object.keys(props.hitParameters)
+                // Remove parameters that start with underscore (_)
+                .filter(key => !key.startsWith('_'))
+                .map(key => (
+                  <TableRow key={key}>
+                    <TableCell
+                      component="th"
+                      scope="row"
+                      sx={{ pt: 0.25, pb: 0.25 }}
                     >
-                        <ClearIcon fontSize="small" />
-                    </IconButton>
-                </div>
-            </ListItemButton>
-            <Collapse in={props.expanded} timeout={0} mountOnEnter unmountOnExit>
-                <TableContainer component={Paper} sx={{ mb: 2 }}>
-                    <Table size="small">
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>Parameter</TableCell>
-                                <TableCell >Value</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {Object.keys(props.hitParameters)
-                                // Remove parameters that start with underscore (_)
-                                .filter((key) => !key.startsWith('_'))
-                                .map((key) => (
-                                    <TableRow
-                                        key={key}
-                                    >
-                                        <TableCell component="th" scope="row" sx={{ pt: 0.25, pb: 0.25 }}>{RW.decode(metadata[key] ? metadata[key].name : key)}</TableCell>
-                                        <TableCell sx={{ pt: 0, pb: 0 }}>{props.hitParameters[key]}</TableCell>
-                                    </TableRow>
-                                ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-            </Collapse>
-        </List>
-    );
+                      {RW.decode(metadata[key] ? metadata[key].name : key)}
+                    </TableCell>
+                    <TableCell sx={{ pt: 0, pb: 0 }}>
+                      {props.hitParameters[key]}
+                    </TableCell>
+                  </TableRow>
+                ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Collapse>
+    </List>
+  );
 }
 
 export default HitAccordion;
