@@ -24,5 +24,3 @@ secrets.*.js
 # lock
 package-lock.json
 
-# vscode
-/.vscode

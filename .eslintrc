@@ -1,5 +1,12 @@
 {
-  "extends": "react-app",
+  "root": true,
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended",
+    "prettier/@typescript-eslint",
+    "airbnb"
+  ],
   "globals": {
     "chrome": "readonly"
   },
@@ -10,40 +17,19 @@
     "jest": true,
     "webextensions": true
   },
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
+  "plugins": ["react", "react-hooks", "@typescript-eslint", "prettier"],
   "rules": {
-    "indent": [
-      "error",
-      4,
-      {
-        "SwitchCase": 1
-      }
-    ],
-    "linebreak-style": [
-      "error",
-      "unix"
-    ],
-    "quotes": [
-      "error",
-      "single"
-    ],
-    "semi": [
-      "error",
-      "always"
-    ],
-    "no-multiple-empty-lines": [
-      "error",
-      {
-        "max": 2,
-        "maxEOF": 1,
-        "maxBOF": 0
-      }
-    ],
-    "no-var": "error",
-    "no-trailing-spaces": "error",
-    "no-unused-vars": "warn"
+    "prettier/prettier": "error",
+    "@typescript-eslint/indent": ["error", 2],
+    "@typescript-eslint/no-unused-vars": "error",
+    "@typescript-eslint/consistent-type-definitions": ["error", "type"],
+    "@typescript-eslint/no-explicit-any": "error",
+    "react-hooks/exhaustive-deps": "warn", // Checks effect dependencies
+    "react-hooks/rules-of-hooks": "error" // Checks rules of Hooks
   }
 }
