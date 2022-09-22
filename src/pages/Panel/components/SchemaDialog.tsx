@@ -19,21 +19,20 @@ import DeleteIcon from '@mui/icons-material/Delete';
 // SchemaDialog
 // --------------------------------------------------------
 interface SchemaDialogProps {
-  open: boolean;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    open: boolean,
+    setOpen: React.Dispatch<React.SetStateAction<boolean>>,
 
-  dataLayerSchema: {
-    fileName: string;
-    schema: {};
-  };
-  setDataLayerSchema: React.Dispatch<
-    React.SetStateAction<{
-      fileName: string;
-      schema: {};
-    }>
-  >;
+    dataLayerSchema: {
+        fileName: string;
+        schema: {};
+    },
+    setDataLayerSchema: React.Dispatch<React.SetStateAction<{
+        fileName: string;
+        schema: {};
+    }>>,
 
-  handleFileUpload: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    handleFileUpload: (event: React.ChangeEvent<HTMLInputElement>) => void,
+
 }
 
 /**
@@ -47,71 +46,73 @@ interface SchemaDialogProps {
  * @return      JSX.Element
  */
 function SchemaDialog(props: SchemaDialogProps) {
-  return (
-    <div>
-      <Dialog
-        open={props.open}
-        onClose={() => props.setOpen(!props.open)}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">
-          {props.dataLayerSchema.fileName
-            ? props.dataLayerSchema.fileName
-            : 'No schema selected'}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description" component={'span'}>
-            <pre>{JSON.stringify(props.dataLayerSchema.schema, null, 2)}</pre>
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Stack direction="row" spacing={2} sx={{ flexWrap: 'wrap' }}>
-            <Button component="label" variant="outlined" title="Upload">
-              <input hidden type="file" onChange={props.handleFileUpload} />
-              <FileUpload fontSize="small" />
-              <Typography
-                variant="button"
-                sx={{ display: { xs: 'none', sm: 'block' } }}
-              >
-                Upload
-              </Typography>
-            </Button>
-            <Button
-              component="label"
-              variant="outlined"
-              title="Remove"
-              onClick={() =>
-                props.setDataLayerSchema({ fileName: '', schema: {} })
-              }
+
+    return (
+        <div>
+            <Dialog
+                open={props.open}
+                onClose={() => props.setOpen(!props.open)}
+                aria-labelledby='alert-dialog-title'
+                aria-describedby='alert-dialog-description'
             >
-              <DeleteIcon fontSize="small" />
-              <Typography
-                variant="button"
-                sx={{ display: { xs: 'none', sm: 'block' } }}
-              >
-                Remove
-              </Typography>
-            </Button>
-            <Button
-              component="label"
-              variant="outlined"
-              title="Close"
-              onClick={() => props.setOpen(!props.open)}
-            >
-              <CloseIcon fontSize="small" />
-              <Typography
-                variant="button"
-                sx={{ display: { xs: 'none', sm: 'block' } }}
-              >
-                Close
-              </Typography>
-            </Button>
-          </Stack>
-        </DialogActions>
-      </Dialog>
-    </div>
-  );
+                <DialogTitle id='alert-dialog-title'>
+                    {props.dataLayerSchema.fileName ? props.dataLayerSchema.fileName : 'No schema selected'}
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id='alert-dialog-description' component={'span'}>
+                        <pre>{JSON.stringify(props.dataLayerSchema.schema, null, 2)}</pre>
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions >
+                    <Stack direction='row' spacing={2} sx={{ flexWrap: 'wrap' }}>
+                        <Button
+                            component="label"
+                            variant="outlined"
+                            title='Upload'
+                        >
+                            <input hidden type="file" onChange={props.handleFileUpload} />
+                            <FileUpload fontSize='small' />
+                            <Typography
+                                variant='button'
+                                sx={{ display: { xs: 'none', sm: 'block' } }}
+                            >
+                                Upload
+                            </Typography>
+                        </Button>
+                        <Button
+                            component="label"
+                            variant="outlined"
+                            title='Remove'
+                            onClick={() => props.setDataLayerSchema({ fileName: '', schema: {} })}
+                        >
+                            <DeleteIcon fontSize='small' />
+                            <Typography
+                                variant='button'
+                                sx={{ display: { xs: 'none', sm: 'block' } }}
+                            >
+                                Remove
+                            </Typography>
+                        </Button>
+                        <Button
+                            component="label"
+                            variant="outlined"
+                            title='Close'
+                            onClick={() => props.setOpen(!props.open)}
+                        >
+                            <CloseIcon fontSize='small' />
+                            <Typography
+                                variant='button'
+                                sx={{ display: { xs: 'none', sm: 'block' } }}
+                            >
+                                Close
+                            </Typography>
+                        </Button>
+                    </Stack>
+                </DialogActions>
+            </Dialog>
+        </div >
+    );
 }
+
 
 export default SchemaDialog;
