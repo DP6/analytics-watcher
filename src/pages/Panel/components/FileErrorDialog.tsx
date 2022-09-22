@@ -11,8 +11,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 // SchemaDialog
 // --------------------------------------------------------
 interface FileErrorDialogProps {
-  open: boolean;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    open: boolean,
+    setOpen: React.Dispatch<React.SetStateAction<boolean>>,
 }
 
 /**
@@ -23,31 +23,30 @@ interface FileErrorDialogProps {
  * @return      JSX.Element
  */
 function FileErrorDialog(props: FileErrorDialogProps) {
-  return (
-    <Dialog
-      open={props.open}
-      onClose={props.setOpen}
-      aria-labelledby="alert-dialog-title"
-      aria-describedby="alert-dialog-description"
-    >
-      <DialogTitle id="alert-dialog-title">
-        Error trying to parse the file
-      </DialogTitle>
-      <DialogContent>
-        <DialogContentText id="alert-dialog-description">
-          Please select a valid JSON schema file. For info about how to
-          configure the schema, please refer to:
-          https://github.com/DP6/analytics-watcher#Json-schema
-        </DialogContentText>
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={() => props.setOpen(!props.open)} autoFocus>
-          {' '}
-          Close{' '}
-        </Button>
-      </DialogActions>
-    </Dialog>
-  );
+
+    return (
+        <Dialog
+            open={props.open}
+            onClose={props.setOpen}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+        >
+            <DialogTitle id="alert-dialog-title">
+                Error trying to parse the file
+            </DialogTitle>
+            <DialogContent>
+                <DialogContentText id="alert-dialog-description">
+                    Please select a valid JSON schema file.
+                    For info about how to configure the schema, please refer to:
+                    https://github.com/DP6/analytics-watcher#Json-schema
+                </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={() => props.setOpen(!props.open)} autoFocus> Close </Button>
+            </DialogActions>
+        </Dialog>
+    );
 }
+
 
 export default FileErrorDialog;

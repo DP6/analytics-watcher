@@ -12,11 +12,11 @@ import NativeSelect from '@mui/material/NativeSelect';
 // SchemaDialog
 // --------------------------------------------------------
 interface PaginationBarProps {
-  size: number;
-  page: number;
-  pagination: number;
-  handlePageChange: (event: React.ChangeEvent<unknown>, value: number) => void;
-  changePagination: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+    size: number,
+    page: number,
+    pagination: number,
+    handlePageChange: (event: React.ChangeEvent<unknown>, value: number) => void,
+    changePagination: (event: React.ChangeEvent<HTMLSelectElement>) => void,
 }
 
 /**
@@ -30,31 +30,28 @@ interface PaginationBarProps {
  * @return      JSX.Element
  */
 function PaginationBar(props: PaginationBarProps) {
-  return (
-    <Stack
-      direction="row"
-      spacing={2}
-      sx={{ px: 1, justifyContent: 'flex-end' }}
-    >
-      <Typography>Hits per page:</Typography>
-      <Box>
-        <FormControl fullWidth>
-          <NativeSelect defaultValue={30} onChange={props.changePagination}>
-            <option value={10}>10</option>
-            <option value={20}>20</option>
-            <option value={30}>30</option>
-            <option value={50}>50</option>
-            <option value={100}>100</option>
-          </NativeSelect>
-        </FormControl>
-      </Box>
-      <Pagination
-        count={props.size > 0 ? Math.ceil(props.size / props.pagination) : 1}
-        page={props.page}
-        onChange={props.handlePageChange}
-      />
-    </Stack>
-  );
+
+    return (
+        <Stack direction='row' spacing={2} sx={{ px: 1, justifyContent: 'flex-end' }}>
+            <Typography>Hits per page:</Typography>
+            <Box>
+                <FormControl fullWidth>
+                    <NativeSelect
+                        defaultValue={30}
+                        onChange={props.changePagination}
+                    >
+                        <option value={10}>10</option>
+                        <option value={20}>20</option>
+                        <option value={30}>30</option>
+                        <option value={50}>50</option>
+                        <option value={100}>100</option>
+                    </NativeSelect>
+                </FormControl>
+            </Box>
+            <Pagination count={props.size > 0 ? Math.ceil(props.size / props.pagination) : 1} page={props.page} onChange={props.handlePageChange} />
+        </Stack>
+    );
 }
+
 
 export default PaginationBar;
