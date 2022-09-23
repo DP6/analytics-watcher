@@ -23,7 +23,7 @@ import FileErrorDialog from './FileErrorDialog';
 // --------------------------------------------------------
 interface ActionsBarProps {
   getValidationIndicators: Function;
-  accordionExpandAll: Function;
+  accordionExpandAll?: Function;
   filters: {
     searchBarActive: boolean;
     searchedText: string;
@@ -86,16 +86,16 @@ function ActionsBar(props: ActionsBarProps) {
         sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}
       >
         {/*
-                -----------------------------
-                Text
-                -----------------------------
-                */}
+        -----------------------------
+        Text
+        -----------------------------
+        */}
         <Typography sx={{ fontWeight: 500 }}>Status</Typography>
         {/*
-                -----------------------------
-                Status filters / indicators
-                -----------------------------
-                */}
+        -----------------------------
+        Status filters / indicators
+        -----------------------------
+        */}
         <ToggleButtonGroup
           value={props.filters.filterStatus}
           onChange={(
@@ -142,10 +142,10 @@ function ActionsBar(props: ActionsBarProps) {
         </ToggleButtonGroup>
 
         {/*
-                -----------------------------
-                JSON Schema
-                -----------------------------
-                */}
+        -----------------------------
+        JSON Schema
+        -----------------------------
+        */}
         <Chip
           label="JSON SCHEMA"
           variant={props.dataLayerSchema.fileName ? 'filled' : 'outlined'}
@@ -168,11 +168,11 @@ function ActionsBar(props: ActionsBarProps) {
       </Stack>
 
       {/*
-            -----------------------------
-            Expand / Collapse buttons
-            -----------------------------
-            */}
-      <Stack direction="row" spacing={1} sx={{ pt: { xs: 1, sm: 0 } }}>
+      -----------------------------
+      Expand / Collapse buttons
+      -----------------------------
+      */}
+      {/* <Stack direction="row" spacing={1} sx={{ pt: { xs: 1, sm: 0 } }}>
         <Button
           variant="outlined"
           size="small"
@@ -189,7 +189,7 @@ function ActionsBar(props: ActionsBarProps) {
         >
           <Typography sx={{ fontSize: 12 }}>Collapse All</Typography>
         </Button>
-      </Stack>
+      </Stack>*/}
     </Stack>
   );
 }

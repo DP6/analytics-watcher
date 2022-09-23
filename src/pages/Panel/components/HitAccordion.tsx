@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Box from '@mui/material/Box';
 import Accordion from '@mui/material/Accordion';
@@ -64,15 +64,13 @@ const statusIcon: { [key: string]: JSX.Element } = {
 // Hit element: Accordion
 // --------------------------------------------------------
 interface HitAccordionProps {
-  hitParameters: { [key: string]: string };
+  hitParameters: Record<string, string>;
   contentTitle: string;
   hitTypeIcon: string;
-  hitListKey: number;
-  removeHit: Function;
-  expanded: boolean;
-  handleAccordionChange: Function;
+  key: number;
+  removeHit?: Function;
   validationStatus: string;
-  validationResult: any[];
+  validationResult: string | undefined;
 }
 
 /**
@@ -84,17 +82,17 @@ interface HitAccordionProps {
  * @param  props.hitListKey     key ID of hit
  * @param  props.removeHit      Function that removes a hit entry
  * @param  props.expanded       Hit accordion state (expanded or not)
- * @param  props.handleAccordionChange  Function that handles accordion expansion
  * @param  props.validationStatus       Status of validation ('ERROR', 'WARNING' or 'SUCCESS')
  * @param  props.validationResult       Validation result object, containing status and messages
  * @return      JSX.Element
  */
 function HitAccordion(props: HitAccordionProps) {
+  const [accordion, setAccordion] = useState(false);
+  function handleAccordionChange() {
+    setAccordion(!accordion);
+  }
   return (
-    <Accordion
-      expanded={props.expanded}
-      onChange={() => props.handleAccordionChange(props.hitListKey)}
-    >
+    <Accordion expanded={accordion} onChange={() => handleAccordionChange()}>
       <AccordionSummary
         sx={{
           '& .MuiAccordionSummary-content': {
@@ -126,32 +124,21 @@ function HitAccordion(props: HitAccordionProps) {
               </Typography>
             </Box>
             <div onClick={event => event.stopPropagation()}>
-              <IconButton
-                onClick={() => props.removeHit(props.hitListKey)}
+              {/* <IconButton
+                onClick={() => props.removeHit(props.key)}
                 title="Delete"
               >
                 <ClearIcon fontSize="small" />
-              </IconButton>
+              </IconButton> */}
             </div>
           </Box>
         </div>
       </AccordionSummary>
       <AccordionDetails sx={{ p: 0, '& .MuiAccordionDetails-root': { pt: 0 } }}>
-        {props.validationResult.map((key, index) => {
-          let severity: AlertColor;
-          if (key.status === 'ERROR') {
-            severity = 'error';
-          } else if (key.status === 'WARNING') {
-            severity = 'warning';
-          } else {
-            severity = 'success';
-          }
-          return (
-            <Alert key={index} severity={severity}>
-              {key.status} - {key.message}
-            </Alert>
-          );
-        })}
+        <Alert severity={'success'}>
+          {props.validationStatus.toLocaleUpperCase()} -{' '}
+          {props.validationResult}
+        </Alert>
 
         <TableContainer component={Paper}>
           <Table size="small">

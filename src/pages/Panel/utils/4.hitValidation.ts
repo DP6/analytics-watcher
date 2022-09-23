@@ -3,15 +3,11 @@ import * as RW from './3.hitParser';
 /**
  * Allowed status values
  */
-export type StatusInterface = 'SUCCESS' | 'WARNING' | 'ERROR';
+//export type StatusInterface = 'SUCCESS' | 'WARNING' | 'ERROR' | 'OK';
 
-interface ValidationResultInterface {
-  status: StatusInterface | 'OK';
+interface IValidationResult {
+  status: StatusInterface;
   message: string;
-  dataLayerObject: any;
-  objectName: any;
-  keyName: any;
-  partialError: any;
 }
 
 /**
@@ -21,8 +17,8 @@ interface ValidationResultInterface {
  */
 function penguinValidation(
   messageData: Object
-): Promise<Array<ValidationResultInterface>> {
-  return new Promise((res, rej) => {
+): Promise<ValidationResultInterface[]> {
+  return new Promise((resolve, reject) => {
     // Setup communication channel
     const channel = new MessageChannel();
 
@@ -31,9 +27,11 @@ function penguinValidation(
       // console.log('Watcher received a response!');
       channel.port1.close();
       if (data.error) {
-        rej(data.error);
+        const error: ValidationResultInterface[] = data.error;
+        reject(error);
       } else {
-        res(data.result);
+        const result: ValidationResultInterface[] = data.result;
+        resolve(result);
       }
     };
 
@@ -55,30 +53,28 @@ async function validateHit(
   dataLayerSchema: { [key: string]: any },
   requiredParametersToCheck: string[],
   parametersObj: { [key: string]: string }
-) {
-  let validationStatus: StatusInterface = 'ERROR';
-  let validationResult: any[] = [];
+): Promise<IValidationResult> {
+  let validationStatus: StatusInterface = 'error';
   let validationMessage: string;
-
+  const message = {
+    schema: dataLayerSchema,
+    parametersObj: parametersObj,
+  };
   // Validate based on dataLayerSchema if set. Otherwise validate based on required parameters
   if (Object.keys(dataLayerSchema).length > 0) {
     // Send message to sandbox (through an iframe) to validate the hit using pwnguin dataLayer
-    let message = {
-      schema: dataLayerSchema,
-      parametersObj: parametersObj,
-    };
 
     // Get penguin validation
-    validationResult = await penguinValidation(message);
+    const validationResult = await penguinValidation(message);
 
     // Retrieve status
-    let statusArray = validationResult.map(obj => obj.status);
-    if (statusArray.includes('ERROR')) {
-      validationStatus = 'ERROR';
-    } else if (statusArray.includes('WARNING')) {
-      validationStatus = 'WARNING';
+    const statusArray2 = validationResult.map(obj => obj.status);
+    if (statusArray2.includes('error')) {
+      validationStatus = 'error';
+    } else if (statusArray2.includes('warning')) {
+      validationStatus = 'warning';
     } else {
-      validationStatus = 'SUCCESS';
+      validationStatus = 'success';
     }
   } else {
     // Identifies which required parameters are undefined, based on 'requiredParametersToCheck' values
@@ -93,21 +89,22 @@ async function validateHit(
 
     // Set up validationStatus and validationResult
     if (missingRequiredParameters.length > 0) {
-      validationStatus = 'ERROR' as unknown as StatusInterface;
+      validationStatus = 'error' as unknown as StatusInterface;
       validationMessage = `The following required parameters are missing: ${missingRequiredParameters.toString()}`;
     } else {
-      validationStatus = 'SUCCESS' as unknown as StatusInterface;
+      validationStatus = 'success' as unknown as StatusInterface;
       validationMessage = 'Validated successfully';
     }
-    validationResult = [
-      {
-        status: validationStatus,
-        message: validationMessage,
-      },
-    ];
+    return {
+      status: validationStatus,
+      message: validationMessage,
+    };
   }
 
-  return [validationStatus, validationResult] as const;
+  return {
+    status: 'success',
+    message: 'validationMessage',
+  };
 }
 
 export default validateHit;

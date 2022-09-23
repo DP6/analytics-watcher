@@ -32,7 +32,7 @@
       "favicon": ".\\min128.png",
       "menu": [
         {
-          "title": "<img height='32' src='.\\Logo Oficial SemAssinatura Negativo SemBox RGB_025mp.png' alt='DP6' />",
+          "title": "<img height='32' src='.\\logo-dp6.png' alt='DP6' />",
           "link": "https://www.dp6.com.br/",
           "target": "_blank",
           "class": "",

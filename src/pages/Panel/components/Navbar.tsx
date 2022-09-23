@@ -1,19 +1,24 @@
 import * as React from 'react';
 
 // Material
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import FormGroup from '@mui/material/FormGroup';
-import Switch from '@mui/material/Switch';
-import TextField from '@mui/material/TextField';
-import Stack from '@mui/material/Stack/Stack';
+import {
+  AppBar,
+  Box,
+  Toolbar,
+  Typography,
+  Container,
+  FormGroup,
+  Switch,
+  TextField,
+  Stack,
+  Icon,
+  ToggleButtonGroup,
+  ToggleButton,
+  IconButton,
+} from '@mui/material';
 
 // Icons
-import Icon from '@mui/material/Icon';
-import DeleteIcon from '@mui/icons-material/Delete';
+import { Delete, FileUpload } from '@mui/icons-material';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import Filter4Icon from '@mui/icons-material/Filter4';
 import FindInPageIcon from '@mui/icons-material/FindInPage';
@@ -27,11 +32,8 @@ import ReportIcon from '@mui/icons-material/Report';
 import ClearAllIcon from '@mui/icons-material/ClearAll';
 import SearchIcon from '@mui/icons-material/Search';
 
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-import ToggleButton from '@mui/material/ToggleButton';
-
 // Logo DP6
-import logoDP6 from '../../../assets/img/Logo Oficial SemAssinatura Negativo SemBox RGB_025mp.png';
+import logoDP6 from '../../../assets/img/logo-dp6.png';
 
 // --------------------------------------------------------
 // Navbar
@@ -56,9 +58,9 @@ interface NavbarProps {
     }>
   >;
 
-  removeHit: (hitKey?: number | undefined) => void;
+  removeHit?: (hitKey?: number | undefined) => void;
 
-  setHitList: React.Dispatch<React.SetStateAction<Map<number, any>>>;
+  setHitList?: React.Dispatch<React.SetStateAction<Map<number, any>>>;
   searchBarToggler: () => void;
 
   handleFileUpload: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -80,7 +82,7 @@ interface NavbarProps {
 function Navbar(props: NavbarProps) {
   return (
     <AppBar position="sticky">
-      <Container maxWidth="xl" disableGutters={true} sx={{ px: 1 }}>
+      <Container maxWidth="xl" sx={{ px: 1 }}>
         <Toolbar
           disableGutters
           sx={{ zIndex: 'tooltip', color: 'white', mt: 0.7 }}
@@ -88,10 +90,10 @@ function Navbar(props: NavbarProps) {
         >
           <Stack sx={{ mt: 1 }}>
             {/*
-                        -----------------------------
-                        DP6 Logo
-                        -----------------------------
-                        */}
+            -----------------------------
+            DP6 Logo
+            -----------------------------
+            */}
             <Icon
               sx={{
                 display: 'flex',
@@ -103,10 +105,10 @@ function Navbar(props: NavbarProps) {
               <img alt="Logo DP6" src={logoDP6} />
             </Icon>
             {/*
-                        -----------------------------
-                        Analytics Watcher - small
-                        -----------------------------
-                        */}
+            -----------------------------
+            Analytics Watcher - small
+            -----------------------------
+            */}
             <Box sx={{ display: { xs: 'block', md: 'none' } }}>
               <Typography variant="body1" sx={{ lineHeight: 1 }}>
                 Analytics
@@ -275,15 +277,15 @@ function Navbar(props: NavbarProps) {
                         Delete all hits
                         -----------------------------
                         */}
-            <ToggleButton
+            {/* <ToggleButton
               aria-label="Clear Report"
               title="Clear Report"
               value="clear-report"
               sx={{ borderRadius: 3, ml: 1, p: 1 }}
               onClick={() => props.removeHit()}
             >
-              <DeleteIcon fontSize="small" sx={{ color: 'white' }} />
-            </ToggleButton>
+              <Delete fontSize="small" sx={{ color: 'white' }} />
+            </ToggleButton> */}
             {/*
                         -----------------------------
                         Searchbar toggler
@@ -337,22 +339,27 @@ function Navbar(props: NavbarProps) {
               )}
             </>
             {/*
-                        -----------------------------
-                        Upload Button
-                        -----------------------------
-                        */}
-            {/* <ToggleButton
-                        {/* <Box >
-                            <IconButton
-                                aria-label="upload JSON chema"
-                                component="label"
-                                sx={{ border: 1, borderRadius: 3, borderColor: 'rgba(255, 255, 255, 0.12)', ml: 1, p: 1 }}
-                                title='Upload JSON Schema'
-                            >
-                                <input hidden type="file" onChange={props.handleFileUpload} />
-                                <FileUpload fontSize='small' sx={{ color: 'white' }} />
-                            </IconButton>
-                        </Box> */}
+            -----------------------------
+            Upload Button
+            -----------------------------
+            */}
+            <Box>
+              <IconButton
+                aria-label="upload JSON chema"
+                component="label"
+                sx={{
+                  border: 1,
+                  borderRadius: 3,
+                  borderColor: 'rgba(255, 255, 255, 0.12)',
+                  ml: 1,
+                  p: 1,
+                }}
+                title="Upload JSON Schema"
+              >
+                <input hidden type="file" onChange={props.handleFileUpload} />
+                <FileUpload fontSize="small" sx={{ color: 'white' }} />
+              </IconButton>
+            </Box>
           </Stack>
           {/*
                     -----------------------------
