@@ -7,11 +7,6 @@ import App from './App';
 // MyApp = render(React.createElement(MyClassApp), window.document.querySelector('#app-container'));
 // MyApp.myMethod();
 
-render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  window.document.querySelector('#app-container')
-);
+render(<App />, window.document.querySelector('#app-container'));
 
 if (module.hot) module.hot.accept();

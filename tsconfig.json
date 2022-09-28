@@ -16,7 +16,8 @@
     "jsx": "react",
     "noImplicitAny": true,
     "noImplicitThis": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "types": ["chrome", "node"]
   },
   "include": ["src"],
   "exclude": ["build", "node_modules"]

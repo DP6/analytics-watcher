@@ -22,7 +22,7 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["react", "react-hooks", "@typescript-eslint", "prettier"],
+  "plugins": ["react-hooks", "@typescript-eslint", "react", "prettier"],
   "rules": {
     "prettier/prettier": "error",
     "@typescript-eslint/indent": ["error", 2],

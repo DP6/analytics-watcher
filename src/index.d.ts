@@ -2,18 +2,22 @@ declare module '*.png';
 declare module '*.jpg';
 
 type StatusInterface = 'success' | 'info' | 'warning' | 'error';
+
+interface Pages {
+  pageId?: string;
+  pageUrl?: string;
+}
+
+interface Hit {
+  pageId: string;
+  requestType: string;
+  data: QueryString[];
+}
+
 interface QueryString {
   name: string;
   value: string;
   comment?: string | undefined;
-}
-
-interface HitList {
-  hitParameters: Record<string, string>;
-  validationStatus: StatusInterface;
-  validationResult: any;
-  contentTitle: string;
-  hitType: string;
 }
 
 interface PenguinMessage {
@@ -28,4 +32,14 @@ interface ValidationResultInterface {
   objectName: any;
   keyName: any;
   partialError: any;
+}
+
+interface HitAccordionProps {
+  hitParameters: Record<string, string>;
+  contentTitle: string;
+  hitTypeIcon: string;
+  key: number;
+  removeHit?: Function;
+  validationStatus: string;
+  validationResult: string | undefined;
 }

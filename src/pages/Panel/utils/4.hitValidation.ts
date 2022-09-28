@@ -68,10 +68,10 @@ async function validateHit(
     const validationResult = await penguinValidation(message);
 
     // Retrieve status
-    const statusArray2 = validationResult.map(obj => obj.status);
-    if (statusArray2.includes('error')) {
+    const statusArray = validationResult.map(obj => obj.status);
+    if (statusArray.includes('error')) {
       validationStatus = 'error';
-    } else if (statusArray2.includes('warning')) {
+    } else if (statusArray.includes('warning')) {
       validationStatus = 'warning';
     } else {
       validationStatus = 'success';
