@@ -27,6 +27,18 @@ const HitListProvider: React.FC = ({ children }) => {
   const [pages, setPages] = useState<Pages[]>([]);
   const [queryStrings, setQueryStrings] = useState<NewQueryString>();
 
+  useEffect(() => {
+    if (newHit) setHitList([...hitList, newHit]);
+  }, [newHit]);
+
+  useEffect(() => {
+    if (queryStrings) handleQueryStrings(queryStrings);
+  }, [queryStrings]);
+
+  useEffect(() => {
+    if (currentPage) setPages([...pages, currentPage]);
+  }, [currentPage]);
+
   function handleQueryStrings({ requestType, data }: NewQueryString) {
     if (currentPage.pageId) {
       setNewHit({
@@ -77,7 +89,7 @@ const HitListProvider: React.FC = ({ children }) => {
 
   useEffect(() => {
     const tabId = chrome.devtools.inspectedWindow.tabId;
-    chrome.webNavigation.onBeforeNavigate.addListener(details => {
+    chrome.webNavigation.onCompleted.addListener(details => {
       if (details.frameId === 0 && details.tabId === tabId) {
         setCurrentPage({
           pageId: uuid(),
@@ -86,10 +98,6 @@ const HitListProvider: React.FC = ({ children }) => {
       }
     });
   }, []);
-
-  useEffect(() => {
-    if (currentPage) setPages([...pages, currentPage]);
-  }, [currentPage]);
 
   useEffect(() => {
     chrome.devtools.network.onRequestFinished.addListener(
@@ -111,14 +119,6 @@ const HitListProvider: React.FC = ({ children }) => {
       }
     );
   }, []);
-
-  useEffect(() => {
-    if (newHit) setHitList([...hitList, newHit]);
-  }, [newHit]);
-
-  useEffect(() => {
-    if (queryStrings) handleQueryStrings(queryStrings);
-  }, [queryStrings]);
 
   return (
     <HitListContext.Provider value={{ pages, hitList }}>

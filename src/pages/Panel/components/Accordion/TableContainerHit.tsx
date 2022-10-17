@@ -37,6 +37,39 @@ interface TableContainerHitProps {
   pageId: string;
 }
 
+const data = [
+  { name: 'v', value: '1' },
+  { name: '_v', value: 'j98' },
+  { name: 'aip', value: '1' },
+  { name: 'a', value: '1516883026' },
+  { name: 't', value: 'pageview' },
+  { name: '_s', value: '1' },
+  {
+    name: 'dl',
+    value: 'https://www.prudential.com.br/content/prudential/home.html',
+  },
+  { name: 'dp', value: '/content/prudential/home.html' },
+  { name: 'ul', value: 'en-us' },
+  { name: 'de', value: 'UTF-8' },
+  {
+    name: 'dt',
+    value: 'Prudential Seguros: A Seguradora de Vida para você | Prudential',
+  },
+  { name: 'sd', value: '24-bit' },
+  { name: 'sr', value: '1920x1080' },
+  { name: 'vp', value: '1903x929' },
+  { name: 'je', value: '0' },
+  { name: '_u', value: 'SCCAiUADRAAAAAAAI' },
+  { name: 'jid', value: '' },
+  { name: 'gjid', value: '' },
+  { name: 'cid', value: '559288463.1663268757' },
+  { name: 'tid', value: 'UA-185685971-1' },
+  { name: '_gid', value: '2046261623.1665059281' },
+  { name: 'gtm', value: '2wga50TGPQ9BD' },
+  { name: 'cd10', value: 'google-organico' },
+  { name: 'z', value: '1545759396' },
+];
+
 function TableContainerHit({ pageId }: TableContainerHitProps) {
   const { hitList } = useHitList();
 
@@ -45,41 +78,37 @@ function TableContainerHit({ pageId }: TableContainerHitProps) {
     return accumulator;
   }, [] as Hit[]);
 
-  useEffect(() => {
-    console.log('hits', hits);
-  }, [hits]);
   return (
     <TableContainer component={Paper}>
-      {hits.length}
       {/* {hits
         .slice()
         .reverse()
-        .map(hit => (
-          <Table size="small">
-            <>
-              <TableHead>
-                <TableRow>
-                  <TableCell>{hit.requestType}</TableCell>
-                  <TableCell>Value</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {hit.data.map(item => (
-                  <TableRow>
-                    <TableCell
-                      component="th"
-                      scope="row"
-                      sx={{ pt: 0.25, pb: 0.25 }}
-                    >
-                      {item.name}
-                    </TableCell>
-                    <TableCell sx={{ pt: 0, pb: 0 }}>{item.value}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </>
-          </Table>
-        ))} */}
+        .map(hit => ( */}
+      <Table size="small">
+        <>
+          <TableHead>
+            <TableRow>
+              <TableCell>hit.requestType</TableCell>
+              <TableCell>Value</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {data.map(item => (
+              <TableRow>
+                <TableCell
+                  component="th"
+                  scope="row"
+                  sx={{ pt: 0.25, pb: 0.25 }}
+                >
+                  {item.name}
+                </TableCell>
+                <TableCell sx={{ pt: 0, pb: 0 }}>{item.value}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </>
+      </Table>
+      {/* ))} */}
     </TableContainer>
   );
 }

@@ -39,7 +39,11 @@ function PageAccordion({ pageUrl, pageId }: AccordionProps) {
     setAccordion(!accordion);
   }
   return (
-    <Accordion expanded={accordion} onChange={() => handleAccordionChange()}>
+    <Accordion
+      sx={{ flexDirection: 'column' }}
+      expanded={accordion}
+      onChange={() => handleAccordionChange()}
+    >
       <AccordionSummary
         sx={{
           '& .MuiAccordionSummary-content': {
