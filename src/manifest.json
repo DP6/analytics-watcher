@@ -8,7 +8,8 @@
   },
   "permissions": [
     "tabs",
-    "webRequest"
+    "webRequest",
+    "webNavigation"
   ],
   "host_permissions": [
     "*://*/*"

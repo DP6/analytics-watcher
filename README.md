@@ -11,11 +11,9 @@
   <a href="https://www.codacy.com/gh/DP6/analytics-watcher/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=DP6/analytics-watcher&amp;utm_campaign=Badge_Grade"><img src="https://app.codacy.com/project/badge/Grade/b336bb63fa374070885b139f3e711dec"/></a>
 </p>
 
-
 Analytics Watcher é uma extensão do Google Chrome para ajudar na depuração do Universal Analytics. Ele irá registrar todos os acessos enviados aos servidores do Google, para que você possa verificar facilmente quais parâmetros estão sendo enviados, juntamente com seus valores, em um formato amigável. Além disso, fornece uma visualização fácil de quais ocorrências foram definidas incorretamente, com parâmetros ausentes ou incorretos.
 
 Contém também um módulo conjunto com o Penguin DataLayer, realizando um processo de validação da camada de dados (DataLayer) através da inserção de um modelo de dados (schema json).
-
 
 # Conteúdo
 
@@ -27,7 +25,6 @@ Contém também um módulo conjunto com o Penguin DataLayer, realizando um proce
     - Tipos Suportados
     - Regras de validação
     - Estrutura do JSON Schema
-
 
 # Instalação
 
@@ -55,7 +52,6 @@ Esse comando gerará uma pasta nomeada build, ela será utilizada para importar 
 
 Com isso, a extensão estará disponível dentro do painel devtools do navegador.
 
-
 # Como Utilizar
 
 ## Módulo de Requisições do Google Analytics
@@ -68,11 +64,11 @@ Utilize o barra de navegação para facilitar a visualização, adicionando filt
 
 O módulo de validação da camada de dados utiliza como core a biblioteca [penguin-datalayer](https://www.npmjs.com/package/@dp6/penguin-datalayer-core) desenvolvida para garantir a qualidade dos dados inseridos dentro da camada de dados do site, monitorando sua estrutura e o valores através de um modelo de dados (schema) inserido previamente na extensão.
 
-Para utilizar a funcionalidade, através da aba Penguin DataLayer faça o upload das informações do schema modelo, informe qual a nomenclatura do objeto que é utilizado como dataLayer no site, a URL da página que será validada e importe o arquivo JSON que será utilizado como modelo. 
+Para utilizar a funcionalidade, através da aba Penguin DataLayer faça o upload das informações do schema modelo, informe qual a nomenclatura do objeto que é utilizado como dataLayer no site, a URL da página que será validada e importe o arquivo JSON que será utilizado como modelo.
 
 A partir da importação, realize as interações com o site para popular a camada de dados e finalize a execução, com isso a aplicação irá apresentar o resultado da validação, informando o status de cada objeto validado.
 
-- - - 
+---
 
 ### JSON Schema
 
@@ -145,7 +141,6 @@ A estrutura a seguir é um exemplo de um JSON Schema:
   }
 }
 ```
-
 
 # Como contribuir
 

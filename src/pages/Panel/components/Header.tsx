@@ -37,16 +37,12 @@ import { useMuiTheme } from '../context/MuiTheme';
 // Logo DP6
 import logoDP6 from '../../../assets/img/logo-dp6.png';
 
-function Navbar() {
+export default function Header() {
   const { handleThemeChange, theme } = useMuiTheme();
   return (
     <AppBar position="sticky">
       <Container maxWidth="xl" sx={{ px: 1 }}>
-        <Toolbar
-          disableGutters
-          sx={{ zIndex: 'tooltip', color: 'white', mt: 0.7 }}
-          color="primary"
-        >
+        <Toolbar disableGutters color="primary">
           <Stack sx={{ mt: 1 }}>
             {/*
             -----------------------------
@@ -68,14 +64,14 @@ function Navbar() {
             Analytics Watcher - small
             -----------------------------
             */}
-            <Box sx={{ display: { xs: 'block', md: 'none' } }}>
+            {/* <Box sx={{ display: { xs: 'block', md: 'none' } }}>
               <Typography variant="body1" sx={{ lineHeight: 1 }}>
                 Analytics
               </Typography>
               <Typography variant="body1" sx={{ lineHeight: 1 }}>
                 Watcher
               </Typography>
-            </Box>
+            </Box> */}
           </Stack>
           {/*
           -----------------------------
@@ -121,4 +117,3 @@ function Navbar() {
     </AppBar>
   );
 }
-export default Navbar;
