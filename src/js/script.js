@@ -119,6 +119,7 @@ const RW = (function () {
 
 
             appendNewHit(obj) {
+                
                 const clone = this.template.clone();
                 const content = decode(obj.content);
                 var type = obj.parameters.t;
@@ -227,9 +228,11 @@ const RW = (function () {
 
         if (!commonRules.universal_analytics(url) && !commonRules.analytics4(url))
             return;
-        if (url.includes('v=1')) {
+        if (url.includes('v=1&')) {
+            
             modules.universal_analytics.handler(url);
-        } else if (url.includes('v=2')) {
+        } else if (url.includes('v=2&')) {
+            
             modules.analytics4.handler(url);
         } else {
             requestBody.raw
