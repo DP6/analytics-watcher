@@ -2,7 +2,7 @@
     "name": "Analytics Watcher",
     "short_name": "analyticswatcher",
     "description": "A validator for Universal Analytics implementations",
-    "version": "2.0.5",
+    "version": "2.0.6",
     "icons": {
         "16": "icons/min36.png",
         "36": "icons/rect4069.png",
