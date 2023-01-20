@@ -85,30 +85,31 @@ function TableContainerHit({ pageId }: TableContainerHitProps) {
         .reverse()
         .map(hit => ( */}
       <Table size="small">
-        <>
-          <TableHead>
-            <TableRow>
-              <TableCell>hit.requestType</TableCell>
-              <TableCell>Value</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {data.map(item => (
+        {hitList.map(item => (
+          <>
+            <TableHead>
               <TableRow>
-                <TableCell
-                  component="th"
-                  scope="row"
-                  sx={{ pt: 0.25, pb: 0.25 }}
-                >
-                  {item.name}
-                </TableCell>
-                <TableCell sx={{ pt: 0, pb: 0 }}>{item.value}</TableCell>
+                <TableCell>{item.requestType}</TableCell>
+                <TableCell>Value</TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </>
+            </TableHead>
+            <TableBody>
+              {item.data.map(data => (
+                <TableRow>
+                  <TableCell
+                    component="th"
+                    scope="row"
+                    sx={{ pt: 0.25, pb: 0.25 }}
+                  >
+                    {data.name}
+                  </TableCell>
+                  <TableCell sx={{ pt: 0, pb: 0 }}>{data.value}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </>
+        ))}
       </Table>
-      {/* ))} */}
     </TableContainer>
   );
 }

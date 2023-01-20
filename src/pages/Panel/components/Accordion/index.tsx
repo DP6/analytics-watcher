@@ -39,42 +39,44 @@ function PageAccordion({ pageUrl, pageId }: AccordionProps) {
     setAccordion(!accordion);
   }
   return (
-    <Accordion
-      sx={{ flexDirection: 'column' }}
-      expanded={accordion}
-      onChange={() => handleAccordionChange()}
-    >
-      <AccordionSummary
-        sx={{
-          '& .MuiAccordionSummary-content': {
-            mt: 0,
-            mb: 0,
-          },
-          '& .MuiAccordionSummary-content.Mui-expanded.MuiAccordionSummary-contentGutters':
-            {
-              mt: 0,
-              mb: 0,
-            },
-          minHeight: 40,
-        }}
-      >
-        <Box
-          display="flex"
-          flexDirection="row"
-          sx={{ justifyContent: 'space-between' }}
-        >
-          <Box display="flex" alignItems="center" flexDirection="row">
-            <Typography fontSize="small" sx={{ ml: 1, flexGrow: 1 }}>
-              {pageUrl}
-            </Typography>
-          </Box>
-        </Box>
-      </AccordionSummary>
+    <TableContainerHit pageId={pageId} />
 
-      <AccordionDetails sx={{ p: 0, '& .MuiAccordionDetails-root': { pt: 0 } }}>
-        <TableContainerHit pageId={pageId} />
-      </AccordionDetails>
-    </Accordion>
+    // <Accordion
+    //   sx={{ flexDirection: 'column' }}
+    //   expanded={accordion}
+    //   onChange={() => handleAccordionChange()}
+    // >
+    //   <AccordionSummary
+    //     sx={{
+    //       '& .MuiAccordionSummary-content': {
+    //         mt: 0,
+    //         mb: 0,
+    //       },
+    //       '& .MuiAccordionSummary-content.Mui-expanded.MuiAccordionSummary-contentGutters':
+    //         {
+    //           mt: 0,
+    //           mb: 0,
+    //         },
+    //       minHeight: 40,
+    //     }}
+    //   >
+    //     <Box
+    //       display="flex"
+    //       flexDirection="row"
+    //       sx={{ justifyContent: 'space-between' }}
+    //     >
+    //       <Box display="flex" alignItems="center" flexDirection="row">
+    //         <Typography fontSize="small" sx={{ ml: 1, flexGrow: 1 }}>
+    //           {pageUrl}
+    //         </Typography>
+    //       </Box>
+    //     </Box>
+    //   </AccordionSummary>
+
+    //   <AccordionDetails sx={{ p: 0, '& .MuiAccordionDetails-root': { pt: 0 } }}>
+    //     <TableContainerHit pageId={pageId} />
+    //   </AccordionDetails>
+    // </Accordion>
   );
 }
 
