@@ -14,8 +14,8 @@ const styleBox = {
 } as SxProps;
 /** Main component with <Navbar> and <HitList> */
 function PageList() {
-  // const { pages } = useHitList();
-  const pages = [
+  const { pages } = useHitList();
+  const pagesMock = [
     {
       pageId: '7cc4346d-efd6-40cf-879d-4765286097c1',
       pageUrl: 'https://www.prudential.com.br/content/prudential/home.html',
