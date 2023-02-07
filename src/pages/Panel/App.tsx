@@ -1,19 +1,15 @@
 import React from 'react';
-
-import { CssBaseline } from '@mui/material';
-
+import CssBaseline from '@mui/material/CssBaseline';
+import Navbar from './components/Navbar';
+import PageList from './pages/PageList';
 import AppProvider from './context';
 
-import Header from './components/Header';
-import PageList from './pages/PageList';
-
-/** Main component with <Navbar> and <HitList> */
 function App() {
   return (
     <AppProvider>
-      <Header />
-      <PageList />
       <CssBaseline />
+      <Navbar />
+      <PageList />
     </AppProvider>
   );
 }
