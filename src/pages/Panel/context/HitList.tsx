@@ -19,43 +19,44 @@ const HitListProvider: React.FC = ({ children }) => {
   useEffect(() => {
     const tabId = chrome.devtools.inspectedWindow.tabId;
     chrome.tabs.get(tabId, tab => {
-      chrome.webNavigation.getAllFrames(
-        { tabId: chrome.devtools.inspectedWindow.tabId },
-        originalFrames => {
-          let frames = originalFrames as ExtendedGetAllFrameResultDetails[];
+      if (tab.url !== 'chrome://newtab/')
+        chrome.webNavigation.getAllFrames(
+          { tabId: chrome.devtools.inspectedWindow.tabId },
+          originalFrames => {
+            let frames = originalFrames as ExtendedGetAllFrameResultDetails[];
 
-          // Page documentId
-          let outermostDocumentId = frames.filter(
-            frame => frame.frameType === 'outermost_frame'
-          )[0].documentId;
+            // Page documentId
+            let outermostDocumentId = frames.filter(
+              frame => frame.frameType === 'outermost_frame'
+            )[0].documentId;
 
-          // documentId of All frames
-          let framesDocumentId = frames.map(frame => frame.documentId);
+            // documentId of All frames
+            let framesDocumentId = frames.map(frame => frame.documentId);
 
-          // pageUrl
-          let pageUrl = '';
-          if (tab.url) {
-            let url = new URL(tab.url);
-            pageUrl = url.hostname + url.pathname;
+            // pageUrl
+            let pageUrl = '';
+            if (tab.url) {
+              let url = new URL(tab.url);
+              pageUrl = url.hostname + url.pathname;
+            }
+
+            // Set new page
+            let newPage: Page = {
+              pageId: uuid(),
+              pageUrl: pageUrl,
+              expanded: true,
+              favIconUrl: tab.favIconUrl ? tab.favIconUrl : '',
+              hits: [],
+              documentId: outermostDocumentId,
+              framesDocumentId: framesDocumentId,
+            };
+            setPages(oldPages => {
+              let newPages = new HitDataModel(oldPages);
+              newPages.addPage(newPage);
+              return newPages;
+            });
           }
-
-          // Set new page
-          let newPage: Page = {
-            pageId: uuid(),
-            pageUrl: pageUrl,
-            expanded: true,
-            favIconUrl: tab.favIconUrl ? tab.favIconUrl : '',
-            hits: [],
-            documentId: outermostDocumentId,
-            framesDocumentId: framesDocumentId,
-          };
-          setPages(oldPages => {
-            let newPages = new HitDataModel(oldPages);
-            newPages.addPage(newPage);
-            return newPages;
-          });
-        }
-      );
+        );
     });
   }, []);
 
@@ -76,7 +77,7 @@ const HitListProvider: React.FC = ({ children }) => {
             setPages(oldPages => {
               let newPages = new HitDataModel(oldPages);
               newPages.updateFramesIds(
-                newPages.currentPage.pageId,
+                newPages.currentPage?.pageId,
                 framesDocumentId
               );
               return newPages;
@@ -130,7 +131,7 @@ const HitListProvider: React.FC = ({ children }) => {
         setPages(pages => {
           let newPages = new HitDataModel(pages);
           newPages.updatePageFavIcon(
-            newPages.currentPage.pageId,
+            newPages.currentPage?.pageId,
             changeInfo.favIconUrl!
           );
           return newPages;
@@ -151,7 +152,7 @@ const HitListProvider: React.FC = ({ children }) => {
             setPages(oldPages => {
               let newPages = new HitDataModel(oldPages);
               newPages.updateFramesIds(
-                newPages.currentPage.pageId,
+                newPages.currentPage?.pageId,
                 framesDocumentId
               );
               return newPages;
