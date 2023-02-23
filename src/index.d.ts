@@ -2,22 +2,40 @@ declare module '*.png';
 declare module '*.jpg';
 
 type StatusInterface = 'success' | 'info' | 'warning' | 'error';
-
-interface Pages {
-  pageId?: string;
-  pageUrl?: string;
+interface Page {
+  pageId: string;
+  pageUrl: string;
+  expanded: boolean;
+  favIconUrl: string;
+  hits: Hit[];
+  framesDocumentId?: string[];
+  documentId?: string;
 }
 
 interface Hit {
   pageId: string;
-  requestType: string;
-  data: QueryString[];
+  hitId: string;
+  hitParameters: { [key: string]: string };
+  contentTitle: string;
+  hitType: string;
+  eventType: string;
+  expanded: boolean;
 }
 
-interface QueryString {
-  name: string;
-  value: string;
-  comment?: string | undefined;
+interface ExtendedGetAllFrameResultDetails
+  extends chrome.webNavigation.GetAllFrameResultDetails {
+  documentId: string;
+  frameType: string;
+}
+
+interface ExtendedWebRequestBodyDetails
+  extends chrome.webRequest.WebRequestBodyDetails {
+  documentId: string;
+}
+
+interface ExtendedWebNavigationTransitionCallbackDetails
+  extends chrome.webNavigation.WebNavigationTransitionCallbackDetails {
+  documentId: string;
 }
 
 interface PenguinMessage {
@@ -32,14 +50,4 @@ interface ValidationResultInterface {
   objectName: any;
   keyName: any;
   partialError: any;
-}
-
-interface HitAccordionProps {
-  hitParameters: Record<string, string>;
-  contentTitle: string;
-  hitTypeIcon: string;
-  key: number;
-  removeHit?: Function;
-  validationStatus: string;
-  validationResult: string | undefined;
 }

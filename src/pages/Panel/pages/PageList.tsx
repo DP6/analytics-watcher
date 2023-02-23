@@ -1,64 +1,29 @@
-import React, { useEffect } from 'react';
-
-import { Box, SxProps } from '@mui/material';
-
-import Navbar from '../components/Navbar';
-import PageAccordion from '../components/Accordion';
-
+import * as React from 'react';
+import PageAccordion from '../components/PageAccordion';
 import { useHitList } from '../context/HitList';
 
+interface PageListProps { }
 
-const styleBox = {
-  display: 'flex',
-  flexDirection: 'column-reverse',
-  justifyContent: 'center',
-} as SxProps;
-/** Main component with <Navbar> and <HitList> */
-function PageList() {
+function PageList(props: PageListProps) {
   const { pages } = useHitList();
-  const pagesMock = [
-    {
-      pageId: '7cc4346d-efd6-40cf-879d-4765286097c1',
-      pageUrl: 'https://www.prudential.com.br/content/prudential/home.html',
-    },
-    {
-      pageId: '18ac58a4-7521-49c3-9a7f-be7ec101d1b4',
-      pageUrl: 'https://www.prudential.com.br/content/prudential/home.html',
-    },
-  ];
-  return (
-    <Box sx={styleBox}>
-      {/* <ActionsBar
-            getValidationIndicators={getValidationIndicators}
-            // accordionExpandAll={accordionExpandAll}
-            filters={filters}
-            setFilters={setFilters}
-            handleFileUpload={handleFileUpload}
-            schemaDialogOpen={schemaDialogOpen}
-            setSchemaDialogOpen={setSchemaDialogOpen}
-            fileErrorDialogOpen={fileErrorDialogOpen}
-            setFileErrorDialogOpen={setFileErrorDialogOpen}
-          /> */}
-      {/* <PaginationBar
-            size={hitList.length}
-            page={pagination.currentPage}
-            pagination={pagination.pageSize}
-            handlePageChange={handlePageChange}
-            changePagination={changePagination}
-          /> */}
 
+  return (
+    <>
       {pages &&
-        pages.map(item => {
-          if (item.pageUrl && item.pageId)
+        pages.data
+          .slice()
+          .reverse()
+          .map(page => {
             return (
               <PageAccordion
-                key={item.pageId}
-                pageUrl={item.pageUrl}
-                pageId={item.pageId}
+                key={page.pageId}
+                pageId={page.pageId}
+                pageUrl={page.pageUrl}
+                page={page}
               />
             );
-        })}
-    </Box>
+          })}
+    </>
   );
 }
 

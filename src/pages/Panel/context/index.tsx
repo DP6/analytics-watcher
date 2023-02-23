@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { HitListProvider } from './HitList';
 import { MuiThemeProvider } from './MuiTheme';
 
