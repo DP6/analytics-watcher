@@ -2,7 +2,7 @@ import * as React from 'react';
 import PageAccordion from '../components/PageAccordion';
 import { useHitList } from '../context/HitList';
 
-interface PageListProps {}
+interface PageListProps { }
 
 function PageList(props: PageListProps) {
   const { pages } = useHitList();

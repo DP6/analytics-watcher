@@ -1,7 +1,10 @@
 import React, { useEffect } from 'react';
 import { Box, Button } from '@mui/material';
 
+import { useNavigate } from 'react-router-dom';
+
 function Home() {
+  const navigate = useNavigate();
   return (
     <Box
       sx={{
@@ -18,6 +21,7 @@ function Home() {
             mx: 10,
             my: 0.5,
           }}
+          onClick={() => navigate('/pagelist')}
         >
           Começar a Debugar
         </Button>
