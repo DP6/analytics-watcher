@@ -1,20 +1,20 @@
 import React from 'react';
+import Routes from './routes'
 
 import { CssBaseline } from '@mui/material';
 
 import AppProvider from './context';
 
 import Header from './components/Header';
-import PageList from './pages/PageList';
 
 /** Main component with <Navbar> and <HitList> */
 function App() {
   return (
     <AppProvider>
       <Header />
-      <PageList />
+      <Routes />
       <CssBaseline />
-    </AppProvider>
+    </AppProvider >
   );
 }
 

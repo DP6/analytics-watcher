@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { Box, SxProps } from '@mui/material';
 
@@ -6,6 +6,7 @@ import Navbar from '../components/Navbar';
 import PageAccordion from '../components/Accordion';
 
 import { useHitList } from '../context/HitList';
+
 
 const styleBox = {
   display: 'flex',
