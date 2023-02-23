@@ -1,58 +1,37 @@
-import * as React from 'react';
-
-// Material
-import {
-  AppBar,
-  Box,
-  Toolbar,
-  Typography,
-  Container,
-  FormGroup,
-  Switch,
-  TextField,
-  Stack,
-  Icon,
-  ToggleButtonGroup,
-  ToggleButton,
-  IconButton,
-} from '@mui/material';
-
-// Icons
-import { Delete, FileUpload } from '@mui/icons-material';
-import FilterListIcon from '@mui/icons-material/FilterList';
-import Filter4Icon from '@mui/icons-material/Filter4';
-import FindInPageIcon from '@mui/icons-material/FindInPage';
-import AppsIcon from '@mui/icons-material/Apps';
-import FlashOnIcon from '@mui/icons-material/FlashOn';
-import TimelapseIcon from '@mui/icons-material/Timelapse';
-import ShareIcon from '@mui/icons-material/Share';
-import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
-import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
-import ReportIcon from '@mui/icons-material/Report';
-import ClearAllIcon from '@mui/icons-material/ClearAll';
-import SearchIcon from '@mui/icons-material/Search';
-
+import React from 'react';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import FormGroup from '@mui/material/FormGroup';
+import Switch from '@mui/material/Switch';
+import Stack from '@mui/material/Stack/Stack';
+import Icon from '@mui/material/Icon';
 import { useMuiTheme } from '../context/MuiTheme';
 
 // Logo DP6
 import logoDP6 from '../../../assets/img/logo-dp6.png';
 
-function Navbar() {
-  const { handleThemeChange, theme } = useMuiTheme();
+interface NavbarProps {}
+
+/**
+ * Navigation bar.
+ *
+ * @returns JSX.Element
+ */
+function Navbar(props: NavbarProps) {
+  const { theme, setTheme } = useMuiTheme();
   return (
     <AppBar position="sticky">
-      <Container maxWidth="xl" sx={{ px: 1 }}>
+      <Container maxWidth="xl" disableGutters={true} sx={{ px: 1 }}>
         <Toolbar
           disableGutters
           sx={{ zIndex: 'tooltip', color: 'white', mt: 0.7 }}
           color="primary"
         >
           <Stack sx={{ mt: 1 }}>
-            {/*
-            -----------------------------
-            DP6 Logo
-            -----------------------------
-            */}
+            {/* ----------- DP6 Logo -----------*/}
             <Icon
               sx={{
                 display: 'flex',
@@ -63,11 +42,7 @@ function Navbar() {
             >
               <img alt="Logo DP6" src={logoDP6} />
             </Icon>
-            {/*
-            -----------------------------
-            Analytics Watcher - small
-            -----------------------------
-            */}
+            {/* ----------- Analytics Watcher - small -----------*/}
             <Box sx={{ display: { xs: 'block', md: 'none' } }}>
               <Typography variant="body1" sx={{ lineHeight: 1 }}>
                 Analytics
@@ -77,11 +52,7 @@ function Navbar() {
               </Typography>
             </Box>
           </Stack>
-          {/*
-          -----------------------------
-          Analytics Watcher -- bigger
-          -----------------------------
-          */}
+          {/* ----------- Analytics Watcher -- bigger -----------*/}
           <Box sx={{ display: { xs: 'none', md: 'block' }, ml: 1 }}>
             <Typography variant="h6" sx={{ lineHeight: 1 }}>
               Analytics
@@ -91,19 +62,19 @@ function Navbar() {
             </Typography>
           </Box>
 
-          {/*
-          -----------------------------
-          Darkmode switch
-          -----------------------------
-          */}
+          <Stack
+            direction="row"
+            sx={{ display: 'flex', flexWrap: 'wrap' }}
+          ></Stack>
+          {/* ----------- Darkmode switch -----------*/}
           <FormGroup sx={{ ml: 1 }}>
             <Stack justifyContent="center" alignItems="center">
               <Typography fontSize="small">Dark</Typography>
               <Switch
-                checked={theme}
-                onChange={() => handleThemeChange(!theme)}
+                checked={!theme}
                 color="info"
                 size="small"
+                onChange={() => setTheme(!theme)}
               />
             </Stack>
           </FormGroup>
