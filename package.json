@@ -1,6 +1,6 @@
 {
   "name": "analytics-watcher",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "A validator for Universal Analytics implementations",
   "license": "MIT",
   "repository": {
